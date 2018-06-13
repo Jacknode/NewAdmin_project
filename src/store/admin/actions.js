@@ -156,7 +156,7 @@ export default {
               resulte[i].sm_ai_FeeImage = []
             }
           }
-          commit('initAdminSupplier',data.data)
+          commit('initAdminSupplier',data.data.reverse())
           relove(data)
         }else{
           reject(data.resultcontent)
@@ -574,12 +574,10 @@ export default {
       })
       .then(data=>{
         var data = data.data;
-        console.log(data)
         if(Number(data.resultcode)==200){
           commit('initAdminIntegralType',data.data);
          // relove(Number(data.data.length))
            relove(data.data.length)
-          //console.log(11,data.resultcontent)
           relove(data.resultcontent)
         }else{
           reject(data.resultcontent)

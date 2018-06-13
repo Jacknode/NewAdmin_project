@@ -232,7 +232,7 @@
       querySearchAsync(queryString, cb) {
         this.loadAll(1, queryString).then(data => {
           var data = data.data;
-          console.log(data)
+       //   console.log(data)
           data = data.map(item => {
             return {
               id: item.agentInfo.sm_ai_AgentID,

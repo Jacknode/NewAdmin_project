@@ -203,7 +203,7 @@
       this.initCarBasis().then(() => {
         this.initData('', 1)
       }, err => {
-        console.log(err)
+
       })
     },
     methods: {

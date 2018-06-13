@@ -213,7 +213,6 @@
                 relove(JSON.parse(data))
               }
             }else{
-              console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -343,7 +342,6 @@
       },
       //修改提交
       updateSubmit(){
-        // console.log("this.ImageURL:"+this.ImageURL)
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

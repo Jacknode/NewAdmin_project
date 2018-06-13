@@ -175,7 +175,6 @@
         this.$store.dispatch('initAdminIntegralType',options)
         .then((total)=>{
           this.total = Number(total);
-         // console.log(22,this.total)
           this.isLoading = false;
         },err=>{
           this.$notify({

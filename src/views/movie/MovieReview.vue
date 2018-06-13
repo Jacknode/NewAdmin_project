@@ -344,7 +344,6 @@
 
         if (this.approvalOptions.IsPass == 1) {
           //审核成功添加到审核表
-          console.log(this.checkOption)
           this.$store.dispatch('AuditSubmitOk', this.checkOption)
           .then(success => {
             this.$notify({
@@ -389,7 +388,6 @@
       },
       //修改
       Update(rowData){
-        console.log(rowData)
         this.updateObj.data = rowData;
         this.updateDialog = true;
         this.$store.commit('setTranstionFalse', this.updateObj);
@@ -411,13 +409,10 @@
             type: 'error'
           });
         });
-        console.log(2)
         this.updateDialog = false
       },
-
     },
   }
 </script>
 <style scoped>
-
 </style>

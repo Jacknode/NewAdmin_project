@@ -186,7 +186,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initHotelThemeCategory',data.data)
+          commit('initHotelThemeCategory',data.data.reverse())
           relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)
@@ -255,7 +255,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initHotelCityRecommendType',data.data)
+          commit('initHotelCityRecommendType',data.data.reverse())
           relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)
@@ -273,7 +273,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initHotelFacilitiesType',data.data)
+          commit('initHotelFacilitiesType',data.data.reverse())
           relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)
@@ -435,7 +435,7 @@ export default {
       .then(data => {
         var data = data.data;
         if (Number(data.resultcode) == 200) {
-          commit('initHotelFacilities',data.data)
+          commit('initHotelFacilities',data.data.reverse())
           relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)
@@ -600,7 +600,7 @@ export default {
       .then(data => {
         var data = data.data;
         if (Number(data.resultcode) == 200) {
-          commit('initHotelIconGallery',data.data);
+          commit('initHotelIconGallery',data.data.reverse());
           relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)

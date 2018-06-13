@@ -184,10 +184,7 @@
         this.isLoading = true;
         this.$store.dispatch('initAdChargeWayList',options)
           .then(total=>{
-            console.log(total)
-
             this.total = total;
-
             this.isLoading = false;
           },err=>{
             this.$notify({

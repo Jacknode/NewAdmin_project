@@ -441,7 +441,6 @@
                 relove(JSON.parse(data))
               }
             }else{
-              console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)

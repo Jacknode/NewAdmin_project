@@ -40,8 +40,6 @@
           label="分类编号父编号"
           prop="vf_te_ParentID">
         </el-table-column>
-
-
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
@@ -68,12 +66,9 @@
         >
         </el-pagination>
       </div>
-
       <!--添加-->
-
       <el-dialog title="添加微电影类型" :visible.sync="addDialog">
         <el-form :model="addOptions">
-
           <el-form-item label="微电影父编码号" :label-width="formLabelWidth">
             <el-select v-model="addOptions.data.vf_te_ParentID" placeholder="请选择微电影">
               <el-option
@@ -108,9 +103,7 @@
       </el-dialog>
       <!--修改-->
       <el-dialog title="修改微电影类型" :visible.sync="updateDialog">
-
         <el-form :model="updateMovieTypeObj">
-
           <el-form-item label="微电影父编码号" :label-width="formLabelWidth">
             <el-select v-model="updateMovieTypeObj.vf_te_ParentID" placeholder="请选择微电影">
               <el-option
@@ -128,7 +121,6 @@
             <!--<el-input v-model="addOptions.data.vf_te_Name" placeholder="微电影名称" ></el-input>-->
           <!--</el-form-item>-->
         </el-form>
-
         <div slot="footer" class="dialog-footer">
           <el-button @click="updateDialog = false">取 消</el-button>
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
@@ -177,7 +169,6 @@
       handleCurrentChange(num){
         this.initData(this.movieTypeName,num)
       },
-
       //查询
       search(){
         this.initData(this.movieTypeName)
@@ -194,7 +185,6 @@
           "vf_te_ParentID": "",//分类编号父编号
           "page":  page?page:1,//页码
           "rows": 5//条数
-
         };
         this.isLoading = true;
         this.$store.dispatch('initMovieTypeList',options)
@@ -236,7 +226,6 @@
             }
           )
         this.addDialog=false;
-
       },
       //修改
       Update(id){
@@ -271,7 +260,6 @@
       },
       //删除
       Delete(id){
-        console.log(id)
         let deleteOptions = {
           "loginUserID": "huileyou",  //惠乐游用户ID
           "loginUserPass": "123",  //惠乐游用户密码
@@ -280,9 +268,7 @@
           "pcName": "",  //机器码
           "data": {
             "vf_te_ID":id,//分类编号
-
           }
-
         };
         this.$store.dispatch('DeleteMovieType',deleteOptions)
           .then((suc)=>{
@@ -298,10 +284,8 @@
             });
           });
       }
-
     },
   }
 </script>
 <style scoped>
-
 </style>
