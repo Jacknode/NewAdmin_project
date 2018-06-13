@@ -502,8 +502,8 @@ export default {
       .then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initAdminIntegralWeight',data.data)
-          relove(data.resultcontent)
+          commit('initAdminIntegralWeight',data.data.reverse())
+          relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)
         }
@@ -574,8 +574,12 @@ export default {
       })
       .then(data=>{
         var data = data.data;
+        console.log(data)
         if(Number(data.resultcode)==200){
           commit('initAdminIntegralType',data.data);
+         // relove(Number(data.data.length))
+           relove(data.data.length)
+          //console.log(11,data.resultcontent)
           relove(data.resultcontent)
         }else{
           reject(data.resultcontent)

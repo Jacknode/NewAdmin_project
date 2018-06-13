@@ -91,6 +91,18 @@
           <el-button type="primary" @click="updateAdminIntegralWeightSubmit">确 定</el-button>
         </div>
       </el-dialog>
+      <!--分页-->
+      <div class="block" style="float: right;padding: 10px 0">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size="5"
+          layout="total, prev, pager, next"
+          :total="total"
+          v-show="total"
+        >
+        </el-pagination>
+      </div>
+
     </section>
   </div>
 </template>
@@ -100,6 +112,8 @@
     name: '',
     data(){
       return {
+
+        total:0,
         scoreName:'',//权重名称
         isLoading:false,
         formLabelWidth:'120px',
@@ -123,9 +137,14 @@
       'updateAdminIntegralWeightObj'
     ]),
     created(){
+      this.initData('')
     },
     methods: {
-      initData(){
+      //分页
+      handleCurrentChange(num){
+        this.initData(num)
+      },
+      initData(page){
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -134,11 +153,14 @@
           "pcName": "",
           //"sm_hm_ID": 1,
           //"sm_hm_HeightName": "",
-          "sm_hm_IsDelete": 0
+          "sm_hm_IsDelete": 0,
+          "page": page?page:1,
+          "rows": 5,
         }
         this.isLoading = true;
         this.$store.dispatch('initAdminIntegralWeight',options)
-        .then(()=>{
+        .then((total)=>{
+        this.total = Number(total);
           this.isLoading = false;
         },err=>{
           this.$notify({

@@ -132,15 +132,15 @@
           <el-button type="primary" @click="toExamineSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--分页-->
-
-      <div class="block" style="text-align: right">
+      <div class="block" style="float: right;padding: 10px 0">
         <el-pagination
-          :page-size="5"
           @current-change="handleCurrentChange"
-          layout="prev, pager, next"
-          :total="total">
+          :page-size="5"
+          layout="total, prev, pager, next"
+          :total="total"
+          v-show="total"
+        >
         </el-pagination>
       </div>
 

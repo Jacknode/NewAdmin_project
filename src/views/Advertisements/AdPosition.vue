@@ -2,7 +2,6 @@
   <div>
     <section id="wrap">
       <h1 class="userClass">广告位置管理</h1>
-
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -112,6 +111,19 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
+
+      <!--分页-->
+      <div class="block" style="float: right;padding: 10px 0">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size="5"
+          layout="total, prev, pager, next"
+          :total="total"
+          v-show="total"
+        >
+        </el-pagination>
+      </div>
+
     </section>
   </div>
 </template>
@@ -152,8 +164,12 @@
       this.initData(this.adPosition)
     },
     methods: {
+      //分页
+      handleCurrentChange(num){
+        this.initData(num)
+      },
       //初始化
-      initData(name){
+      initData(name,page){
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -165,6 +181,8 @@
           "sm_pi_MaxNo": "",//最大广告数
           "sm_pi_Name": name?name:'',//位置名称
           "sm_pi_Remark": "",//备注
+          "page": page?page:1,
+          "rows": 5,
         }
         this.isLoading = true;
         this.$store.dispatch('initAdPosition',options)

@@ -134,7 +134,7 @@
       'updateTicketThemeObj'
     ]),
     created(){
-
+      this.initData(this.themeName)
     },
     methods: {
       //分页

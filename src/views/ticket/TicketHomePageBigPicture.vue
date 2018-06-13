@@ -27,7 +27,17 @@
         </el-form>
       </el-col>
 
-
+      <!--分页-->
+      <div class="block" style="float: right;padding: 10px 0">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size="5"
+          layout="total, prev, pager, next"
+          :total="total"
+          v-show="total"
+        >
+        </el-pagination>
+      </div>
       <!--数据展示-->
 
       <el-table
@@ -147,6 +157,7 @@
     ]),
     data() {
       return {
+        total:0,
         bigImageDialog: false,
         bigImage: '',
         scenicSpotId: '',
@@ -162,6 +173,10 @@
       }
     },
     methods: {
+      //分页
+      handleCurrentChange(num){
+        this.initData(num)
+      },
       //图片转二进制
       uploadImg(file) {
         return new Promise(function (relove, reject) {

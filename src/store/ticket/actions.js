@@ -29,7 +29,7 @@ export default {
       }).then(data => {
         var data = data.data;
         if (Number(data.resultcode) == 200) {
-          commit('initTicketTheme', data.data)
+          commit('initTicketTheme', data.data.reverse())
           relove(Number(data.totalrows))
         } else {
           reject(data.resultcontent)

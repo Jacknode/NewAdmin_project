@@ -93,6 +93,17 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
+      <!--分页-->
+      <div class="block" style="float: right;padding: 10px 0">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size="5"
+          layout="total, prev, pager, next"
+          :total="total"
+          v-show="total"
+        >
+        </el-pagination>
+      </div>
     </section>
   </div>
 </template>
@@ -128,6 +139,7 @@
       'updateAdChargeWayObj'
     ]),
     created(){
+      this.initData('')
       this.initContent().then(()=>{},err=>{
         this.$notify({
           message: err,
@@ -136,6 +148,7 @@
       })
     },
     methods: {
+
       async initContent(){
         //查询合作类型
         let options = {
@@ -155,7 +168,7 @@
         this.initData(num)
       },
       //初始化
-      initData(name){
+      initData(name,page){
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -165,11 +178,16 @@
           "sm_icw_ID": "",//收费方式编码
           "sm_icw_Name": name?name:"",//收费方式名称
           "sm_icw_Remark": "",//备注
+          "page": page?page:1,
+          "rows": 5,
         }
         this.isLoading = true;
         this.$store.dispatch('initAdChargeWayList',options)
           .then(total=>{
+            console.log(total)
+
             this.total = total;
+
             this.isLoading = false;
           },err=>{
             this.$notify({

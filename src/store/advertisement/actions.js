@@ -15,6 +15,7 @@ export default {
         }
       }).then(data=>{
           var data = data.data;
+         // console.log(data.totalrows)
           if(Number(data.resultcode)==200){
             commit('initAdTypeList',data.data)
             relove(Number(data.totalrows))
@@ -157,7 +158,7 @@ export default {
         .then(data => {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
-            commit('initAdPosition',data.data)
+            commit('initAdPosition',data.data.reverse())
             relove(Number(data.totalrows));
           } else {
             reject(data.resultcontent);

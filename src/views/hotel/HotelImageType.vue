@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div>
     <section id="wrap">
       <h1 class="userClass">酒店图片类型</h1>

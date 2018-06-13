@@ -214,6 +214,19 @@
           <el-button type="primary" @click="updateAdApplySubmit">确 定</el-button>
         </div>
       </el-dialog>
+
+      <!--分页-->
+      <div class="block" style="float: right;padding: 10px 0">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size="5"
+          layout="total, prev, pager, next"
+          :total="total"
+          v-show="total"
+        >
+        </el-pagination>
+      </div>
+
     </section>
   </div>
 </template>
@@ -284,7 +297,7 @@
       'updateAdApplyObj'
     ]),
     created(){
-      this.initData()
+      this.initData('')
       this.initContent().then(()=>{},err=>{
         this.$notify({
           message: err,
@@ -293,6 +306,10 @@
       })
     },
     methods: {
+      //分页
+      handleCurrentChange(num){
+        this.initData(num)
+      },
       async initContent(){
         //查询合作类型
         let options = {
@@ -318,7 +335,7 @@
         await this.$store.dispatch('initPartnershipType',options)
       },
       //初始化
-      initData(){
+      initData(page){
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -338,6 +355,8 @@
           "sm_aa_OperateCode": "",//审核员编码
           "sm_aa_FailedReason": "",//审核失败原因
           "sm_aa_Remark": "",//备注
+          "page": page?page:1,
+          "rows": 5,
         }
         this.isLoading = true;
         this.$store.dispatch('initAdApply',options)

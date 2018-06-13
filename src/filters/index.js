@@ -1,4 +1,4 @@
-/**
+getHotName/**
  * Created by leibo on 17/11/13.
  */
 //获取日期 格式年-月-日
@@ -18,6 +18,15 @@ export const payStatus = (value) => {
       return '未支付';
     case 1:
       return '已支付';
+  }
+};
+//是否热门
+export const getHotName = (value) => {
+  switch (Number(value)) {
+    case 0:
+      return '普通';
+    case 1:
+      return '热门';
   }
 };
 //获取状态

@@ -16,7 +16,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initHotelImageType',data.data)
+          commit('initHotelImageType',data.data.reverse())
           relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)
@@ -85,7 +85,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initHotelRecommendType',data.data)
+          commit('initHotelRecommendType',data.data.reverse())
           relove(Number(data.totalrows))
         }else{
           reject(data.resultcontent)

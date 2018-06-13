@@ -108,6 +108,17 @@
           <el-button type="primary" @click="updateAdminIntegralTypeSubmit">确 定</el-button>
         </div>
       </el-dialog>
+      <!--分页-->
+      <div class="block" style="float: right;padding: 10px 0">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size="5"
+          layout="total, prev, pager, next"
+          :total="total"
+          v-show="total"
+        >
+        </el-pagination>
+      </div>
 
     </section>
   </div>
@@ -118,6 +129,7 @@
     name: '',
     data(){
       return {
+        total:0,
         isLoading:false,
         addDialog:false,//添加弹窗
         updateDialog:false,//修改弹窗
@@ -142,19 +154,28 @@
       'updateAdminIntegralTypeObj'
     ]),
     created(){
+      this.initData('')
     },
     methods: {
-      initData(){
+      //分页
+      handleCurrentChange(num){
+        this.initData(num)
+      },
+      initData(page){
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
+          "page": page?page:1,
+          "rows": 5,
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminIntegralType',options)
-        .then(()=>{
+        .then((total)=>{
+          this.total = Number(total);
+         // console.log(22,this.total)
           this.isLoading = false;
         },err=>{
           this.$notify({
