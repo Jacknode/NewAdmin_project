@@ -1,7 +1,7 @@
 <template>
   <div>
     <section id="wrap">
-      <h1 class="userClass">微电影类型审核</h1>
+      <h1 class="userClass">微电影审核</h1>
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -299,19 +299,20 @@
       handleSelect(item) {
 
       },
-      initData(name, page){
+      //初始化审核表
+      initData(type,author,page){
         let options = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
+          "loginUserID": "huileyou",  //惠乐游用户ID
+          "loginUserPass": "123",  //惠乐游用户密码
           "operateUserID": "",//操作员编码
           "operateUserName": "",//操作员名称
-          "pcName": "",
+          "pcName": "",  //机器码
           "vf_ve_ID": "",//审核表编号
-          "vf_ve_Type": name ? name : "",//视频类型
-          "page": page ? page : 1,//页码
+          "vf_ve_Type": type?type:"",//视频类型
+          "vf_vo_AuthorID": JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',//作者ID
+          "page": 1,//页码
           "rows": 5//条数
-
-        }
+        };
 
         this.isLoading = true;
         this.$store.dispatch('initMovieAudit', options)
