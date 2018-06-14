@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <section id="wrap">
       <h1 class="userClass">代理商信息</h1>
       <el-col :span="24" class="formSearch">
@@ -28,7 +27,6 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
       <el-table
         :data="adminAgentsList"
@@ -85,8 +83,6 @@
                 <img :src="item" alt="" v-for="item in props.row.sm_pi_FeeImage"
                      style="width: 100px;height: 100px" v-show="props.row.sm_pi_FeeImage.length">
               </el-form-item>
-
-
             </el-form>
           </template>
         </el-table-column>
@@ -113,7 +109,6 @@
           </template>
         </el-table-column>
       </el-table>
-
       <!--分页-->
       <div class="block" style="float: right;">
         <el-pagination
@@ -126,7 +121,6 @@
         </el-pagination>
       </div>
     </section>
-
     <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
       <el-form :model="options">
         <el-form-item label="审核状态:" :label-width="formLabelWidth">
@@ -161,7 +155,6 @@
     name: '',
     data(){
       return {
-
         formLabelWidth:'120px',
         userName:'',
         isLoading:false,
@@ -190,7 +183,7 @@
     },
     methods: {
       handleSelect(key, keyPath) {
-       // console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
       //审核
       agents(id){
@@ -204,7 +197,7 @@
           this.$notify({
             message: '提成比例请输入小于1的小数',
             type: 'error'
-          });
+        });
           return
         }
         if(this.options.isPass==1){
@@ -252,8 +245,8 @@
         this.isLoading = true
         this.$store.dispatch('initAdminAgents',options)
         .then(data=>{
-          this.total = Number(data.totalrows);
-          this.isLoading = false;
+           this.total = Number(data.totalrows);
+           this.isLoading = false;
         },err=>{
           this.$notify({
             message: err,
@@ -265,5 +258,4 @@
   }
 </script>
 <style scoped>
-
 </style>

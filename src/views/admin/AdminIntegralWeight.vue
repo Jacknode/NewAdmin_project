@@ -13,10 +13,10 @@
           <el-form-item  style="float: right;padding-right: 20px">
             <el-button type="primary" @click="search" size="small">查询</el-button>
             <el-button type="primary" @click="Add" size="small">新增</el-button>
+            <!--<button type="button" class="btn btn-primary">默认按钮</button>-->
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
       <el-table
         :data="adminIntegralWeightList"
@@ -56,7 +56,6 @@
           </template>
         </el-table-column>
       </el-table>
-
       <!--添加-->
       <el-dialog title="添加积分权重" :visible.sync="addDialog">
         <el-form :model="addOptions">
@@ -72,7 +71,6 @@
           <el-button type="primary" @click="addAdminIntegralWeightSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--修改-->
       <el-dialog title="修改积分权重" :visible.sync="updateDialog">
         <el-form :model="updateAdminIntegralWeightObj">
@@ -102,7 +100,6 @@
         >
         </el-pagination>
       </div>
-
     </section>
   </div>
 </template>
@@ -112,7 +109,6 @@
     name: '',
     data(){
       return {
-
         total:0,
         scoreName:'',//权重名称
         isLoading:false,
@@ -257,5 +253,4 @@
   }
 </script>
 <style scoped>
-
 </style>

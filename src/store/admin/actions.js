@@ -587,7 +587,7 @@ export default {
   },
   //添加积分类型
   AddAdminIntegralTypeSubmit(store,data){
-    return new Promise((relove, reject) => {
+    return new Promise((relove,reject) => {
       axios.post(getNewStr+'/UserScoreType/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
