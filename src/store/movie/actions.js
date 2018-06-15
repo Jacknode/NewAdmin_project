@@ -108,6 +108,26 @@ export default {
       })
     })
   },
+  //初始化（查询）微电影分类
+  initVMovieSorting({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/Type/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          console.log(111,data)
+          var data = data.data;
+          if (Number(data.resultcode) == 200) {
+            relove(Number(data.totalRows));
+            commit('initVMovieSorting', data.data2)
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
 
   //审核成功
 AuditSubmitOk(store,data){

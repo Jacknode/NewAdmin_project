@@ -347,12 +347,13 @@ export const constantRouterMap = [
         name: 'MovieReview',
         component: () => import('@/views/movie/MovieReview'),
         meta: {title: 'movieReview'}
-      }, {
+      },
+      /*{
         path: '/movieType',
         name: '/MovieType',
         component: () => import('@/views/movie/MovieType'),
         meta: {title: 'movieType'}
-      }
+      }*/
      ]
   },
   /**

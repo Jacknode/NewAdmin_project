@@ -21,6 +21,10 @@ export default {
     state.movieAudit = data;
 
   },
+  //微电影审核所需视频分类
+  initVMovieSorting(state, data) {
+    state.VMovieTypeList = data;
+  },
 
   initUpdateMovieReviewObj(state,id){
     state.updateMovieReviewObj = state.movieAudit.filter(item=>{

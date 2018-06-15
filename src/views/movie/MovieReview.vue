@@ -3,18 +3,17 @@
     <section id="wrap">
       <h1 class="userClass">微电影审核</h1>
       <el-col :span="24" class="formSearch">
-        <el-form :inline="true">
+<!--        <el-form :inline="true">
           <el-form-item>
-            <span>微电影审核筛选:</span>
+            <span>微电影视频类型筛选:</span>
           </el-form-item>
           <el-form-item>
-            <!--<el-input type="text" v-model="filmName" auto-complete="off" placeholder="请选择微电影" size="small"></el-input>-->
-            <el-select v-model="filmName" placeholder="请选择审核状态" size="small">
+            <el-select v-model="filmName" placeholder="请选择微电影视频类型" size="small">
               <el-option
-                v-for="item in filmType"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in VMovieTypeList"
+                :key="item.vf_te_ID"
+                :label="item.vf_te_Name"
+                :value="item.vf_te_ID">
               </el-option>
 
             </el-select>
@@ -22,7 +21,7 @@
           <el-form-item>
             <el-button type="primary" @click="search" size="small">查询</el-button>
           </el-form-item>
-        </el-form>
+        </el-form>-->
       </el-col>
 
       <!--数据展示-->
@@ -34,9 +33,15 @@
         <el-table-column type="expand">
 
           <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
+            <el-form label-position="left" inline class="demo-table-expand" label-width="100px" >
+              <el-form-item label="审核表编号：">
+                <span>{{ props.row.vf_ve_ID }}</span>
+              </el-form-item>
+              <el-form-item label="视频类型：">
+                <span>{{ props.row.vf_ve_TypeName }}</span>
+              </el-form-item>
               <el-form-item label="作者：">
-                <span>{{ props.row.vf_ve_Content.vf_vo_AuthorID }}</span>
+                <span>{{ props.row.vf_ve_Content.vf_vo_AuthorName }}</span>
               </el-form-item>
               <el-form-item label="时长:">
                 <span>{{ props.row.vf_ve_Content.vf_vo_Time}}分钟</span>
@@ -47,20 +52,18 @@
               <el-form-item label="文件扩展名:">
                 <span>{{ props.row.vf_ve_Content.vf_vo_Extend}}</span>
               </el-form-item>
-              <el-form-item label="文件地址:">
-                <span>{{ props.row.vf_ve_Content.vf_vo_FileURL}}</span>
+              <el-form-item label="视频:">
+                <video :src="props.row.vf_ve_Content.vf_vo_FileURL" width="320" height="240" controls="controls"></video>
               </el-form-item>
-
               <el-form-item label="视频标题:">
                 <span>{{ props.row.vf_ve_Content.vf_vo_Title}}</span>
 
               </el-form-item>
               <el-form-item label="视频图片:">
-                <span>{{ props.row.vf_ve_Content.vf_vo_ImageURL}}</span>
-
+                <img :src="props.row.vf_ve_Content.vf_vo_ImageURL" alt="" style="width:200px;height: 100px;">
               </el-form-item>
               <el-form-item label="创建时间:">
-                <span>{{ props.row.vf_ve_Content.vf_ve_CreateTime}}</span>
+                <span>{{ props.row.vf_ve_CreateTime}}</span>
               </el-form-item>
               <el-form-item label="视频详情:">
                 <span>{{ props.row.vf_ve_Content.vf_vo_Remark}}</span>
@@ -68,7 +71,6 @@
               <el-form-item label="视频简介:">
                 <span>{{ props.row.vf_ve_Content.vf_vo_Introduce}}</span>
               </el-form-item>
-
             </el-form>
           </template>
 
@@ -83,10 +85,10 @@
 
         </el-table-column>
         <el-table-column
-          label="创建时间"
-          prop="vf_ve_CreateTime">
+          label="视频名称"
+          prop="vf_vo_Title">
           <template slot-scope="props">
-            <span>{{ props.row.vf_ve_Content.vf_vo_CreateTime}}</span>
+            <span>{{ props.row.vf_ve_Content.vf_vo_Title}}</span>
             <!--<span> {{approvalOptions.vf_ve_CreateTime}}</span>-->
           </template>
         </el-table-column>
@@ -99,11 +101,11 @@
               @click="approval(scope.row.vf_ve_ID)">审核
             </el-button>
 
-            <el-button
+<!--            <el-button
               size="mini"
               type="primary"
               @click="Update(scope.row)">修改
-            </el-button>
+            </el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -145,7 +147,7 @@
     </el-dialog>
 
     <!--修改审核表-->
-    <el-dialog title="修改微电影审核" :visible.sync="updateDialog">
+<!--    <el-dialog title="修改微电影审核" :visible.sync="updateDialog">
 
       <el-form :model="updateObj">
 
@@ -190,7 +192,7 @@
         <el-button @click="updateDialog = false">取 消</el-button>
         <el-button type="primary" @click="updateSubmit">确 定</el-button>
       </div>
-    </el-dialog>
+    </el-dialog>-->
   </div>
 </template>
 <script>
@@ -227,15 +229,16 @@
         updateDialog: false,
         filmName: "",
         total: 0,
-        filmType: [{
-          value: "0",
-          label: '微电影'
-        }, {
+        filmType: [ {
           value: "1",
           label: '广告视频'
         },
           {
             value: "2",
+            label: '微电影'
+          },
+          {
+            value: "3",
             label: '教育视频'
           }
         ],
@@ -283,14 +286,36 @@
     },
     computed: mapGetters([
       'movieAudit',
-      'updateMovieReviewObj'
-
+      'updateMovieReviewObj',
+      'VMovieTypeList'
     ]),
-
     created(){
-      this.initData(this.filmName)
+      this.initData(),
+      this.intTypeData()
     },
     methods: {
+      //初始化视频类型
+      intTypeData(typeName,typeParentName){
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",//操作员编码
+          "operateUserName": "",//操作员名称
+          "pcName": "",
+          "vf_te_ID":typeName?typeName:"",//分类编号
+          "vf_te_Name":"",//分类名称
+          "vf_te_ParentIDs": typeParentName?typeParentName:"0",//分类编号父编号
+        };
+        this.$store.dispatch("initVMovieSorting", options)
+          .then((total) => {
+            this.total = total;
+          }, (err) => {
+            this.$notify({
+              message: err,
+              type: "error"
+            });
+          });
+      },
       //分页
       handleCurrentChange(num){
         this.initData(this.filmName, num)
@@ -309,11 +334,10 @@
           "pcName": "",  //机器码
           "vf_ve_ID": "",//审核表编号
           "vf_ve_Type": type?type:"",//视频类型
-          "vf_vo_AuthorID": JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',//作者ID
-          "page": 1,//页码
+          "vf_vo_AuthorID": author?author:'',//作者ID
+          "page": page?page:1,//页码
           "rows": 5//条数
         };
-
         this.isLoading = true;
         this.$store.dispatch('initMovieAudit', options)
         .then(data => {
@@ -328,7 +352,7 @@
       },
       //查询
       search(){
-        this.initData(this.filmName)
+        this.initData(this.filmName,'','')
       },
       //审核
       approval(id){
