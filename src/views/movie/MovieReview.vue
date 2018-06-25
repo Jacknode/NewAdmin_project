@@ -62,6 +62,9 @@
               <el-form-item label="视频图片:">
                 <img :src="props.row.vf_ve_Content.vf_vo_ImageURL" alt="" style="width:200px;height: 100px;">
               </el-form-item>
+              <el-form-item label="首页大图:">
+                <img :src="props.row.vf_ve_Content.vf_vo_TomImageURL" alt="" style="width:200px;height: 100px;">
+              </el-form-item>
               <el-form-item label="创建时间:">
                 <span>{{ props.row.vf_ve_CreateTime}}</span>
               </el-form-item>
@@ -290,8 +293,8 @@
       'VMovieTypeList'
     ]),
     created(){
-      this.initData(),
-      this.intTypeData()
+      this.initData()
+//      this.intTypeData()
     },
     methods: {
       //初始化视频类型

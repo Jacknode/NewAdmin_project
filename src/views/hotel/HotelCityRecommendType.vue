@@ -17,7 +17,6 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
       <el-table
         :data="hotelCityRecommendTypeList"
@@ -62,7 +61,6 @@
           </template>
         </el-table-column>
       </el-table>
-
       <!--分页-->
       <div class="block" style="float: right;">
         <el-pagination
@@ -170,6 +168,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
   export default{
     name: '',
     data(){
@@ -234,12 +233,12 @@
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
               if (xhr.responseText) {
-                var data = xhr.responseText
+                var data = xhr.responseText;
                 relove(JSON.parse(data))
               }
             }else{
@@ -251,6 +250,7 @@
           }
         })
       },
+      //图片上传
       uploaNode() {
         this.ImageURL = [];
         this.ImageURL1 = [];
