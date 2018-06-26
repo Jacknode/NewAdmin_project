@@ -215,7 +215,7 @@
         </el-form-item>
         <el-form-item label="汽车图片:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload1" accept="image/*" multiple>
+            <input type="file" name="" ref="updateUploadInput" accept="image/*" multiple>
           </a>
           <img src="" alt="" v-lazy="item" v-show="ImageURL1.length" v-for="item in ImageURL1"
                style="width: 100px;height: 100px">
@@ -230,6 +230,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
   export default{
     name: '',
     data(){
@@ -337,7 +338,7 @@
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS",true);
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -379,14 +380,14 @@
               }
             })
           }
-          if (this.$refs.upload1) {
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
+          if (this.$refs.updateUploadInput) {
+            this.$refs.updateUploadInput.addEventListener('change', data => {
+              for (var i = 0; i < this.$refs.updateUploadInput.files.length; i++) {
+                // this.uploadImg(this.$refs.updateUploadInput.files[i]).then(data => {
                 //   this.$store.dispatch('carUploadAdminImgs', {
                 //     imageData: data
                 //   })
-                this.uploadToOSS(this.$refs.upload1.files[i])
+                this.uploadToOSS(this.$refs.updateUploadInput.files[i])
                   .then(data => {
                     if (data) {
                       this.ImageURL1 = [];
@@ -469,6 +470,7 @@
       },
       //修改
       Update(obj){
+        this.uploaNode();
         this.updateOptions = obj;
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
