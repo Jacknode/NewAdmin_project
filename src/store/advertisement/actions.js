@@ -129,7 +129,7 @@ export default {
     })
   },
   //删除广告收费方式
-  deleteAdChargeWay(store,data){
+/*  deleteAdChargeWay(store,data){
     return new Promise((relove, reject) => {
       axios.post(getNewStr+'/InComeWay/Delete',JSON.stringify(data),{
         headers: {
@@ -144,7 +144,7 @@ export default {
         }
       })
     })
-  },
+  },*/
   /********************************************广告位置*********************************************************/
   //查询广告位置
   initAdPosition({commit},data){

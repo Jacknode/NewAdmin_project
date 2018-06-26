@@ -17,5 +17,5 @@ export default {
   updateAdApplyObj:{},//修改广告申请obj
   /********************************************广告类型收费方式*********************************************************/
   adTypeChargeModeList:[],//广告类型收费方式数据
-  updateAdTypeChargeModeObj:{},//广告类型收费方式修改obj
+  // updateAdTypeChargeModeObj:{},//广告类型收费方式修改obj
 }

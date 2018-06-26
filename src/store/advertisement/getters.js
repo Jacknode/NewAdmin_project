@@ -17,5 +17,5 @@ export default {
   updateAdApplyObj: state => state.updateAdApplyObj,
   /********************************************广告类型收费方式*********************************************************/
   adTypeChargeModeList: state => state.adTypeChargeModeList,
-  updateAdTypeChargeModeObj: state => state.updateAdTypeChargeModeObj,
+  // updateAdTypeChargeModeObj: state => state.updateAdTypeChargeModeObj,
 }

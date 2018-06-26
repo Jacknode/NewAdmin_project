@@ -54,14 +54,14 @@ export default  {
   initAdTypeChargeMode(state,data){
     state.adTypeChargeModeList = data;
   },
-  initUpdateAdTypeChargeMode(state,id){
+/*  initUpdateAdTypeChargeMode(state,id){
     state.updateAdTypeChargeModeObj = state.adTypeChargeModeList.filter(item=>{
       if(item.sm_aicw_ID==id){
         return true
       }
       return false
     })[0]
-  }
+  }*/
 };
 
 
