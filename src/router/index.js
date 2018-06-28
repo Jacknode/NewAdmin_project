@@ -49,7 +49,7 @@ export const constantRouterMap = [
     name: 'Admin',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'admin', icon: 'example'},
+    meta: {title: 'admin', icon: 'profit'},
     children: [
       {
         path: 'adminVendorProfit',
@@ -79,7 +79,7 @@ export const constantRouterMap = [
     name: 'Audit',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'audit', icon: 'example'},
+    meta: {title: 'audit', icon: 'Audit'},
     children: [
       {
         path: 'adminAgents',
@@ -109,7 +109,7 @@ export const constantRouterMap = [
     name: 'Integral',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'integral', icon: 'example'},
+    meta: {title: 'integral', icon: 'integral'},
     children: [
       {
         path: 'adminIntegralWeight',
@@ -133,7 +133,7 @@ export const constantRouterMap = [
     name: 'Advertisement',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'advertisement', icon: 'example'},
+    meta: {title: 'advertisement', icon: 'advertising'},
     children: [
       {
         path: 'adType',
@@ -172,7 +172,7 @@ export const constantRouterMap = [
     name: 'Ticket',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'ticket', icon: 'example'},
+    meta: {title: 'ticket', icon: 'ticket'},
     children: [
       {
         path: 'ticketTheme',
@@ -214,7 +214,7 @@ export const constantRouterMap = [
     name: 'Hotel',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'hotel', icon: 'example'},
+    meta: {title: 'hotel', icon: 'hotel'},
     children: [
       {
         path: 'hotelImageType',
@@ -273,7 +273,7 @@ export const constantRouterMap = [
     name: 'Food',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'food', icon: 'eye'},
+    meta: {title: 'food', icon: 'food'},
     children: [
       {
         path: 'foodRecommendStoreType',
@@ -309,7 +309,7 @@ export const constantRouterMap = [
     name: 'Car',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'car', icon: 'guide'},
+    meta: {title: 'car', icon: 'car'},
     children: [
       {
         path: 'carRent',
@@ -340,7 +340,7 @@ export const constantRouterMap = [
     name: 'Movie',
    // hidden:true,
     alwaysShow: true,
-    meta: {title: 'movie', icon: 'international'},
+    meta: {title: 'movie', icon: 'movie'},
     children: [
       {
         path: 'movieReview',
