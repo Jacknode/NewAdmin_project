@@ -257,8 +257,7 @@
           "vf_ve_CreateTime": "",//创建时间
           // "goodID": '',//商户号
           "IsPass": '1',
-
-          failReason: '',//审核失败原因
+          'failReason': '',//审核失败原因
         },
         checkOption: {
           "loginUserID": "huileyou",  //惠乐游用户ID

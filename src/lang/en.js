@@ -54,6 +54,15 @@ export default {
     movieReview:'movieReview',
     movieType:'movieType',
 
+
+    education:'Education',
+    educationClassify:'EducationClassify',
+    educationAuditVideo:'EducationAuditVideo',
+    educationAuditRecommend:'EducationAuditRecommend',
+
+
+
+
     app:'app',
     uploadApp:'uploadApp',
     admin: 'Admin',

@@ -56,6 +56,14 @@ export default {
     movieType:'微电影类型管理',
 
 
+
+    education:'教育后台管理',
+    educationClassify:'教育分类',
+    educationAuditVideo:'教育审核视频',
+    educationAuditRecommend:'教育审核视频推荐',
+
+
+
     app:'app管理',
     uploadApp:'App上传',
 

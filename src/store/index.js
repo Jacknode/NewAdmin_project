@@ -12,6 +12,7 @@ import hotel from './hotel'
 import movie from './movie'
 import admin from './admin'
 import ticket from './ticket'
+import education from './education'
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
     hotel,
     movie,
     admin,
-    ticket
+    ticket,
+    education
 
   },
   getters

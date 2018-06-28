@@ -338,8 +338,8 @@ export const constantRouterMap = [
     path: '/movie',
     component: Layout,
     name: 'Movie',
-    // hidden:true,
-    // alwaysShow: true,
+   // hidden:true,
+    alwaysShow: true,
     meta: {title: 'movie', icon: 'example'},
     children: [
       {
@@ -356,6 +356,37 @@ export const constantRouterMap = [
       }*/
      ]
   },
+  /**
+   * 教育
+   */
+  {
+    path: '/education',
+    component: Layout,
+    name: 'Education',
+   // hidden:true,
+    alwaysShow: true,
+    meta: {title: 'education', icon: 'edit'},
+    children: [
+      {
+        path: 'educationClassify',
+        name: 'EducationClassify',
+        component: () => import('@/views/education/educationClassify'),
+        meta: {title: 'educationClassify'}
+      }, {
+        path: 'educationAuditVideo',
+        name: 'EducationAuditVideo',
+        component: () => import('@/views/education/educationAuditVideo'),
+        meta: {title: 'educationAuditVideo'}
+      },{
+        path: 'educationAuditRecommend',
+        name: 'EducationAuditRecommend',
+        component: () => import('@/views/education/educationAuditRecommend'),
+        meta: {title: 'educationAuditRecommend'}
+      },
+
+    ]
+  },
+
   /**
    * 上传app
    */
@@ -383,6 +414,8 @@ export const constantRouterMap = [
       // }
     ]
   },
+
+
 
   {path: '*', redirect: '/404', hidden: true}
 ];
