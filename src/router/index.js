@@ -56,17 +56,18 @@ export const constantRouterMap = [
         name: 'AdminVendorProfit',
         component: () => import('@/views/admin/AdminVendorProfit'),
         meta: {title: 'adminVendorProfit'}
-      },  {
-        path: 'adminAgentsProfit',
-        name: 'AdminAgentsProfit',
-        component: () => import('@/views/admin/AdminAgentsProfit'),
-        meta: {title: 'adminAgentsProfit'}
-      },{
-        path: 'adminHuileyouReturn',
-        name: 'AdminHuileyouReturn',
-        component: () => import('@/views/admin/AdminHuileyouReturn'),
-        meta: {title: 'adminHuileyouReturn'}
       },
+      // {
+      //   path: 'adminAgentsProfit',
+      //   name: 'AdminAgentsProfit',
+      //   component: () => import('@/views/admin/AdminAgentsProfit'),
+      //   meta: {title: 'adminAgentsProfit'}
+      // },{
+      //   path: 'adminHuileyouReturn',
+      //   name: 'AdminHuileyouReturn',
+      //   component: () => import('@/views/admin/AdminHuileyouReturn'),
+      //   meta: {title: 'adminHuileyouReturn'}
+      // },
 
     ]
   },
@@ -81,12 +82,13 @@ export const constantRouterMap = [
     // alwaysShow: true,
     meta: {title: 'audit', icon: 'Audit'},
     children: [
+      // {
+      //   path: 'adminAgents',
+      //   name: 'AdminAgents',
+      //   component: () => import('@/views/admin/AdminAgents'),
+      //   meta: {title: 'adminAgents'}
+      // },
       {
-        path: 'adminAgents',
-        name: 'AdminAgents',
-        component: () => import('@/views/admin/AdminAgents'),
-        meta: {title: 'adminAgents'}
-      },  {
         path: 'adminSupplier',
         name: 'AdminSupplier',
         component: () => import('@/views/admin/AdminSupplier'),
@@ -351,6 +353,11 @@ export const constantRouterMap = [
       /*{
         path: '/movieType',
         name: '/MovieType',
+=======
+      {
+        path: 'movieType',
+        name: 'MovieType',
+>>>>>>> Stashed changes
         component: () => import('@/views/movie/MovieType'),
         meta: {title: 'movieType'}
       }*/
@@ -403,7 +410,7 @@ export const constantRouterMap = [
         path: 'uploadApp',
         name: 'UpdateApp',
         component: () => import('@/views/App/UploadApp'),
-        meta: {title: 'uploadApp'}
+        meta: {title: 'uploadApp',icon: 'documentation'}
       },
 
       // {

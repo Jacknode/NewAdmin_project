@@ -17,7 +17,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initMovieTypeList',data.data)
+          commit('initMovieTypeList',data.data2)
           relove(Number(data.totalRows))
 
         }else{

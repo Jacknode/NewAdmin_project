@@ -10,20 +10,8 @@
           <el-form-item>
             <el-input type="text" v-model="userName" auto-complete="off" placeholder="代理商名称" size="small"></el-input>
           </el-form-item>
-          <!--<el-form-item>-->
-            <!--<el-select v-model="statusValue" placeholder="请选择审核状态">-->
-              <!--<el-option-->
-                <!--v-for="item in ApprovalStatus"-->
-                <!--:key="item.value"-->
-                <!--:label="item.label"-->
-                <!--:value="item.value">-->
-              <!--</el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
           <el-form-item>
             <el-button type="primary" @click="search" size="small">查询</el-button>
-            <!--<el-button type="primary" @click="next">下一步</el-button>-->
-            <!--<el-button type="primary" @click="addAdminBusinessInformation">新增</el-button>-->
           </el-form-item>
         </el-form>
       </el-col>
@@ -138,9 +126,6 @@
         <el-form-item label="提成比例:" :label-width="formLabelWidth" v-show="options.isPass!=2">
           <el-input v-model="options.getPercent" placeholder="请输入数字" type="number"></el-input>
         </el-form-item>
-        <!--<el-form-item label="供应商密码:" :label-width="formLabelWidth" v-show="approvalOptions.IsPass!=2">-->
-        <!--<el-input v-model="approvalOptions.agentPassword" placeholder="请输入商户编号"></el-input>-->
-        <!--</el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="approvalStatusDialog = false">取 消</el-button>

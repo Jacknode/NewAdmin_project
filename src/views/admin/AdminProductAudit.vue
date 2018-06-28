@@ -262,7 +262,7 @@
         this.isLoading = true;
         this.$store.dispatch('initAdminProductAudit',options)
         .then(data=>{
-          this.total = Number(data.totalrows);
+          this.total = Number(data.totalRows);
           this.isLoading = false;
         },err=>{
           this.$notify({

@@ -8,7 +8,7 @@
       <el-table
         :data="movieAudit"
         highlight-current-row
-        v-loading=""
+        v-loading="isLoading"
         style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
@@ -122,6 +122,7 @@
     name: '',
     data(){
       return {
+        isLoading:false,
         updateObj: {
           "loginUserID": "huileyou",  //惠乐游用户ID
           "loginUserPass": "123",  //惠乐游用户密码

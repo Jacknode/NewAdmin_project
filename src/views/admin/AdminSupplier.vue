@@ -144,9 +144,10 @@
             <el-button
               size="mini"
               type="primary"
-              v-show="scope.row.sm_ai_IsPass!=1"
+              v-if="scope.row.sm_ai_IsPass!=1"
               @click="approval(scope.row.sm_ai_ID)">审核
             </el-button>
+            <span v-else>已审核</span>
             <!--<el-button-->
               <!--size="mini"-->
               <!--type="danger"-->

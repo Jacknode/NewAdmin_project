@@ -134,6 +134,7 @@ white-space: nowrap;text-align: center" v-loading="isLoading">{{options.data.sm_
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
   export default{
     name: '',
     data(){
@@ -229,9 +230,9 @@ white-space: nowrap;text-align: center" v-loading="isLoading">{{options.data.sm_
              this.isLoading = true;
              this.options.data.sm_as_DownLoadUrl = '加载中...'
              var fd = new FormData();
-             fd.append("fileUpload", file);
+             fd.append("fileToUpload", file);
              var xhr = new XMLHttpRequest();
-             xhr.open("POST", "http://image.1000da.com.cn/PostImage/PostAppStore");
+             xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
              xhr.send(fd);
              xhr.onreadystatechange = ()=>{
                if (xhr.readyState == 4 && xhr.status == 200) {

@@ -200,8 +200,10 @@
           "page": num ? num : 1,
           "rows": 5
         };
+        this.isLoading = true;
         this.$store.dispatch('initShowTop', getTourSite)
           .then(total=>{
+            this.isLoading = false;
             this.total = total;
           })
       },

@@ -68,7 +68,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
-            <el-input v-model='addOptions.data.ed_te_Name' placeholder="请输入内容" style="width:800px" ></el-input>
+            <el-input v-model='addOptions.data.ed_te_Name' placeholder="请输入内容"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -80,7 +80,7 @@
       <el-dialog title="添加教育分类" :visible.sync="addDialogParent">
         <el-form :model="addOptionsParent" >
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
-            <el-input v-model='addOptionsParent.data.ed_te_Name' placeholder="请输入内容" style="width:800px" ></el-input>
+            <el-input v-model='addOptionsParent.data.ed_te_Name' placeholder="请输入内容"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -92,10 +92,10 @@
       <el-dialog title="修改教育分类" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="教育父编码:" :label-width="formLabelWidth">
-            <el-input v-model='updateObj.ed_te_ParentID' placeholder="请输入内容" style="width:800px" :disabled="true"></el-input>
+            <el-input v-model='updateObj.ed_te_ParentID' placeholder="请输入内容" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
-            <el-input v-model='updateObj.ed_te_Name' placeholder="请输入内容" style="width:800px" ></el-input>
+            <el-input v-model='updateObj.ed_te_Name' placeholder="请输入内容"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">

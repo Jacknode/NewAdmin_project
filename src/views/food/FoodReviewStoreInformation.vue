@@ -103,7 +103,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="apply(scope.row.fd_sf_ID)">{{scope.row.fd_sf_PassStatus}}
+              @click="apply(scope.row.fd_sf_ID)">{{scope.row.fd_sf_PassStatus?scope.row.fd_sf_PassStatus:'验证'}}
             </el-button>
           </template>
         </el-table-column>

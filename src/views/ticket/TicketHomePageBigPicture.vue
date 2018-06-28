@@ -43,6 +43,7 @@
       <el-table
         :data="ticketHomePageBigPictureList"
         stripe
+        v-loading="isLoading"
         style="width: 100%">
         <el-table-column
           align="center"
@@ -53,7 +54,7 @@
           align="center"
           label="展示图片">
           <template slot-scope="scope">
-            <img :src="scope.row.tm_tbi_Image" width="89" height="29" @click="bigPicture(scope.row.tm_tbi_Image)">
+            <img  v-lazy="scope.row.tm_tbi_Image" width="89" height="29" @click="bigPicture(scope.row.tm_tbi_Image)">
           </template>
         </el-table-column>
         <el-table-column
@@ -149,6 +150,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
 
   export default {
     computed: mapGetters([
@@ -168,6 +170,7 @@
           "tm_tbi_Image": "",//大图路径
           "tm_tbi_Remark": "",//备注
         },
+        isLoading:false,
         updateDialog: false,
         updateData: {},
       }
@@ -177,21 +180,12 @@
       handleCurrentChange(num){
         this.initData(num)
       },
-      //图片转二进制
-      uploadImg(file) {
-        return new Promise(function (relove, reject) {
-          lrz(file)
-            .then(data => {
-              relove(data.base64.split(',')[1])
-            })
-        })
-      },
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -277,8 +271,10 @@
           "tm_ts_Code": id ? id : "",//景点编号
           "tm_tbi_IsDelete": "0"
         };
+        this.isLoading = true;
         this.$store.dispatch('initTicketHomePageBigPicture', selectTopBigImageInfo)
           .then(() => {
+            this.isLoading = false;
           }, err => {
             this.$notify({
               message: err,

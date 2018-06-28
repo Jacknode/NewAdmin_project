@@ -282,19 +282,7 @@ export const getLockStatus = val=>{
       return '未知';
   }
 };
-//广告申请是否通过
-export const getAdApplyPass = val=>{
-  switch (Number(val)) {
-    case 0:
-      return '审核中';
-    case 1:
-      return '通过';
-    case 2:
-      return '不通过';
-    default:
-      return '未知';
-  }
-};
+
 export const getCarUseStatus = val=>{
   switch (Number(val)) {
     case 0:
@@ -373,6 +361,59 @@ export const getPayState = val=>{
       return '已支付';
     case 2:
       return '已退票';
+    default:
+      return '未知';
+  }
+};
+//App类型
+export const getAppType = val=>{
+  switch (Number(val)) {
+    case 0:
+      return 'android';
+    case 1:
+      return 'ios';
+    case 2:
+      return '电脑';
+    default:
+      return '未知';
+  }
+};
+//审核状态
+export const getStatue = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '审核中';
+    case 1:
+      return '审核成功';
+    case 2:
+      return '审核失败';
+    default:
+      return '未知';
+  }
+};
+//广告申请是否通过
+export const getAdApplyPass = val=>{
+  if(val==''){
+    return '未知'
+  }
+  switch (Number(val)) {
+    case 3:
+      return '审核中';
+    case 1:
+      return '通过';
+    case 2:
+      return '不通过';
+    default:
+      return '未知';
+  }
+};
+//手自排
+export const getVariableSpeed = val=>{
+  switch (Number(val)) {
+    case 1:
+      return '自动挡';
+    case 2:
+      return '手动挡';
     default:
       return '未知';
   }

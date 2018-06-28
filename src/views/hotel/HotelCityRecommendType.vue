@@ -62,7 +62,7 @@
         </el-table-column>
       </el-table>
       <!--分页-->
-      <div class="block" style="float: right;">
+      <div class="block" style="float: right;padding-bottom: 100px;padding-top: 20px">
         <el-pagination
           @current-change="handleCurrentChange"
           :page-size="5"

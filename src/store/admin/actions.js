@@ -193,8 +193,8 @@ export default {
       .then(data => {
         var data = data.data;
         if (Number(data.resultcode) == 200) {
-          commit('initAdminProductAudit',data.data)
-          relove(data);
+          commit('initAdminProductAudit',data.data.data)
+          relove(data.data);
         } else {
           reject(data.resultcontent);
         }

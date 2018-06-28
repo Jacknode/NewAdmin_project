@@ -29,7 +29,7 @@ export default {
     routes() {
       return this.$router.options.routes
     },
-    isCollapse() {console.log(this.sidebar)
+    isCollapse() {
       return !this.sidebar.opened
     }
   }

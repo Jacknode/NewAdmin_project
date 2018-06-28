@@ -15,7 +15,7 @@
         </span>
         <!--<el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"-->
           <!--placeholder="password"></el-input>-->
-        <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
+        <el-input :type="pwdType" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
           <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
       <el-form-item>
@@ -40,7 +40,7 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: 'admin'
+        password: ''
       },
       loginRules: {
         username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
@@ -95,6 +95,13 @@ export default {
         }
       })
     }
+  },
+  mounted(){
+    document.addEventListener('keydown',(e)=>{
+      if(e.keyCode==13){
+        this.handleLogin()
+      }
+    });
   }
 }
 </script>

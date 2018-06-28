@@ -1,8 +1,8 @@
 // import axios from 'axios'
-
+import {getNewStr} from '@/assets/js/public'
 export function login(userInfo) {
   return axios({
-    url: 'http://192.168.3.50/UserInfo/Login',
+    url: getNewStr+'/UserInfo/Login',
     method: 'post',
     data: JSON.stringify(userInfo),
     headers: {
