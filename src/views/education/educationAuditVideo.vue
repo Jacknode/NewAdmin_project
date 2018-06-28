@@ -28,7 +28,6 @@
         v-loading="isLoading"
         style="width: 100%">
         <el-table-column type="expand">
-
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="视频编号:">
@@ -44,7 +43,6 @@
                 <span>{{ props.row.ed_ve_Content.ed_vo_Extend}}</span>
               </el-form-item>
               <el-form-item label="视频文件地址:">
-                <!--<span>{{ props.row.ed_ve_Content.ed_vo_FileURL}}</span>-->
                 <video :src="props.row.ed_ve_Content.ed_vo_FileURL" width="320" height="240" controls="controls"></video>
               </el-form-item>
               <el-form-item label="作者ID:">
@@ -71,14 +69,9 @@
               <el-form-item label="视频作者:">
                 <span>{{ props.row.ed_ve_Content.ed_vo_AuthorName}}</span>
               </el-form-item>
-
-
-
-
             </el-form>
           </template>
         </el-table-column>
-
         <el-table-column
           label="审核表编号"
           align="center"
@@ -113,7 +106,6 @@
           </template>
         </el-table-column>
       </el-table>
-
       <!--分页-->
       <div class="block" style="float: right;">
         <el-pagination
@@ -156,7 +148,6 @@
     name: '',
     data(){
       return {
-
         input:'',
         value: '',
         total:0,
@@ -179,18 +170,11 @@
     },
     computed: mapGetters([
       'adminEducationAuditList',
-
     ]),
     created(){
       this.initData(this.input)
-
     },
     methods: {
-     //  handleChange1(value) {
-     //    this.selectedOptions = value;
-     // this.addOptions.data.ed_ve_Type = this.selectedOptions[value.length - 1]
-     //  },
-
       //分页
       handleCurrentChange(num) {
         this.initData(this.input, num)
@@ -226,7 +210,6 @@
         this.initData(this.input)
       },
       approval(id){
-
         let admin = JSON.parse(sessionStorage.getItem('admin'));
         console.log(admin)
         this.approvalStatusDialog=true
@@ -236,7 +219,7 @@
       //审核提交
       approvalStatusSubmit(){
         this.isLoading = true;
-        this.$store.dispatch("educationApprovalVideo", approvalOptions)
+        this.$store.dispatch("educationApprovalVideo", this.approvalOptions)
           .then(suc => {
             this.$notify({
               message: suc,
@@ -255,5 +238,4 @@
   }
 </script>
 <style scoped>
-
 </style>

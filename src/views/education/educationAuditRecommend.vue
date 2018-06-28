@@ -43,7 +43,6 @@
                 </template>
                 <span>{{ props.row.ed_ve_Content.ed_re_SeriesImageURL}}</span>
               </el-form-item>
-
               <el-form-item label="教育推荐类型:">
                 <span>{{ props.row.ed_ve_Content.ed_re_Difference}}</span>
               </el-form-item>
@@ -81,8 +80,8 @@
         </el-table-column>
       </el-table>
 
-
       <!--分页-->
+
       <div class="block" style="float: right;">
         <el-pagination
           @current-change="handleCurrentChange"
@@ -93,7 +92,9 @@
         >
         </el-pagination>
       </div>
+
       <!--审核状态-->
+
       <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
         <el-form :model="approvalOptions">
           <el-form-item label="审核状态:" :label-width="formLabelWidth">
@@ -155,17 +156,13 @@
       'adminEducationAuditRecommend',
     ]),
     created(){
-      //let admin = JSON.parse(sessionStorage.getItem('admin'));
       this.initData(this.input)
     },
     methods: {
-
-
       // 分页
       handleCurrentChange(num) {
         this.initData(this.siteNum, num)
       },
-
       //初始化
       initData(id, page) {
         let options = {
@@ -199,7 +196,7 @@
       approval(id){
 
         let admin = JSON.parse(sessionStorage.getItem('admin'));
-        console.log(admin)
+
         this.approvalStatusDialog=true
         this.approvalOptions.ed_ve_ID=id;
         this.approvalOptions.ed_vo_PasserID=admin.sm_ui_ID
@@ -222,7 +219,6 @@
           });
         this.approvalStatusDialog=false
       },
-
     }
   }
 </script>

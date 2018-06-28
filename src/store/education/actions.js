@@ -17,7 +17,6 @@ export default {
       })
         .then(data => {
           var data = data.data;
-          console.log('00',data)
 
           if (Number(data.resultcode) == 200) {
             relove(Number(data.totalRows));
@@ -40,7 +39,6 @@ export default {
       })
         .then(data => {
           var data = data.data;
-          console.log(data)
 
           if (Number(data.resultcode) == 200) {
             relove(Number(data.totalRows));
@@ -154,7 +152,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
-          console.log(data)
+
           if (Number(data.resultcode) == 200) {
             commit('initAdminEducationAuditRecommend',data.data.reverse());
             relove(Number(data.totalRows))

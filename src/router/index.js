@@ -273,7 +273,7 @@ export const constantRouterMap = [
     name: 'Food',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'food', icon: 'example'},
+    meta: {title: 'food', icon: 'eye'},
     children: [
       {
         path: 'foodRecommendStoreType',
@@ -309,7 +309,7 @@ export const constantRouterMap = [
     name: 'Car',
     // hidden:true,
     // alwaysShow: true,
-    meta: {title: 'car', icon: 'example'},
+    meta: {title: 'car', icon: 'guide'},
     children: [
       {
         path: 'carRent',
@@ -340,7 +340,7 @@ export const constantRouterMap = [
     name: 'Movie',
    // hidden:true,
     alwaysShow: true,
-    meta: {title: 'movie', icon: 'example'},
+    meta: {title: 'movie', icon: 'international'},
     children: [
       {
         path: 'movieReview',
@@ -396,8 +396,8 @@ export const constantRouterMap = [
     component: Layout,
     name: 'App',
     // hidden:true,
-    // alwaysShow: true,
-    meta: {title: 'app', icon: 'example'},
+     alwaysShow: true,
+    meta: {title: 'app', icon: 'zip'},
     children: [
       {
         path: 'uploadApp',

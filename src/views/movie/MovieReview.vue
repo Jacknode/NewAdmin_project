@@ -3,27 +3,7 @@
     <section id="wrap">
       <h1 class="userClass">微电影审核</h1>
       <el-col :span="24" class="formSearch">
-<!--        <el-form :inline="true">
-          <el-form-item>
-            <span>微电影视频类型筛选:</span>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="filmName" placeholder="请选择微电影视频类型" size="small">
-              <el-option
-                v-for="item in VMovieTypeList"
-                :key="item.vf_te_ID"
-                :label="item.vf_te_Name"
-                :value="item.vf_te_ID">
-              </el-option>
-
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="search" size="small">查询</el-button>
-          </el-form-item>
-        </el-form>-->
       </el-col>
-
       <!--数据展示-->
       <el-table
         :data="movieAudit"
@@ -31,7 +11,6 @@
         v-loading=""
         style="width: 100%">
         <el-table-column type="expand">
-
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand" label-width="100px" >
               <el-form-item label="审核表编号：">
@@ -57,7 +36,6 @@
               </el-form-item>
               <el-form-item label="视频标题:">
                 <span>{{ props.row.vf_ve_Content.vf_vo_Title}}</span>
-
               </el-form-item>
               <el-form-item label="视频图片:">
                 <img :src="props.row.vf_ve_Content.vf_vo_ImageURL" alt="" style="width:200px;height: 100px;">
@@ -76,7 +54,6 @@
               </el-form-item>
             </el-form>
           </template>
-
         </el-table-column>
         <el-table-column
           label="审核表编号"
@@ -85,14 +62,12 @@
         <el-table-column
           label="视频类型"
           prop="vf_ve_TypeName">
-
         </el-table-column>
         <el-table-column
           label="视频名称"
           prop="vf_vo_Title">
           <template slot-scope="props">
             <span>{{ props.row.vf_ve_Content.vf_vo_Title}}</span>
-            <!--<span> {{approvalOptions.vf_ve_CreateTime}}</span>-->
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -103,18 +78,11 @@
               v-show="scope.row.ts_tg_IsPass!=1"
               @click="approval(scope.row.vf_ve_ID)">审核
             </el-button>
-
-<!--            <el-button
-              size="mini"
-              type="primary"
-              @click="Update(scope.row)">修改
-            </el-button>-->
           </template>
         </el-table-column>
       </el-table>
       <!--分页-->
       <div class="block" style="float: right;padding: 10px 0">
-
         <el-pagination
           @current-change="handleCurrentChange"
           :page-size="5"
@@ -122,11 +90,9 @@
           :total="total"
           v-show="total"
         >
-
         </el-pagination>
       </div>
     </section>
-
     <!--审核状态-->
     <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
       <el-form :model="approvalOptions">
@@ -148,54 +114,6 @@
         <el-button type="primary" @click="approvalStatusSubmit">确 定</el-button>
       </div>
     </el-dialog>
-
-    <!--修改审核表-->
-<!--    <el-dialog title="修改微电影审核" :visible.sync="updateDialog">
-
-      <el-form :model="updateObj">
-
-        <el-form-item label="作者:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_AuthorID" placeholder="作者"></el-input>
-        </el-form-item>
-
-        <el-form-item label="大小:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_Size" placeholder="大小"></el-input>
-        </el-form-item>
-        <el-form-item label="时长:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_Time" placeholder="时长"></el-input>
-        </el-form-item>
-        <el-form-item label="文件地址:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_FileURL" placeholder="文件地址"></el-input>
-        </el-form-item>
-        <el-form-item label="文件扩展名:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_Extend" placeholder="文件扩展名"></el-input>
-        </el-form-item>
-        <el-form-item label="视频图片:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_ImageURL" placeholder="视频图片"></el-input>
-        </el-form-item>
-        <el-form-item label="视频标题:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_Title" placeholder="视频标题"></el-input>
-        </el-form-item>
-        <el-form-item label="创建时间:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_CreateTime" placeholder="创建时间"></el-input>
-        </el-form-item>
-        <el-form-item label="视频详情:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_Remark" placeholder="视频详情"></el-input>
-        </el-form-item>
-        <el-form-item label="视频简介:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_vo_Introduce" placeholder="视频详情"></el-input>
-        </el-form-item>
-        <el-form-item label="编号分类:" :label-width="formLabelWidth">
-          <el-input v-model="updateObj.data.vf_ve_Content.vf_te_IDs" placeholder="编号分类"></el-input>
-        </el-form-item>
-
-      </el-form>
-
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="updateDialog = false">取 消</el-button>
-        <el-button type="primary" @click="updateSubmit">确 定</el-button>
-      </div>
-    </el-dialog>-->
   </div>
 </template>
 <script>
@@ -227,7 +145,6 @@
               "vf_te_IDs": ""
             }
           }
-
         },
         updateDialog: false,
         filmName: "",
@@ -277,13 +194,10 @@
           "data": {
             "vf_ve_ID": "",//审核表编号
           }
-
         },
         formLabelWidth: '120px',
-
         isLoading: false,
         approvalStatusDialog: false,
-
       }
     },
     computed: mapGetters([
@@ -293,7 +207,6 @@
     ]),
     created(){
       this.initData()
-//      this.intTypeData()
     },
     methods: {
       //初始化视频类型
@@ -321,10 +234,6 @@
       //分页
       handleCurrentChange(num){
         this.initData(this.filmName, num)
-
-      },
-      handleSelect(item) {
-
       },
       //初始化审核表
       initData(type,author,page){
@@ -358,17 +267,13 @@
       },
       //审核
       approval(id){
-
         this.deleteOption.data.vf_ve_ID = id;
         this.checkOption.vf_ve_ID = id;
         this.$store.commit('setTranstionFalse');
         this.approvalStatusDialog = true;
-
       },
       //审核提交
       approvalStatusSubmit(){
-
-
         if (this.approvalOptions.IsPass == 1) {
           //审核成功添加到审核表
           this.$store.dispatch('AuditSubmitOk', this.checkOption)
@@ -386,11 +291,8 @@
           })
           this.approvalStatusDialog = false;
         } else {
-
           // 审核失败直接删除
-
           this.$store.dispatch('AuditSubmitNo', this.deleteOption)
-
           .then(success => {
             this.$notify({
               message: success,
@@ -404,14 +306,7 @@
             });
           });
           this.approvalStatusDialog = false;
-
         }
-        //   this.approvalOptions.goodID = this.sm_ai_ID
-      },
-      //checkType,微电影状态改成对应的名字
-      check(){
-
-        //if(movieAudit.vf_ve_Type){}
       },
       //修改
       Update(rowData){

@@ -20,9 +20,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="adminEducationClassify"
         v-loading="isLoading"
@@ -56,9 +54,7 @@
           </template>
         </el-table-column>
       </el-table>
-
       <!--添加教育分类-->
-
       <el-dialog title="添加教育分类" :visible.sync="addDialog">
         <el-form :model="addOptions" >
           <el-form-item label="教育父编码: " :label-width="formLabelWidth">
@@ -80,24 +76,18 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
-
       <!--添加父级-->
-
       <el-dialog title="添加教育分类" :visible.sync="addDialogParent">
         <el-form :model="addOptionsParent" >
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
             <el-input v-model='addOptionsParent.data.ed_te_Name' placeholder="请输入内容" style="width:800px" ></el-input>
           </el-form-item>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addDialogParent = false">取 消</el-button>
           <el-button type="primary" @click="addParentSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
-
       <!--修改教育分类-->
       <el-dialog title="修改教育分类" :visible.sync="updateDialog">
         <el-form :model="updateObj">
@@ -113,7 +103,6 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--分页-->
       <div class="block" style="float: right;">
         <el-pagination
@@ -125,7 +114,6 @@
         >
         </el-pagination>
       </div>
-
     </div>
   </div>
 </template>
