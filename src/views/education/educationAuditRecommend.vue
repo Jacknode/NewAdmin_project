@@ -196,7 +196,6 @@
       search() {
         this.initData(this.siteNum)
       },
-
       approval(id){
 
         let admin = JSON.parse(sessionStorage.getItem('admin'));
@@ -208,7 +207,7 @@
       //审核提交
       approvalStatusSubmit(){
         this.isLoading = true;
-        this.$store.dispatch("educationApprovalVideo", approvalOptions)
+        this.$store.dispatch("educationApprovalVideo", this.approvalOptions)
           .then(suc => {
             this.$notify({
               message: suc,
