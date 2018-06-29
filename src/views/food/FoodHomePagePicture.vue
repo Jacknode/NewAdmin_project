@@ -271,6 +271,28 @@
               }
             })
           }
+          if (this.$refs.updateUploadImg) {
+            this.$refs.updateUploadImg.addEventListener('change', data => {
+              for (var i = 0; i < this.$refs.updateUploadImg.files.length; i++) {
+                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
+                //   this.$store.dispatch('uploadAdminImgs', {
+                //     imageData: data
+                //   })
+                this.uploadToOSS(this.$refs.updateUploadImg.files[i])
+                    .then(data => {
+                      if (data) {
+                        this.updatePicUrl = data.data;
+                      } else {
+                        this.$notify({
+                          message: '图片地址不存在!',
+                          type: 'error'
+                        });
+                      }
+                    })
+                // })
+              }
+            })
+          }
         }, 30)
       },
       //选择店面
@@ -395,32 +417,23 @@
       //修改
       update(rowData) {
         console.log(rowData)
-        this.updateObj.data.fd_st_ProductID=rowData.fd_sf_ID;
+        this.updateObj.data.fd_st_ID=rowData.fd_st_ID+'';
         this.updateObj.data.fd_st_ImageURL=rowData.fd_st_ImageURL;
         this.storeId=rowData.fd_sf_ID;
         this.updateStoreProduct=rowData.fd_st_ProductID;
         this.changeStore();
         this.updatePicUrl=rowData.fd_st_ImageURL;
-//        this.uploaNode();
+        this.uploaNode();
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
       },
       //修改提交
       updateSubmit() {
         console.log(this.updateObj)
-//        this.updateObj.data.fd_st_ID=rowData.fd_st_ID;
-/*        if (this.addOptions.fd_st_ImageURL) {
-          this.updateObj.fd_st_ImageURL = this.addOptions.fd_st_ImageURL
-        };
-        let updateShowTopInfo = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "data": this.updateObj
-        };
-        this.$store.dispatch('updateFoodHomePagePicture', updateShowTopInfo)
+        //最新产品
+        this.updateObj.data.fd_st_ProductID=this.updateStoreProduct+'';
+        this.updateObj.data.fd_st_ImageURL=this.updatePicUrl ;
+        this.$store.dispatch('updateFoodHomePagePicture', this.updateObj)
           .then(suc => {
             this.$notify({
               message: suc,
@@ -432,7 +445,7 @@
               message: err,
               type: 'error'
             })
-          })*/
+          })
         this.updateDialog = false;
       },
       //删除
