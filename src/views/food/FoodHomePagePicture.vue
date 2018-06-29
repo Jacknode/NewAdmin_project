@@ -18,14 +18,19 @@
         style="width: 100%">
         <el-table-column
           align="center"
-          label="图片编号"
+          label="美食首页展示图片编号"
           prop="fd_st_ID">
         </el-table-column>
 
         <el-table-column
           align="center"
-          label="店面编号"
-          prop="fd_st_ProductID">
+          label="店面名称"
+          prop="fd_sf_ProductName">
+        </el-table-column>
+        <el-table-column
+          align="center"
+          label="产品名称"
+          prop="fd_sfp_Name">
         </el-table-column>
         <el-table-column
           align="center"
@@ -135,7 +140,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="选择店面产品:" :label-width="formLabelWidth">
-            <el-select v-model="updateObj.fd_st_ProductID" placeholder="请选择">
+            <el-select v-model="updateStoreProduct" placeholder="请选择">
               <el-option
                 v-for="item in storeProductDataList"
                 :key="item.fd_sfp_ID"
@@ -147,13 +152,13 @@
           </el-form-item>
 
           <el-form-item label="上传图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">展示图片上传
-              <input type="file" name="" ref="upload" accept="image/*">
-            </a>
-            <p>如果不上传图片,默认为原来的图片</p>
-            <img v-lazy="addOptions.fd_st_ImageURL" width="192" height="120" v-show="addOptions.fd_st_ImageURL">
+            <img v-lazy="updatePicUrl" width="192" height="120" v-show="updatePicUrl">
+            <div>
+              <a href="javascript:;" class="file">请选择图片
+                <input type="file" name="" ref="updateUploadImg" accept="image/*">
+              </a>
+            </div>
           </el-form-item>
-
         </el-form>
 
         <div slot="footer" class="dialog-footer">
@@ -179,6 +184,10 @@
     data() {
       return {
         storeId: '',
+        //修改店面产品
+        updateStoreProduct: '',
+        //修改图片地址
+        updatePicUrl: '',
         isLoading: false,
         total: 0,
         imgUrl: '',
@@ -199,15 +208,7 @@
       handleCurrentChange(num) {
         this.initData(num)
       },
-      //图片转二进制
-      uploadImg(file) {
-        return new Promise(function (relove, reject) {
-          lrz(file)
-            .then(data => {
-              relove(data.base64.split(',')[1])
-            })
-        })
-      },
+      //图片上传OSS
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();
@@ -230,6 +231,7 @@
           }
         })
       },
+      //上传图片
       uploaNode() {
         setTimeout(() => {
           this.addOptions.fd_st_ImageURL = '';
@@ -269,6 +271,19 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
+//          "fd_sf_ID": "2",//店面编号
+//          "fd_sf_TypeID": "4",//分类编号
+          //"fd_sf_MansID": "32",//用餐人数编号
+//          "fd_sf_ProductName": "米兰主题派对火锅",//产品名称 like
+          //"fd_sf_Provice": "四川省",//省
+//          "fd_sf_City": "泸州市",//市
+          //"priceFrom": "21",//人均价格大于
+          //"priceTo":"50",//人均价格小于
+          //"fd_sf_Phone": "1",//联系电话
+          //"fd_sf_TradeID": "1",//供应商编码
+//          "page": "1",
+//          "rows":"5",
+
         };
         this.$store.dispatch('initFoodReviewStoreInformation', selectStoreFrontInfo)
           .then(() => {
@@ -298,7 +313,6 @@
             })
           })
       },
-
       //大图
       bigImage(urlData) {
         this.$store.commit('setTranstionFalse');
@@ -362,6 +376,8 @@
       },
       //修改
       update(rowData) {
+        console.log(rowData)
+        this.updatePicUrl=rowData.fd_st_ImageURL;
         this.uploaNode();
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
