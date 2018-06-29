@@ -127,7 +127,7 @@
       <el-dialog title="修改首页展示图片" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="图片编号:" :label-width="formLabelWidth">
-            <el-input v-model="updateObj.fd_st_ID" :disabled="isDisabled"></el-input>
+            <el-input v-model="updateObj.data.fd_st_ID" :disabled="isDisabled"></el-input>
           </el-form-item>
           <el-form-item label="选择店面:" :label-width="formLabelWidth">
             <el-select v-model="storeId" placeholder="请选择" @change="changeStore">
@@ -139,7 +139,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="选择店面产品:" :label-width="formLabelWidth">
+          <!--v-show="isShow"-->
+          <el-form-item label="选择店面产品:" :label-width="formLabelWidth" >
             <el-select v-model="updateStoreProduct" placeholder="请选择">
               <el-option
                 v-for="item in storeProductDataList"
@@ -184,6 +185,8 @@
     data() {
       return {
         storeId: '',
+/*        //默认店面产品为不展示
+        isShow: false,*/
         //修改店面产品
         updateStoreProduct: '',
         //修改图片地址
@@ -199,7 +202,18 @@
         },
         formLabelWidth: '120px',
         updateDialog: false,
-        updateObj: {},
+        updateObj: {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "data": {
+            "fd_st_ID": "",//展示大图编码
+            "fd_st_ProductID": "",//店面产品编码
+            "fd_st_ImageURL": "",//图片地址
+          }
+        },
         isDisabled: true,
       }
     },
@@ -260,8 +274,11 @@
         }, 30)
       },
       //选择店面
-      changeStore(id) {
-        this.initStoreProductData(id)
+      changeStore() {
+        this.initStoreProductData(this.storeId)
+/*        if(this.storeId){
+          this.isShow=true;
+        };*/
       },
       //初始化店面信息
       initStoreData() {
@@ -296,6 +313,7 @@
       },
       //初始化店面产品
       initStoreProductData(id) {
+        console.log(id)
         let selectStoreFrontProductInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -377,19 +395,23 @@
       //修改
       update(rowData) {
         console.log(rowData)
+        this.updateObj.data.fd_st_ProductID=rowData.fd_sf_ID;
+        this.updateObj.data.fd_st_ImageURL=rowData.fd_st_ImageURL;
+        this.storeId=rowData.fd_sf_ID;
+        this.updateStoreProduct=rowData.fd_st_ProductID;
+        this.changeStore();
         this.updatePicUrl=rowData.fd_st_ImageURL;
-        this.uploaNode();
+//        this.uploaNode();
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
-        this.updateObj = rowData;
-        this.updateObj.fd_st_ProductID = '';
       },
       //修改提交
       updateSubmit() {
-        if (this.addOptions.fd_st_ImageURL) {
+        console.log(this.updateObj)
+//        this.updateObj.data.fd_st_ID=rowData.fd_st_ID;
+/*        if (this.addOptions.fd_st_ImageURL) {
           this.updateObj.fd_st_ImageURL = this.addOptions.fd_st_ImageURL
-        }
-        ;
+        };
         let updateShowTopInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -410,7 +432,7 @@
               message: err,
               type: 'error'
             })
-          })
+          })*/
         this.updateDialog = false;
       },
       //删除
