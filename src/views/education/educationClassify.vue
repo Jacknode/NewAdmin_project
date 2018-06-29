@@ -98,7 +98,13 @@
       <el-dialog title="修改教育分类" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="教育父编码:" :label-width="formLabelWidth">
-            <el-input v-model='updateObj.ed_te_ParentID' placeholder="请输入内容" :disabled="true"></el-input>
+            <!--<el-input v-model='updateObj.ed_te_ParentID' placeholder="请输入内容" :disabled="true"></el-input>-->
+            <el-cascader
+              v-model="arr2"
+              :options="selectTypeAllInfo"
+              change-on-select
+              filterable
+            ></el-cascader>
           </el-form-item>
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
             <el-input v-model='updateObj.ed_te_Name' placeholder="请输入内容"></el-input>
@@ -130,6 +136,7 @@
     data(){
       return {
         arr1: [],
+        arr2:[],
         total: 0,
         arr: [],
         siteNum: '',
@@ -280,6 +287,7 @@
       },
       //修改提交
       updateSubmit() {
+        this.updateObj.ed_te_ParentID = this.arr2[this.arr2.length-1];
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
