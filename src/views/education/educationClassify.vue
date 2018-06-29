@@ -56,16 +56,22 @@
       </el-table>
       <!--添加教育分类-->
       <el-dialog title="添加教育分类" :visible.sync="addDialog">
-        <el-form :model="addOptions" >
+        <el-form :model="addOptions">
           <el-form-item label="教育父编码: " :label-width="formLabelWidth">
-            <el-select v-model="addOptions.data.ed_te_ParentID" placeholder="请选择"   >
-            <el-option
-            v-for="item in selectTypeAllInfo"
-            :key="item.ed_te_ID"
-            :label="item.ed_te_Name"
-            :value="item.ed_te_ID">
-            </el-option>
-            </el-select>
+            <el-cascader
+              v-model="arr1"
+              :options="selectTypeAllInfo"
+              change-on-select
+              filterable
+            ></el-cascader>
+            <!--<el-select v-model="addOptions.data.ed_te_ParentID" placeholder="请选择"   >-->
+            <!--<el-option-->
+            <!--v-for="item in selectTypeAllInfo"-->
+            <!--:key="item.ed_te_ID"-->
+            <!--:label="item.ed_te_Name"-->
+            <!--:value="item.ed_te_ID">-->
+            <!--</el-option>-->
+            <!--</el-select>-->
           </el-form-item>
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
             <el-input v-model='addOptions.data.ed_te_Name' placeholder="请输入内容"></el-input>
@@ -78,7 +84,7 @@
       </el-dialog>
       <!--添加父级-->
       <el-dialog title="添加教育分类" :visible.sync="addDialogParent">
-        <el-form :model="addOptionsParent" >
+        <el-form :model="addOptionsParent">
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
             <el-input v-model='addOptionsParent.data.ed_te_Name' placeholder="请输入内容"></el-input>
           </el-form-item>
@@ -92,7 +98,13 @@
       <el-dialog title="修改教育分类" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="教育父编码:" :label-width="formLabelWidth">
-            <el-input v-model='updateObj.ed_te_ParentID' placeholder="请输入内容" :disabled="true"></el-input>
+            <!--<el-input v-model='updateObj.ed_te_ParentID' placeholder="请输入内容" :disabled="true"></el-input>-->
+            <el-cascader
+              v-model="arr2"
+              :options="selectTypeAllInfo"
+              change-on-select
+              filterable
+            ></el-cascader>
           </el-form-item>
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
             <el-input v-model='updateObj.ed_te_Name' placeholder="请输入内容"></el-input>
@@ -123,18 +135,20 @@
     name: '',
     data(){
       return {
-        total:0,
-        arr:[],
-        siteNum:'',
-        value:'',
-        addDialogParent:false,
+        arr1: [],
+        arr2:[],
+        total: 0,
+        arr: [],
+        siteNum: '',
+        value: '',
+        addDialogParent: false,
         isLoading: false,
-        addDialog:false,
-        updateDialog:false,
-        selectedOptions:[],
-        updateObj:{},
-        formLabelWidth:'120px',
-        addOptionsParent:{
+        addDialog: false,
+        updateDialog: false,
+        selectedOptions: [],
+        updateObj: {},
+        formLabelWidth: '120px',
+        addOptionsParent: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -142,11 +156,11 @@
           "pcName": "",
           "data": {
             "ed_te_Name": "",//分类名称
-            "ed_te_ParentID":0,//分类编号父编号
-            'ed_te_ParentName':null
+            "ed_te_ParentID": 0,//分类编号父编号
+            'ed_te_ParentName': null
           }
         },
-        addOptions:{
+        addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -154,10 +168,9 @@
           "pcName": "",
           "data": {
             "ed_te_Name": "",//分类名称
-            "ed_te_ParentID":'',//分类编号父编号
-            'ed_te_ParentName':''
+            "ed_te_ParentID": '',//分类编号父编号
+            'ed_te_ParentName': ''
           }
-
         },
       }
     },
@@ -180,101 +193,101 @@
           "operateUserID": "",//操作员编码
           "operateUserName": "",//操作员名称
           "pcName": "",        //机器码
-          "ed_vt_ID":''
-          , //视频类型
+          "ed_vt_ID": '0'
         };
-        return this.$store.dispatch('initSelectTypeAllInfo',options1)
+        return this.$store.dispatch('initSelectTypeAllInfo', options1)
 
-        this.initData(this. siteNum)
+//        this.initData(this. siteNum)
       },
 
       //分页
       handleCurrentChange(num) {
-        this.initData(this. siteNum,num)
+        this.initData(this.siteNum, num)
       },
       //初始化数据
-      initData(id,page) {
+      initData(id, page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "ed_te_ID":id,//分类编号
+          "ed_te_ID": id,//分类编号
           "ed_te_Name": "",//分类名称
           "ed_te_TypeImage": "",//分类图片
           "ed_te_ParentID": "",//分类编号父编号
-          "page":page?page: 1,//页码
+          "page": page ? page : 1,//页码
           "rows": 5//条数
         };
         this.$store.dispatch("initAdminEducationClassify", options)
-          .then((total) => {
-            this.total = total;
-          }, (err) => {
-            this.$notify({
-              message: err,
-              type: "error"
-            });
+        .then((total) => {
+          this.total = total;
+        }, (err) => {
+          this.$notify({
+            message: err,
+            type: "error"
           });
+        });
       },
 
       //教育分类查询
       search(){
-        this.initData( this. siteNum)
+        this.initData(this.siteNum)
       },
       //添加
       Add(){
-        this.addDialog=true
+        this.addDialog = true
       },
       //添加提交
       addSubmit() {
+        this.addOptions.data.ed_te_ParentID = this.arr1[this.arr1.length-1];
         this.$store.dispatch('addAdminEducationClassify', this.addOptions)
-          .then((suc) => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this. siteNum)//调用初始化
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
+        .then((suc) => {
+          this.$notify({
+            message: suc,
+            type: 'success'
           });
+          this.initData(this.siteNum)//调用初始化
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
         this.addDialog = false;
       },
 
-     // 添加父级（第一级）
+      // 添加父级（第一级）
       AddParent(){
-        this.addDialogParent=true
-
-
+        this.addDialogParent = true
       },
       //添加父编码提交
-   addParentSubmit(){
+      addParentSubmit(){
+
         this.$store.dispatch('addAdminEducationClassify', this.addOptionsParent)
-          .then((suc) => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this. siteNum)//调用初始化
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
+        .then((suc) => {
+          this.$notify({
+            message: suc,
+            type: 'success'
           });
+          this.initData(this.siteNum)//调用初始化
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
         this.addDialogParent = false;
-   },
+      },
       //修改
       update(obj){
-        this.updateObj=obj
-        this.updateDialog=true
+        this.updateObj = obj
+        this.updateDialog = true
         //  this.$store.commit('setTranstionFalse');
       },
       //修改提交
       updateSubmit() {
+        this.updateObj.ed_te_ParentID = this.arr2[this.arr2.length-1];
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -283,19 +296,19 @@
           "pcName": "",
           "data": this.updateObj,
         };
-        this.$store.dispatch('updateAdminEducationClassify',updateOptions )
-          .then((suc) => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData( this. siteNum)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
+        this.$store.dispatch('updateAdminEducationClassify', updateOptions)
+        .then((suc) => {
+          this.$notify({
+            message: suc,
+            type: 'success'
           });
+          this.initData(this.siteNum)
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
         this.updateDialog = false;
       },
       //删除
@@ -307,22 +320,22 @@
           "operateUserName": "",
           "pcName": "",
           "data": {
-            "ed_te_ID":id,//分类编号
+            "ed_te_ID": id,//分类编号
           }
         }
-        this.$store.dispatch('DeleteAdminEducationClassify',deleteOptions)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData( this. siteNum)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
+        this.$store.dispatch('DeleteAdminEducationClassify', deleteOptions)
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
           });
+          this.initData(this.siteNum)
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
       },
     },
   }
