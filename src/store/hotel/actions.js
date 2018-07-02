@@ -71,7 +71,7 @@ export default {
           if (Number(data.resultcode) == 200) {
             commit('initHotelIntroduceType', data.data);
             relove(data.resultcontent);
-          } else {
+          } else{
             reject(data.resultcontent)
           }
         })
@@ -103,6 +103,7 @@ export default {
         }
       }).then(data=>{
         var data = data.data;
+
         if(Number(data.resultcode)==200){
           commit('initHotelRecommendType',data.data.reverse())
           relove(Number(data.totalrows))

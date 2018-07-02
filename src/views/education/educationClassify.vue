@@ -55,7 +55,7 @@
       <!--添加教育分类-->
       <el-dialog title="添加教育分类" :visible.sync="addDialog">
         <el-form :model="addOptions">
-          <el-form-item label="教育父编码: " :label-width="formLabelWidth">
+          <el-form-item label="教育父编码: " :label-width="formLabelWidth" >
             <el-cascader
               v-model="arr1"
               :options="selectTypeAllInfo"
@@ -87,7 +87,7 @@
       <!--修改教育分类-->
       <el-dialog title="修改教育分类" :visible.sync="updateDialog">
         <el-form :model="updateObj">
-          <el-form-item label="教育父编码:" :label-width="formLabelWidth">
+          <el-form-item label="教育父编码:" :label-width="formLabelWidth" >
             <el-cascader
               v-model="arr2"
               :options="selectTypeAllInfo"
@@ -146,7 +146,7 @@
           "data": {
             "ed_te_Name": "",//分类名称
             "ed_te_ParentID": 0,//分类编号父编号
-            'ed_te_ParentName': null
+            'ed_te_ParentName': ''
           }
         },
         addOptions: {
@@ -233,6 +233,7 @@
         this.$store.dispatch('addAdminEducationClassify', this.addOptions)
         .then((suc) => {
           this.$notify({
+
             message: suc,
             type: 'success'
           });

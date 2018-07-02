@@ -80,24 +80,14 @@
       <el-dialog title="添加推荐类型" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="推荐父类型选择:" :label-width="formLabelWidth">
-
-
                 <el-cascader
                   :options="hotelIntroduceTypeList"
                   :props="props"
                   v-model="introduceTypeList"
                   :show-all-levels="false"
-
                 ></el-cascader>
-
-              <!--<el-option-->
-                <!--v-for="item in hotelRecommendTypeAllList"-->
-                <!--:key="item.ht_it_ID"-->
-                <!--:label="item.ht_it_Name"-->
-                <!--:value="item.ht_it_ID">-->
-              <!--</el-option>-->
-
           </el-form-item>
+
           <el-form-item label="推荐类型名称:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.data.ht_it_Name" placeholder="请输入图片类型名称"></el-input>
           </el-form-item>
@@ -120,15 +110,23 @@
       <!--修改推荐类型-->
       <el-dialog title="修改推荐类型" :visible.sync="updateDialog">
         <el-form :model="updateHotelRecommendTypeObj">
-          <el-form-item label="推荐父类型选择:" :label-width="formLabelWidth">
-            <el-select v-model="updateHotelRecommendTypeObj.ht_it_ParentID" placeholder="请选择">
-              <el-option
-                v-for="item in hotelRecommendTypeAllList"
-                :key="item.ht_it_ID"
-                :label="item.ht_it_Name"
-                :value="item.ht_it_ID">
-              </el-option>
-            </el-select>
+          <!--<el-form-item label="推荐父类型选择:" :label-width="formLabelWidth">-->
+            <!--<el-select v-model="updateHotelRecommendTypeObj.ht_it_ParentID" placeholder="请选择">-->
+              <!--<el-option-->
+                <!--v-for="item in hotelRecommendTypeAllList"-->
+                <!--:key="item.ht_it_ID"-->
+                <!--:label="item.ht_it_Name"-->
+                <!--:value="item.ht_it_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+          <el-form-item label="推荐父类型选择:" :label-width="formLabelWidth" >
+            <el-cascader
+              :options="hotelIntroduceTypeList"
+              :props="props"
+              v-model="introduceTypeList1"
+              :show-all-levels="false"
+            ></el-cascader>
           </el-form-item>
           <el-form-item label="推荐类型名称:" :label-width="formLabelWidth">
             <el-input v-model="updateHotelRecommendTypeObj.ht_it_Name" placeholder="请输入图片类型名称"></el-input>
@@ -160,6 +158,7 @@
       return {
         fTypeID:'',
         introduceTypeList:[],
+        introduceTypeList1:[],
         props:{
           label:'ht_it_Name',
           value: 'ht_it_ID',
@@ -176,6 +175,7 @@
             "ht_it_ParentID": "",//推荐类型父ID
             "ht_it_Describe": "",//描述
             "ht_it_ImagePath": "",//
+            'ht_it_ParentName':''
           }
         },
         ImageURL:[],
@@ -341,12 +341,14 @@
       },
       //添加
       Add(){
+
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
         this.uploaNode()
       },
       //添加提交
       addSubmit(){
+        this.addOptions.data.ht_it_ParentID = this.introduceTypeList[this.introduceTypeList.length-1];
         this.addOptions.data.ht_it_ImagePath = this.ImageURL.join(',')
         this.$store.dispatch('AddHotelRecommendType',this.addOptions)
           .then((suc)=>{
@@ -366,12 +368,14 @@
       //修改
       Update(id){
         this.updateDialog = true;
+
         this.$store.commit('setTranstionFalse');
         this.$store.commit('initUpdateHotelRecommendType',id);
         this.uploaNode()
       },
       //修改提交
       updateSubmit(){
+        this.updateHotelRecommendTypeObj.ht_it_ParentID = this.introduceTypeList1[this.introduceTypeList1.length-1];
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
