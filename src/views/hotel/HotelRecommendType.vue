@@ -80,14 +80,23 @@
       <el-dialog title="添加推荐类型" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="推荐父类型选择:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.data.ht_it_ParentID" placeholder="请选择">
-              <el-option
-                v-for="item in hotelRecommendTypeAllList"
-                :key="item.ht_it_ID"
-                :label="item.ht_it_Name"
-                :value="item.ht_it_ID">
-              </el-option>
-            </el-select>
+
+
+                <el-cascader
+                  :options="hotelIntroduceTypeList"
+                  :props="props"
+                  v-model="introduceTypeList"
+                  :show-all-levels="false"
+
+                ></el-cascader>
+
+              <!--<el-option-->
+                <!--v-for="item in hotelRecommendTypeAllList"-->
+                <!--:key="item.ht_it_ID"-->
+                <!--:label="item.ht_it_Name"-->
+                <!--:value="item.ht_it_ID">-->
+              <!--</el-option>-->
+
           </el-form-item>
           <el-form-item label="推荐类型名称:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.data.ht_it_Name" placeholder="请输入图片类型名称"></el-input>
@@ -150,6 +159,12 @@
     data(){
       return {
         fTypeID:'',
+        introduceTypeList:[],
+        props:{
+          label:'ht_it_Name',
+          value: 'ht_it_ID',
+          children: 'SubList'
+        },
         addOptions:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -174,14 +189,28 @@
       }
     },
     computed: mapGetters([
+      'hotelIntroduceTypeList',
       'hotelRecommendTypeAllList',
       'hotelRecommendTypeList',
       'updateHotelRecommendTypeObj'
     ]),
     created(){
+      this.initHotelIntroduceType()
       this.initData(this.recommendName,1)
     },
     methods: {
+      initHotelIntroduceType(){
+        let options1 = {
+          "loginUserID": "huileyou",  //惠乐游用户ID
+          "loginUserPass": "123",  //惠乐游用户密码
+          "operateUserID": "",//操作员编码
+          "operateUserName": "",//操作员名称
+          "pcName": "",        //机器码
+          "ht_it_ID": ''
+        };
+        return this.$store.dispatch('initHotelIntroduceType', options1)
+      },
+
       //分页
       handleCurrentChange(num){
         this.initData(this.recommendName,num);

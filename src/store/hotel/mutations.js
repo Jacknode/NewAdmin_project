@@ -104,6 +104,9 @@ export default {
       return false;
     })[0]
   },
+  initHotelIntroduceType(state, data){
+    state.hotelIntroduceTypeList = data;
+  },
   initHotelRoomFacilities(state,data){
     state.hotelRoomFacilitiesList = data;
   },

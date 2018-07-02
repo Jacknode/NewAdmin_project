@@ -58,6 +58,25 @@ export default {
       })
     })
   },
+  //查询惠乐游酒店推荐类型
+  initHotelIntroduceType({commit},data){
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/IntroduceType/GetAll', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          var data = data.data;
+          if (Number(data.resultcode) == 200) {
+            commit('initHotelIntroduceType', data.data);
+            relove(data.resultcontent);
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
   //删除酒店图片类型
   DeleteHotelImageType(store,data){
     return new Promise((relove, reject) => {

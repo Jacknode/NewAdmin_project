@@ -19,9 +19,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="adminEducationAuditList"
         highlight-current-row
@@ -102,7 +100,6 @@
               type="primary"
               @click="approval(scope.row.ed_ve_ID)">审核
             </el-button>
-            <!--v-show="scope.row.ts_tg_IsPass!=1"-->
           </template>
         </el-table-column>
       </el-table>

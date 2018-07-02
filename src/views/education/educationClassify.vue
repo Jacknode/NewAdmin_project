@@ -2,9 +2,7 @@
   <div>
     <div id="wrap" class="clearfix">
       <h1 class="userClass">教育分类</h1>
-
       <!--查询栏-->
-
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -64,14 +62,6 @@
               change-on-select
               filterable
             ></el-cascader>
-            <!--<el-select v-model="addOptions.data.ed_te_ParentID" placeholder="请选择"   >-->
-            <!--<el-option-->
-            <!--v-for="item in selectTypeAllInfo"-->
-            <!--:key="item.ed_te_ID"-->
-            <!--:label="item.ed_te_Name"-->
-            <!--:value="item.ed_te_ID">-->
-            <!--</el-option>-->
-            <!--</el-select>-->
           </el-form-item>
           <el-form-item label="教育分类: " :label-width="formLabelWidth">
             <el-input v-model='addOptions.data.ed_te_Name' placeholder="请输入内容"></el-input>
@@ -98,7 +88,6 @@
       <el-dialog title="修改教育分类" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="教育父编码:" :label-width="formLabelWidth">
-            <!--<el-input v-model='updateObj.ed_te_ParentID' placeholder="请输入内容" :disabled="true"></el-input>-->
             <el-cascader
               v-model="arr2"
               :options="selectTypeAllInfo"

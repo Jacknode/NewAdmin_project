@@ -25,4 +25,5 @@ export default {
   hotelRoomFacilitiesList:[],//房间设施
   hotelRoomFacilitiesTypeAllList:[],//酒店房间设施类型所有
   updateHotelRoomFacilitiesObj:{},//修改酒店房间设施obj
+  hotelIntroduceTypeList:[],//惠乐游酒店推荐类型
 }

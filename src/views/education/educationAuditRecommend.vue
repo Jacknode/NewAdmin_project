@@ -2,9 +2,7 @@
   <div>
     <div id="wrap" class="clearfix">
       <h1 class="userClass">教育审核视频推荐</h1>
-
       <!--查询栏-->
-
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -18,9 +16,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="adminEducationAuditRecommend"
         style="width: 100%">
@@ -79,9 +75,7 @@
           </template>
         </el-table-column>
       </el-table>
-
       <!--分页-->
-
       <div class="block" style="float: right;">
         <el-pagination
           @current-change="handleCurrentChange"
@@ -92,9 +86,7 @@
         >
         </el-pagination>
       </div>
-
       <!--审核状态-->
-
       <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
         <el-form :model="approvalOptions">
           <el-form-item label="审核状态:" :label-width="formLabelWidth">
@@ -194,9 +186,7 @@
         this.initData(this.siteNum)
       },
       approval(id){
-
         let admin = JSON.parse(sessionStorage.getItem('admin'));
-
         this.approvalStatusDialog=true
         this.approvalOptions.ed_ve_ID=id;
         this.approvalOptions.ed_vo_PasserID=admin.sm_ui_ID

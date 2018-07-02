@@ -25,4 +25,5 @@ export default {
   hotelRoomFacilitiesList: state => state.hotelRoomFacilitiesList,
   hotelRoomFacilitiesTypeAllList: state => state.hotelRoomFacilitiesTypeAllList,
   updateHotelRoomFacilitiesObj: state => state.updateHotelRoomFacilitiesObj,
+  hotelIntroduceTypeList: state => state.hotelIntroduceTypeList,
 }
