@@ -57,10 +57,14 @@ export default {
 
 
 
-    education:'教育后台管理',
-    educationClassify:'教育分类',
-    educationAuditVideo:'教育审核视频',
+    education:'教育管理',
     educationAuditRecommend:'教育审核视频推荐',
+
+    educationVideoTypeManagement:'教育视频类型管理',
+    educationVideoManagement:'教育视频管理',
+    educationOrderManagement:'教育订单管理',
+    educationUserInfoManagement:'教育用户信息管理',
+
 
 
 

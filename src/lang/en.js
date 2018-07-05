@@ -56,9 +56,12 @@ export default {
 
 
     education:'Education',
-    educationClassify:'EducationClassify',
-    educationAuditVideo:'EducationAuditVideo',
+
     educationAuditRecommend:'EducationAuditRecommend',
+    educationVideoTypeManagement:'educationVideoTypeManagement',
+    educationVideoManagement:'educationVideoManagement',
+    educationOrderManagement:'educationOrderManagement',
+    educationUserInfoManagement:'educationUserInfoManagement',
 
 
 

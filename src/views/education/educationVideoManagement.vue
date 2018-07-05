@@ -1,11 +1,11 @@
 <template>
   <div>
     <section id="wrap">
-      <h1 class="userClass">教育视频审核</h1>
+      <h1 class="userClass">教育视频管理</h1>
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
-            <span>审核视频筛选:</span>
+            <span>视频筛选:</span>
           </el-form-item>
           <el-form-item>
             <el-input
@@ -71,14 +71,24 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="审核表编号"
+          label="视频编号"
           align="center"
           prop="ed_ve_ID">
         </el-table-column>
         <el-table-column
-          label="视频类型"
+          label="视频作者"
           align="center"
-          prop="ed_ve_Type">
+          prop="ed_ve_Content.ed_vo_AuthorName">
+        </el-table-column>
+        <el-table-column
+          label="视频名称"
+          align="center"
+          prop="ed_ve_Content.ed_vo_Title">
+        </el-table-column>
+        <el-table-column
+          align="center"
+          label="视频类型名称"
+          prop="ed_ve_TypeName">
         </el-table-column>
         <el-table-column
           label="审核创建时间"
@@ -87,11 +97,6 @@
           <template slot-scope="props">
             <span>{{props.row.ta_tg_CreateDateTime | getUseTime}}</span>
           </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="视频类型名称"
-          prop="ed_ve_TypeName">
         </el-table-column>
         <el-table-column label="操作" align="center" style="width: 1000px">
           <template slot-scope="scope">
@@ -204,6 +209,7 @@
       },
       //教育视频审核查询
       search() {
+        console.log(this.adminEducationAuditList)
         this.initData(this.input)
       },
       approval(id){
@@ -230,7 +236,7 @@
             });
           });
         this.approvalStatusDialog=false
-        },
+      },
     }
   }
 </script>

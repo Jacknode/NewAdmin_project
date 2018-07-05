@@ -23,4 +23,7 @@ export default {
   adminIntegralTypeList:[],//积分类型
   updateAdminIntegralTypeObj:{},//修改积分类型obj
   uploadAppList:[],//上传app
+
+
+
 };

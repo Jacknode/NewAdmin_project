@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-      <h1 class="userClass">教育分类</h1>
+      <h1 class="userClass">教育视频类型</h1>
       <!--查询栏-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
@@ -20,21 +20,21 @@
       </el-col>
       <!--数据展示-->
       <el-table
-        :data="adminEducationClassify"
+        :data="educationTypeManagement"
         v-loading="isLoading"
         style="width: 100%">
         <el-table-column
-          label="分类编号"
+          label="视频类型编号"
           align="center"
           prop="ed_te_ID">
         </el-table-column>
         <el-table-column
-          label="分类名称"
+          label="视频类型名称"
           align="center"
           prop="ed_te_Name">
         </el-table-column>
         <el-table-column
-          label="分类父编码名称"
+          label="视频类型父编码名称"
           align="center"
           prop="ed_te_ParentName">
         </el-table-column>
@@ -42,6 +42,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
+              type="primary"
               @click="update(scope.row)">修改
             </el-button>
             <el-button
@@ -52,10 +53,10 @@
           </template>
         </el-table-column>
       </el-table>
-      <!--添加教育分类-->
-      <el-dialog title="添加教育分类" :visible.sync="addDialog">
+      <!--添加教育类型-->
+      <el-dialog title="添加视频类型" :visible.sync="addDialog">
         <el-form :model="addOptions">
-          <el-form-item label="教育父编码: " :label-width="formLabelWidth" >
+          <el-form-item label="视频类型父编码: " :label-width="formLabelWidth" >
             <el-cascader
               v-model="arr1"
               :options="selectTypeAllInfo"
@@ -63,9 +64,10 @@
               filterable
             ></el-cascader>
           </el-form-item>
-          <el-form-item label="教育分类: " :label-width="formLabelWidth">
+          <el-form-item label="视频类型: " :label-width="formLabelWidth">
             <el-input v-model='addOptions.data.ed_te_Name' placeholder="请输入内容"></el-input>
           </el-form-item>
+
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addDialog = false">取 消</el-button>
@@ -73,9 +75,9 @@
         </div>
       </el-dialog>
       <!--添加父级-->
-      <el-dialog title="添加教育分类" :visible.sync="addDialogParent">
+      <el-dialog title="添加视频类型" :visible.sync="addDialogParent">
         <el-form :model="addOptionsParent">
-          <el-form-item label="教育分类: " :label-width="formLabelWidth">
+          <el-form-item label="视频类型: " :label-width="formLabelWidth">
             <el-input v-model='addOptionsParent.data.ed_te_Name' placeholder="请输入内容"></el-input>
           </el-form-item>
         </el-form>
@@ -120,24 +122,22 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
   export default{
     name: '',
     data(){
       return {
-        arr1: [],
+        total:0,
+        arr1:[],
         arr2:[],
-        total: 0,
-        arr: [],
-        siteNum: '',
-        value: '',
-        addDialogParent: false,
-        isLoading: false,
-        addDialog: false,
-        updateDialog: false,
-        selectedOptions: [],
-        updateObj: {},
+        siteNum:'',
+        updateObj:{},
+        isLoading:false,
+        addDialog:false,
+        updateDialog:false,
+        addDialogParent:false,
         formLabelWidth: '120px',
-        addOptionsParent: {
+        addOptionsParent:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -164,17 +164,20 @@
       }
     },
     computed: mapGetters([
-      'adminEducationClassify',
-      'adminEducationClassifyList',
+     'educationTypeManagement',
       'selectTypeAllInfo'
 
     ]),
     created(){
-      this.initData(this.input)
-      this.initSelectTypeAllInfo()
+      this.initData(this.siteNum),
+        this.initSelectTypeAllInfo()
     },
     methods: {
-
+      //分页
+      handleCurrentChange(num) {
+        this.initData(this.siteNum, num)
+      },
+      //查询所有类型
       initSelectTypeAllInfo(){
         let options1 = {
           "loginUserID": "huileyou",  //惠乐游用户ID
@@ -185,14 +188,9 @@
           "ed_vt_ID": '0'
         };
         return this.$store.dispatch('initSelectTypeAllInfo', options1)
-
 //        this.initData(this. siteNum)
       },
 
-      //分页
-      handleCurrentChange(num) {
-        this.initData(this.siteNum, num)
-      },
       //初始化数据
       initData(id, page) {
         let options = {
@@ -203,47 +201,43 @@
           "pcName": "",
           "ed_te_ID": id,//分类编号
           "ed_te_Name": "",//分类名称
-          "ed_te_TypeImage": "",//分类图片
           "ed_te_ParentID": "",//分类编号父编号
           "page": page ? page : 1,//页码
           "rows": 5//条数
         };
-        this.$store.dispatch("initAdminEducationClassify", options)
-        .then((total) => {
-          this.total = total;
-        }, (err) => {
-          this.$notify({
-            message: err,
-            type: "error"
+        this.$store.dispatch("initEducationTypeManagement", options)
+          .then((total) => {
+            this.total = total;
+          }, (err) => {
+            this.$notify({
+              message: err,
+              type: "error"
+            });
           });
-        });
       },
-
-      //教育分类查询
-      search(){
-        this.initData(this.siteNum)
-      },
-      //添加
+      //新增
       Add(){
-        this.addDialog = true
+        this.initData(this.siteNum)
+        this.addDialog=true
+
+
       },
       //添加提交
       addSubmit() {
         this.addOptions.data.ed_te_ParentID = this.arr1[this.arr1.length-1];
-        this.$store.dispatch('addAdminEducationClassify', this.addOptions)
-        .then((suc) => {
-          this.$notify({
-
-            message: suc,
-            type: 'success'
+        this.$store.dispatch('addEducationTypeManagement', this.addOptions)
+          .then((suc) => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(this.siteNum)//调用初始化
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.siteNum)//调用初始化
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.addDialog = false;
       },
 
@@ -254,19 +248,19 @@
       //添加父编码提交
       addParentSubmit(){
 
-        this.$store.dispatch('addAdminEducationClassify', this.addOptionsParent)
-        .then((suc) => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+        this.$store.dispatch('addEducationTypeManagement', this.addOptionsParent)
+          .then((suc) => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(this.siteNum)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.siteNum)//调用初始化
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.addDialogParent = false;
       },
       //修改
@@ -286,20 +280,25 @@
           "pcName": "",
           "data": this.updateObj,
         };
-        this.$store.dispatch('updateAdminEducationClassify', updateOptions)
-        .then((suc) => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+        this.$store.dispatch('updateEducationTypeManagement', updateOptions)
+          .then((suc) => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(this.siteNum)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.siteNum)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateDialog = false;
+      },
+      //教育分类查询
+      search(){
+
+        this.initData(this.siteNum)
       },
       //删除
       Delete(id){
@@ -313,21 +312,21 @@
             "ed_te_ID": id,//分类编号
           }
         }
-        this.$store.dispatch('DeleteAdminEducationClassify', deleteOptions)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+        this.$store.dispatch('DeleteEducationTypeManagement', deleteOptions)
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(this.siteNum)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.siteNum)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       },
-    },
+    }
   }
 </script>
 <style scoped>

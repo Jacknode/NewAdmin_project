@@ -374,17 +374,32 @@ export const constantRouterMap = [
     alwaysShow: true,
     meta: {title: 'education', icon: 'edit'},
     children: [
+
       {
-        path: 'educationClassify',
-        name: 'EducationClassify',
-        component: () => import('@/views/education/educationClassify'),
-        meta: {title: 'educationClassify'}
-      }, {
-        path: 'educationAuditVideo',
-        name: 'EducationAuditVideo',
-        component: () => import('@/views/education/educationAuditVideo'),
-        meta: {title: 'educationAuditVideo'}
-      },{
+        path: 'educationVideoTypeManagement',
+        name: 'EducationVideoTypeManagement',
+        component: () => import('@/views/education/educationVideoTypeManagement'),
+        meta: {title: 'educationVideoTypeManagement'}
+      },
+      {
+        path: 'educationVideoManagement',
+        name: 'EducationVideoManagement',
+        component: () => import('@/views/education/educationVideoManagement'),
+        meta: {title: 'educationVideoManagement'}
+      },
+      {
+        path: 'educationOrderManagement',
+        name: 'EducationOrderManagement',
+        component: () => import('@/views/education/educationOrderManagement'),
+        meta: {title: 'educationOrderManagement'}
+      },
+      {
+        path: 'educationUserInfoManagement',
+        name: 'EducationUserInfoManagement',
+        component: () => import('@/views/education/educationUserInfoManagement'),
+        meta: {title: 'educationUserInfoManagement'}
+      },
+     {
         path: 'educationAuditRecommend',
         name: 'EducationAuditRecommend',
         component: () => import('@/views/education/educationAuditRecommend'),

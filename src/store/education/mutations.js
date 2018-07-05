@@ -3,9 +3,10 @@
  */
 export default  {
 
-  initAdminEducationClassify(state, data) {
-    state.adminEducationClassify = data;
+  initEducationTypeManagement(state, data) {
+    state.educationTypeManagement = data;
   },
+
   initSelectTypeAllInfo(state, data) {
     state.selectTypeAllInfo = data;
   },
@@ -16,6 +17,11 @@ export default  {
   initAdminEducationAuditRecommend(state, data) {
     state.adminEducationAuditRecommend = data;
   },
+
+  initEducationOrderManagement(state, data) {
+    state.educationOrderManagement = data;
+  },
+
 }
 
 
