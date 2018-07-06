@@ -418,3 +418,14 @@ export const getVariableSpeed = val=>{
       return '未知';
   }
 };
+//冻结状态
+export const getFrozenStatus = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '未冻结';
+    case 1:
+      return '已冻结';
+
+  }
+};
+

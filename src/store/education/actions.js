@@ -193,7 +193,6 @@ export default {
       })
         .then(data => {
           var data = data.data;
-
           if (Number(data.resultcode) == 200) {
             for (let i = 0; i < data.data.length; i++) {
               if (data.data[i].ed_oi_PayState == 0) {
@@ -201,7 +200,14 @@ export default {
               }
               if (data.data[i].ed_oi_PayState == 1) {
                 data.data[i].ed_oi_PayState = '已支付'
-              }
+             }
+
+              // if (data.data[i].ed_oi_status == 0) {
+              //   data.data[i].ed_oi_status = '未冻结'
+              // }
+              // if (data.data[i].ed_oi_status == 1) {
+              //   data.data[i].ed_oi_status = '已冻结'
+              // }
             };
             commit('initEducationOrderManagement',data.data.reverse());
             relove(Number(data.totalRows))
@@ -230,4 +236,24 @@ export default {
       })
     })
   },
+  /**
+   * 冻结订单
+   */
+  frozenEducationOrder(store, data) {
+  return new Promise((relove, reject) => {
+    axios.post(getNewStr + '/EdOrderInfo/Freeze', JSON.stringify(data), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then(data => {
+      var data = data.data;
+
+      if (Number(data.resultcode) == 200) {
+        relove(data.resultcontent)
+      } else {
+        reject(data.resultcontent)
+      }
+    })
+  })
+},
 }
