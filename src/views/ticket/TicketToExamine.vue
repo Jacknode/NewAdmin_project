@@ -26,6 +26,19 @@
           </el-form-item>
         </el-form>
       </el-col>
+      <!--<el-col :span="24" class="formSearch">-->
+      <!--<el-form :inline="true">-->
+      <!--<el-form-item>-->
+      <!--<span>审核状态筛选:</span>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item>-->
+      <!--<el-input type="text" v-model="toExamineID" auto-complete="off" placeholder="审核状态" size="small"></el-input>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item>-->
+      <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
+      <!--</el-form-item>-->
+      <!--</el-form>-->
+      <!--</el-col>-->
       <!--数据展示-->
       <el-table
         :data="scenicSpotList"
@@ -230,6 +243,7 @@
           "tm_ts_TradeInfoID": "",//供应商编码
           "tm_ts_IsDelete": 0,//必须传
           "tm_ts_IsPass": this.toExamineID ? this.toExamineID : '',//是否通过审核(0审核中1通过审核2未通过审核)
+
           "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
           "tm_ts_ThemeTypeID": "",//主题编码

@@ -140,6 +140,7 @@ export default {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
             relove(data.data);
+            console.log(data.data)
           } else {
             reject(data.resultcontent)
           }
