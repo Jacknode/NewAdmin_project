@@ -3,19 +3,29 @@
     <section id="wrap">
       <h1 class="userClass">审核景点</h1>
       <!--查询-->
-      <!--<el-col :span="24" class="formSearch">-->
-        <!--<el-form :inline="true">-->
-          <!--<el-form-item>-->
-            <!--<span>审核状态筛选:</span>-->
-          <!--</el-form-item>-->
-          <!--<el-form-item>-->
-            <!--<el-input type="text" v-model="toExamineID" auto-complete="off" placeholder="审核状态" size="small"></el-input>-->
-          <!--</el-form-item>-->
-          <!--<el-form-item>-->
-            <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
-          <!--</el-form-item>-->
-        <!--</el-form>-->
-      <!--</el-col>-->
+      <el-col :span="24" class="formSearch">
+        <el-form :inline="true">
+          <el-form-item>
+            <span>审核状态筛选:</span>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="toExamineID" placeholder="请选择审核状态" size="small">
+              <el-option
+                v-for="item in isPass"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="ticketName" placeholder="请输入景点名称" size="small"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="search" size="small">查询</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
       <!--数据展示-->
       <el-table
         :data="scenicSpotList"
@@ -155,7 +165,7 @@
 
       <div class="block" style="text-align: right">
         <el-pagination
-          :page-size="5"
+          :page-size="10"
           @current-change="handleCurrentChange"
           layout="prev, pager, next"
           :total="total">
@@ -174,7 +184,8 @@
     ]),
     data() {
       return {
-        toExamineID:'',
+        toExamineID: '',
+        ticketName: '',
         isLoading: false,
         isPass: [
           {
@@ -215,16 +226,19 @@
           "operateUserName": "",
           "pcName": "",
           "tm_ts_Code": "",    //景点编码
-          "tm_ts_Name": "",//景点名称
+          "tm_ts_Name": this.ticketName ? this.ticketName : '',//景点名称
           "tm_ts_TradeInfoID": "",//供应商编码
           "tm_ts_IsDelete": 0,//必须传
-          "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
+          "tm_ts_IsPass": this.toExamineID ? this.toExamineID : '',//是否通过审核(0审核中1通过审核2未通过审核)
           "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
           "tm_ts_ThemeTypeID": "",//主题编码
           "page": num ? num : 1,
-          "rows": 5
+          "rows": 10
         };
+        if (this.toExamineID == 0) {
+          getTourSite.tm_ts_IsPass = 0
+        }
         this.isLoading = true;
         this.$store.dispatch('initScenicSpot', getTourSite)
           .then(total => {
@@ -233,7 +247,7 @@
           })
       },
 //      搜索
-      search(){
+      search() {
         this.initData()
       },
       //查看
@@ -289,7 +303,8 @@
               message: suc,
               type: 'success'
             });
-            this.initData()
+            this.toExamine.tm_ts_IsPass = '';
+            this.initData();
           }, err => {
             this.$notify({
               message: err,

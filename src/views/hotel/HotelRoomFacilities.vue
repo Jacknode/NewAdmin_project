@@ -272,7 +272,7 @@
           "operateUserName": "操作员名称",
           "pcName": "",
           "data": {
-            " ht_rht_ID": id//房型设施
+            "ht_rht_ID": id//房型设施
           }
         }
         this.$store.dispatch('DeleteHotelRoomFacilities',deleteOptions)
