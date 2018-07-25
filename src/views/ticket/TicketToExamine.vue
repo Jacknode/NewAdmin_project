@@ -197,6 +197,7 @@
     ]),
     data() {
       return {
+        num:0,
         toExamineID: '',
         ticketName: '',
         isLoading: false,
@@ -229,6 +230,7 @@
 //      分页
       handleCurrentChange(num) {
         this.initData(num)
+        this.num = num;
       },
       //初始化景点数据
       initData(num) {
@@ -243,7 +245,6 @@
           "tm_ts_TradeInfoID": "",//供应商编码
           "tm_ts_IsDelete": 0,//必须传
           "tm_ts_IsPass": this.toExamineID ? this.toExamineID : '',//是否通过审核(0审核中1通过审核2未通过审核)
-
           "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
           "tm_ts_ThemeTypeID": "",//主题编码
@@ -318,7 +319,7 @@
               type: 'success'
             });
             this.toExamine.tm_ts_IsPass = '';
-            this.initData();
+            this.initData(this.num);
           }, err => {
             this.$notify({
               message: err,
