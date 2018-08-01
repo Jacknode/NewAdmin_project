@@ -9,5 +9,6 @@ export default {
   adminEducationAuditList:[],
   adminEducationAuditRecommend:[],
   educationOrderManagement:[],
+  adminEducationHomePageBigImageList:[],//教育首页大图
 
 }

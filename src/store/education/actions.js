@@ -163,6 +163,28 @@ export default {
     })
   },
   /**
+   * 初始化首页大图
+   */
+  initEducationHomePageBigImage({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/EdSeries/SelectApply', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          var data = data.data;
+
+          if (Number(data.resultcode) == 200) {
+            commit('initEducationHomePageBigImage',data.data.reverse());
+            relove(Number(data.totalRows))
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
+  /**
    * 审核视频
    */
   educationApprovalVideo(store, data) {

@@ -59,7 +59,7 @@ export default {
 
     education:'教育管理',
     educationAuditRecommend:'教育审核视频推荐',
-
+    educationHomePageBigImage:'教育首页大图管理',
     educationVideoTypeManagement:'教育视频类型管理',
     educationVideoManagement:'教育视频管理',
     educationOrderManagement:'教育订单管理',

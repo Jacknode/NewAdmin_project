@@ -1,12 +1,12 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-      <h1 class="userClass">教育审核视频推荐</h1>
+      <h1 class="userClass">教育首页大图管理</h1>
       <!--查询栏-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
-            <span>审核视频推荐:</span>
+            <span>首页大图名称:</span>
           </el-form-item>
           <el-form-item>
             <el-input v-model="siteNum" size="mini"></el-input>
@@ -87,7 +87,7 @@
         </el-pagination>
       </div>
       <!--审核状态-->
-      <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
+<!--      <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
         <el-form :model="approvalOptions">
           <el-form-item label="审核状态:" :label-width="formLabelWidth">
             <el-radio v-model="approvalOptions.ed_ve_State" label="0">功审核成</el-radio>
@@ -106,7 +106,7 @@
           <el-button @click="approvalStatusDialog = false">取 消</el-button>
           <el-button type="primary" @click="approvalStatusSubmit">确 定</el-button>
         </div>
-      </el-dialog>
+      </el-dialog>-->
     </div>
   </div>
 </template>
@@ -146,6 +146,7 @@
       },
     computed: mapGetters([
       'adminEducationAuditRecommend',
+      'adminEducationHomePageBigImageList',//首页大图列表
     ]),
     created(){
       this.initData(this.input)
@@ -156,7 +157,7 @@
         this.initData(this.siteNum, num)
       },
       //初始化
-      initData(id, page) {
+      initData(courseId, recommend) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -164,14 +165,14 @@
           "operateUserName": "",
           "pcName": "",
           "token":"",
-          "page": "1",          //页码
-          "rows": "1",         //展示行数
-          "ed_ss_ID": "",//课程编号
-          "es_ss_Recommend": "1",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
+//          "page": "1",          //页码
+//          "rows": "1",         //展示行数
+          "ed_ss_ID": courseId?courseId:"",//课程编号
+          "es_ss_Recommend": recommend?recommend:"1",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
 
         }
         this.isLoading = true;
-        this.$store.dispatch('initAdminEducationAuditRecommend', options)
+        this.$store.dispatch('initEducationHomePageBigImage', options)
           .then((total) => {
             this.total = total;
             this.isLoading = false
