@@ -24,6 +24,9 @@ export default  {
   initEducationOrderManagement(state, data) {
     state.educationOrderManagement = data;
   },
+  searchCourseAction(state, data) {
+    state.educationcourseList = data;
+  },
 
 }
 

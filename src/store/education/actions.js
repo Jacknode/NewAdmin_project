@@ -117,7 +117,28 @@ export default {
     })
   },
 
+  /**
+   * 查询课程
+   */
+  searchCourseAction({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/EdSeries/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          var data = data.data;
 
+          if (Number(data.resultcode) == 200) {
+            relove(Number(data.totalRows));
+            commit('searchCourseAction', data.data.reverse())
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
   /**
    * 审核视频初始化
    */
@@ -182,6 +203,25 @@ export default {
             reject(data.resultcontent)
           }
         })
+    })
+  },
+  /**
+   * 审核视频
+   */
+  educationApprovalHomePageBigImage(store, data) {
+    return new Promise((relove, reject) => {
+      axios.post(getNewStr + '/EdSeries/UpdateRecommend', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
     })
   },
   /**

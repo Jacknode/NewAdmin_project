@@ -6,10 +6,10 @@
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
-            <span>首页大图名称:</span>
+            <span>课程名称:</span>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="siteNum" size="mini"></el-input>
+            <el-input v-model="homPageName" size="mini"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search" size="mini">查询</el-button>
@@ -18,59 +18,71 @@
       </el-col>
       <!--数据展示-->
       <el-table
-        :data="adminEducationAuditRecommend"
+        :data="adminEducationHomePageBigImageList"
         style="width: 100%">
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
+                <el-table-column type="expand">
+                  <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
 
-              <el-form-item label="教育推荐审核ID:">
-                <span>{{ props.row.ed_ve_Content.ed_re_ID}}</span>
-              </el-form-item>
-              <el-form-item label="被推荐者编码:">
-                <span>{{ props.row.ed_ve_Content.ed_re_PropertiesID}}</span>
-              </el-form-item>
-              <el-form-item label="推荐名称:">
-                <span>{{ props.row.ed_ve_Content.ed_re_Name}}</span>
-              </el-form-item>
-              <el-form-item label="推荐图片:">
-                <template slot-scope="scope">
-                <img v-lazy="props.row.ed_ve_Content.ed_re_SeriesImageURL" alt="" style="width: 100px;height: 100px;">
-                </template>
-                <span>{{ props.row.ed_ve_Content.ed_re_SeriesImageURL}}</span>
-              </el-form-item>
-              <el-form-item label="教育推荐类型:">
-                <span>{{ props.row.ed_ve_Content.ed_re_Difference}}</span>
-              </el-form-item>
-            </el-form>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="审核表编号"
-          align="center"
-          prop="ed_ve_ID">
-        </el-table-column>
-        <el-table-column
-          label="视频类型"
-          align="center"
-          prop="ed_ve_Type">
-        </el-table-column>
-        <el-table-column
-          label="创建时间"
-          align="center"
-          prop="ed_ve_CreateTime">
-        </el-table-column>
-        <el-table-column
-          label="类型名称"
-          align="center"
-          prop="ed_ve_TypeName">
-        </el-table-column>
+                      <el-form-item label="添加订单的产品编码:">
+                        <span>{{ props.row.ed_ss_ID}}</span>
+                      </el-form-item>
+                      <el-form-item label="课程名称:">
+                        <span>{{ props.row.ed_ss_ID}}</span>
+                      </el-form-item>
+                      <el-form-item label="连载状态:">
+                        <span>{{ props.row.ed_ss_WriteState}}</span>
+                      </el-form-item>
+                      <el-form-item label="系列图片:">
+                        <span>{{ props.row.ed_ss_SeriesImageURL}}</span>
+                      </el-form-item>
+                      <el-form-item label="作者:">
+                        <span>{{ props.row.ed_ss_AuthorID}}</span>
+                      </el-form-item>
+                      <el-form-item label="课程价格:">
+                        <span>{{ props.row.ed_ss_Price}}</span>
+                      </el-form-item>
+                      <el-form-item label="是否收费:">
+                        <span>{{ props.row.ed_ss_GetFee}}</span>
+                      </el-form-item>
+                      <el-form-item label="创建时间:">
+                        <span>{{ props.row.ed_ss_CreateTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="完载时间:">
+                        <span>{{ props.row.ed_ss_OverTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="更新时间:">
+                        <span>{{ props.row.ed_ss_UpdateTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="分类编号:">
+                        <span>{{ props.row.ed_ss_Type}}</span>
+                      </el-form-item>
+                      <el-form-item label="推荐首页大图:">
+                        <span>{{ props.row.es_ss_Recommend}}</span>
+                      </el-form-item>
+
+                    </el-form>
+                  </template>
+                </el-table-column>
+
+                <el-table-column
+                  label="课程名称"
+                  align="center"
+                  prop="ed_ss_Name">
+                </el-table-column>
+                <el-table-column
+                  label="连载状态"
+                  align="center"
+                  prop="ed_ss_WriteState">
+                </el-table-column>
+
+
         <el-table-column label="操作" align="center" style="width: 1000px">
           <template slot-scope="scope">
             <el-button
               size="mini"
               type="primary"
-              @click="approval(scope.row.ed_ve_ID)">审核
+              @click="approval(scope.row)">审核
             </el-button>
           </template>
         </el-table-column>
@@ -86,27 +98,35 @@
         >
         </el-pagination>
       </div>
-      <!--审核状态-->
-<!--      <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
-        <el-form :model="approvalOptions">
-          <el-form-item label="审核状态:" :label-width="formLabelWidth">
-            <el-radio v-model="approvalOptions.ed_ve_State" label="0">功审核成</el-radio>
-            <el-radio v-model="approvalOptions.ed_ve_State" label="1">审核失败</el-radio>
+      <!--审核-->
+      <el-dialog title="修改教育首页大图" :visible.sync="approvalStatusDialog">
+        <el-form :model="approvalObj">
+          <el-form-item label="选择课程名称:" :label-width="formLabelWidth">
+            <el-select v-model="courseName" placeholder="请选择">
+              <el-option
+                v-for="item in educationcourseList"
+                :key="item.ed_ss_ID"
+                :label="item.ed_ss_IDName"
+                :value="item.ed_ss_ID">
+              </el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="审核失败原因:" :label-width="formLabelWidth" v-show="approvalOptions.ed_ve_State!=0">
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 2, maxRows: 6}"
-              placeholder="请输入内容"
-              v-model="approvalOptions.ed_ve_Remarks">
-            </el-input>
+          <el-form-item label="审核状态:" :label-width="formLabelWidth">
+            <el-select v-model="approvalStatu" placeholder="请选择">
+              <el-option
+                v-for="item in approvalStatusList"
+                :key="item.approvalStatuId"
+                :label="item.approvalStatuName"
+                :value="item.approvalStatuId">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="approvalStatusDialog = false">取 消</el-button>
+          <el-button @click="updateDialog = false">取 消</el-button>
           <el-button type="primary" @click="approvalStatusSubmit">确 定</el-button>
         </div>
-      </el-dialog>-->
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -118,23 +138,40 @@
     data(){
       return {
         siteNum: '',
+        approvalStatu: '',//审核状态
+        homPageName: '',//首页大图名称
+        courseName: '',//课程名称
         value: '',
         value1: '',
         total: 0,
         addDialog: false,
         formLabelWidth: '120px',
         approvalStatusDialog:false,
-        approvalOptions:{
-          "loginUserID": "huileyou",  //惠乐游用户ID
-          "loginUserPass": "123",  //惠乐游用户密码
-          "operateUserID": "",//操作员编码
-          "operateUserName": "",//操作员名称
-          "pcName": "",  //机器码
-          "ed_ve_ID": '',//审核表编号
-          "ed_vo_PasserID": '',//审核员编码
-          "ed_ve_State": '0',//审核状态(0通过1不通过）
-          'ed_ve_Remarks':'',//不通过原因
+        updateDialog:false,
+        approvalObj:{
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token":"",
+          "ed_ss_ID": "",//课程编号
+          "es_ss_Recommend": "",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
         },
+        approvalStatusList:[
+          {
+            approvalStatuId:0,
+            approvalStatuName:"未推荐",
+          },
+          {
+            approvalStatuId:1,
+            approvalStatuName:"申请推荐中",
+          },
+          {
+            approvalStatuId:2,
+            approvalStatuName:"已通过推荐申请",
+          },
+        ],
         options: [{
           value1: '0',
           label: '视频'
@@ -142,11 +179,12 @@
           value1: '1',
           label: '系列'
         },],
-       }
-      },
+      }
+    },
     computed: mapGetters([
       'adminEducationAuditRecommend',
       'adminEducationHomePageBigImageList',//首页大图列表
+      'educationcourseList',//课程
     ]),
     created(){
       this.initData(this.input)
@@ -185,31 +223,70 @@
       },
       //查询
       search() {
-        this.initData(this.siteNum)
+        this.initData(this.homPageName)
       },
+      //审核
       approval(id){
-        let admin = JSON.parse(sessionStorage.getItem('admin'));
+        console.log(id)
+        //查询课程
+        this.searchCourse();
+//        let admin = JSON.parse(sessionStorage.getItem('admin'));
         this.approvalStatusDialog=true
-        this.approvalOptions.ed_ve_ID=id;
-        this.approvalOptions.ed_vo_PasserID=admin.sm_ui_ID
+//        this.approvalOptions.ed_ve_ID=id;
+//        this.approvalOptions.ed_vo_PasserID=admin.sm_ui_ID
       },
       //审核提交
       approvalStatusSubmit(){
+        this.approvalObj.ed_ss_ID=this.courseName;
+        this.approvalObj.es_ss_Recommend=this.approvalStatu;
+        console.log(this.approvalObj)
+                this.isLoading = true;
+                this.$store.dispatch("educationApprovalHomePageBigImage", this.approvalObj)
+                  .then(suc => {
+                    this.$notify({
+                      message: suc,
+                      type: 'success'
+                    });
+                    this.initData(this.input)
+                  }, err => {
+                    this.$notify({
+                      message: err,
+                      type: 'error'
+                    });
+                  });
+        this.approvalStatusDialog=false
+      },
+      //查询课程
+      searchCourse(){
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token":"",
+          "page": "1",
+          "rows": "10",
+          "ed_ss_ID": "27",//课程编号
+          "ed_ss_Name": "",//课程名称
+          "ed_ss_WriteState": "0",//连载状态（0连载中1完结)
+          "ed_ss_AuthorID": "",//作者
+          // "ed_ss_Price": "1",//课程价格
+          "ed_ss_GetFee": "",//是否收费（0不收费，1要收费）
+          "ed_SS_Type": "",//分类编号
+        };
         this.isLoading = true;
-        this.$store.dispatch("educationApprovalVideo", this.approvalOptions)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.input)
+        this.$store.dispatch('searchCourseAction', options)
+          .then((total) => {
+            this.total = total;
+            this.isLoading = false
           }, err => {
             this.$notify({
               message: err,
               type: 'error'
             });
-          });
-        this.approvalStatusDialog=false
+          })
+
       },
     }
   }
