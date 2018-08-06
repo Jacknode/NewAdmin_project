@@ -12,6 +12,19 @@
             <el-input v-model="homPageName" size="mini"></el-input>
           </el-form-item>
           <el-form-item>
+            <span>审核状态查询:</span>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="applyState" placeholder="请选择">
+              <el-option
+                v-for="item in applyStates"
+                :key="item.stateId"
+                :label="item.stateName"
+                :value="item.stateId">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
             <el-button type="primary" @click="search" size="mini">查询</el-button>
           </el-form-item>
         </el-form>
@@ -71,9 +84,12 @@
                   prop="ed_ss_Name">
                 </el-table-column>
                 <el-table-column
-                  label="连载状态"
+                  label="推荐状态"
                   align="center"
-                  prop="ed_ss_WriteState">
+                  prop="es_ss_Recommend">
+                  <template slot-scope="props">
+                    <span>{{props.row.es_ss_Recommend | getEducationHomePageApplyStates}}</span>
+                  </template>
                 </el-table-column>
 
 
@@ -82,7 +98,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="approval(scope.row)">审核
+              @click="approval(scope.row)">推荐状态修改
             </el-button>
           </template>
         </el-table-column>
@@ -127,6 +143,41 @@
           <el-button type="primary" @click="approvalStatusSubmit">确 定</el-button>
         </div>
       </el-dialog>
+      <!--添加-->
+<!--      <el-dialog title="添加课程" :visible.sync="addDialog">
+&lt;!&ndash;        <el-form :model="addOptions">
+          <el-form-item label="微电影父编码号" :label-width="formLabelWidth">
+            <el-select v-model="addOptions.data.vf_te_ParentID" placeholder="请选择微电影">
+              <el-option
+                v-for="item in movieTypeList"
+                :key="item.vf_te_ID"
+                :label="item.vf_te_ParentID"
+                :value="item.vf_te_ID">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="微电影名称:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.data.vf_te_Name" placeholder="微电影名称" ></el-input>
+          </el-form-item>
+          &lt;!&ndash;<el-form-item label="创建时间:" :label-width="formLabelWidth">&ndash;&gt;
+          &lt;!&ndash;<el-date-picker&ndash;&gt;
+          &lt;!&ndash;v-model="addOptions.data.sm_at_CreateTime"&ndash;&gt;
+          &lt;!&ndash;type="date"&ndash;&gt;
+          &lt;!&ndash;placeholder="选择日期">&ndash;&gt;
+          &lt;!&ndash;</el-date-picker>&ndash;&gt;
+          &lt;!&ndash;</el-form-item>&ndash;&gt;
+          &lt;!&ndash;<el-form-item label="收费金额:" :label-width="formLabelWidth">&ndash;&gt;
+          &lt;!&ndash;<el-input v-model="addOptions.data.sm_at_Cost" placeholder="请输入收费金额" ></el-input>&ndash;&gt;
+          &lt;!&ndash;</el-form-item>&ndash;&gt;
+          &lt;!&ndash;<el-form-item label="备注:" :label-width="formLabelWidth">&ndash;&gt;
+          &lt;!&ndash;<el-input v-model="addOptions.data.sm_at_Remark" placeholder="请输入备注" type="textarea" :rows="4"></el-input>&ndash;&gt;
+          &lt;!&ndash;</el-form-item>&ndash;&gt;
+        </el-form>&ndash;&gt;
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="addDialog = false">取 消</el-button>
+          <el-button type="primary" @click="addSubmit">确 定</el-button>
+        </div>
+      </el-dialog>-->
     </div>
   </div>
 </template>
@@ -140,6 +191,7 @@
         siteNum: '',
         approvalStatu: '',//审核状态
         homPageName: '',//首页大图名称
+        applyState: '',//首页大图审核状态查询
         courseName: '',//课程名称
         value: '',
         value1: '',
@@ -148,6 +200,14 @@
         formLabelWidth: '120px',
         approvalStatusDialog:false,
         updateDialog:false,
+        applyStates:[
+          {stateId:0,
+          stateName:"未推荐"},
+          {stateId:1,
+            stateName:"申请推荐中"},
+          {stateId:2,
+            stateName:"以通过推荐申请"},
+        ],
         approvalObj:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -206,10 +266,11 @@
 //          "page": "1",          //页码
 //          "rows": "1",         //展示行数
           "ed_ss_ID": courseId?courseId:"",//课程编号
-          "es_ss_Recommend": recommend?recommend:"1",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
+          "es_ss_Recommend": recommend?recommend:"0",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
 
         }
         this.isLoading = true;
+        console.log(options)
         this.$store.dispatch('initEducationHomePageBigImage', options)
           .then((total) => {
             this.total = total;
@@ -223,7 +284,7 @@
       },
       //查询
       search() {
-        this.initData(this.homPageName)
+        this.initData(this.homPageName,this.applyState)
       },
       //审核
       approval(id){
