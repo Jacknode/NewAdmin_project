@@ -99,6 +99,11 @@
           label="店面名称"
           prop="fd_sf_ProductName">
         </el-table-column>
+        <el-table-column
+          align="center"
+          label="审核状态"
+          prop="fd_sf_PassStatus">
+        </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button

@@ -235,18 +235,10 @@
       querySearchAsync(queryString, cb) {
         this.loadAll(1, queryString).then(data => {
           var data = data.data;
-<<<<<<< HEAD
           data = data.map(item => {
             return {
               id: item.sm_ai_ID,
               value: item.userName
-=======
-          //   console.log(data)
-          data = data.map(item => {
-            return {
-              //  id: item.agentInfo.sm_ai_AgentID,
-              //  value: item.agentInfo.sm_ai_Name
->>>>>>> 54ffa6f8a4deca06138756f85896d001e4859d2a
             }
           })
           this.restaurants = data;

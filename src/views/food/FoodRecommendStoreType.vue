@@ -13,7 +13,7 @@
         <el-table-column
           align="center"
           label="推荐店面编码"
-          prop="fd_is_ID">
+          prop="fd_sf_ID">
         </el-table-column>
         <el-table-column
           align="center"
@@ -27,11 +27,25 @@
         </el-table-column>
         <el-table-column
           align="center"
+          label="审核状态">
+          <template slot-scope="scope">
+            {{scope.row.fd_is_PassState | getCheck}}
+          </template>
+        </el-table-column>
+
+        <el-table-column
+          align="center"
           label="店铺图片"
           prop="fd_pi_ImageUrl"
         >
           <template slot-scope="scope">
-            <img height="50" width="100" v-lazy="scope.row.fd_pi_ImageUrl" @click="bigImage(scope.row.fd_pi_ImageUrl)">
+            <img
+              height="50"
+              v-for="item,index in scope.row.imageList"
+              v-lazy="item.fd_pi_ImageUrl"
+              @click="bigImage(item.fd_pi_ImageUrl)"
+              style="margin-right: 5px;"
+            >
           </template>
         </el-table-column>
 
@@ -40,7 +54,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="apply(scope.row.fd_is_ID)">{{scope.row.fd_is_PassState | getCheck}}
+              @click="apply(scope.row.fd_sf_ID)">{{scope.row.fd_is_PassState | getCheck}}
             </el-button>
           </template>
         </el-table-column>
@@ -64,7 +78,7 @@
         title="大图"
         :visible.sync="bigImageDialog"
         width="50%">
-        <img v-lazy="imgUrl" width="100%">
+        <img :src="imgUrl" width="100%">
         <span slot="footer" class="dialog-footer">
           <el-button @click="bigImageDialog = false">取 消</el-button>
         </span>
@@ -75,7 +89,7 @@
       <el-dialog title="审核推荐店面" :visible.sync="applyDialog">
         <el-form :model="applyOptions">
           <el-form-item label="推荐店面编码:" :label-width="formLabelWidth">
-            <el-input v-model="applyOptions.fd_is_ID" :disabled="isDisabled"></el-input>
+            <el-input v-model="applyOptions.fd_sf_ID" :disabled="isDisabled"></el-input>
           </el-form-item>
 
           <el-form-item label="审核状态:" :label-width="formLabelWidth">
@@ -127,7 +141,7 @@
         bigImageDialog: false,
         applyDialog: false,
         applyOptions: {
-          "fd_is_ID": "",//推荐店面编码
+          "fd_sf_ID": "",//推荐店面编码
           "fd_is_PassState": "",//审核通过状态  1通过 2未通过
           "fd_is_FailedReason": ""//审核失败原因
         },
@@ -161,10 +175,11 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "fd_is_ID": "",//推荐店面编码
-          "fd_is_ShopID": "",//店面编号
-          rows: 5,
-          page: num ? num : 1
+          "token": "",
+          "fd_is_ID": "",
+          "fd_is_ShopID": "",
+          "rows": 10,
+          "page": num ? num : 1
         };
         this.isLoading = true;
         this.$store.dispatch('initIntroduceShopInfo', options)
@@ -190,8 +205,8 @@
       },
       //审核
       apply(id) {
+        this.applyOptions.fd_sf_ID = id;
         this.$store.commit('setTranstionFalse');
-        this.applyOptions.fd_is_ID = id;
         this.applyDialog = true;
       },
       //审核提交
@@ -202,7 +217,8 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "fd_is_ID": this.applyOptions.fd_is_ID,//推荐店面编码
+          "token": "",
+          "fd_is_ID": this.applyOptions.fd_sf_ID,//推荐店面编码
           "fd_is_PassState": this.applyOptions.fd_is_PassState,//审核通过状态  1通过 2未通过
           "fd_is_FailedReason": this.applyOptions.fd_is_FailedReason//审核失败原因
         };
