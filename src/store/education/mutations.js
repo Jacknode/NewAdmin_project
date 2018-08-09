@@ -14,12 +14,18 @@ export default  {
   initAdminEducationAuditVideo(state, data) {
     state.adminEducationAuditList = data;
   },
+  initEducationHomePageBigImage(state, data) {
+    state.adminEducationHomePageBigImageList = data;
+  },
   initAdminEducationAuditRecommend(state, data) {
     state.adminEducationAuditRecommend = data;
   },
 
   initEducationOrderManagement(state, data) {
     state.educationOrderManagement = data;
+  },
+  searchCourseAction(state, data) {
+    state.educationcourseList = data;
   },
 
 }

@@ -131,10 +131,10 @@
           label="供应商编号"
           prop="sm_ai_ID">
         </el-table-column>
-        <!--<el-table-column-->
-          <!--label="供应商名称"-->
-          <!--prop="sm_ai_Name">-->
-        <!--</el-table-column>-->
+        <el-table-column
+        label="供应商名称"
+        prop="userName">
+        </el-table-column>
         <el-table-column
           label="供应商手机号码"
           prop="sm_ai_Telephone">
@@ -149,9 +149,9 @@
             </el-button>
             <span v-else>已审核</span>
             <!--<el-button-->
-              <!--size="mini"-->
-              <!--type="danger"-->
-              <!--@click="deleteAdminSupplier(scope.row.agentInfo.sm_ai_ID)">删除-->
+            <!--size="mini"-->
+            <!--type="danger"-->
+            <!--@click="deleteAdminSupplier(scope.row.agentInfo.sm_ai_ID)">删除-->
             <!--</el-button>-->
           </template>
         </el-table-column>
@@ -188,7 +188,7 @@
           <el-input v-model="approvalOptions.payPercent" placeholder="请输入数字" type="number"></el-input>
         </el-form-item>
         <!--<el-form-item label="供应商密码:" :label-width="formLabelWidth" v-show="approvalOptions.IsPass!=2">-->
-          <!--<el-input v-model="approvalOptions.agentPassword" placeholder="请输入商户编号"></el-input>-->
+        <!--<el-input v-model="approvalOptions.agentPassword" placeholder="请输入商户编号"></el-input>-->
         <!--</el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -200,19 +200,20 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  export default{
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
-        approvalStatusDialog:false,//审核状态
-        statusValue:'',
-        total:0,
-        userName:'',
-        isLoading:false,
-        status:1,//审核成功
-        sm_ai_ID:'',//供应商编号
-        formLabelWidth:'120px',
-        approvalOptions:{
+        approvalStatusDialog: false,//审核状态
+        statusValue: '',
+        total: 0,
+        userName: '',
+        isLoading: false,
+        status: 1,//审核成功
+        sm_ai_ID: '',//供应商编号
+        formLabelWidth: '120px',
+        approvalOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -220,16 +221,16 @@
           "pcName": "",
           "sm_ai_ID": '',    //商户号
           "IsPass": '1',
-          payPercent:'',
-          failReason:'',//审核失败原因
+          payPercent: '',
+          failReason: '',//审核失败原因
           "agentCode": "",//供应商商号
-          "agentPassword":"",//供应商密码
-          "reviewPerson":"huileyou"
+          "agentPassword": "",//供应商密码
+          "reviewPerson": "huileyou"
         },
-        ApprovalStatus:[
+        ApprovalStatus: [
           {
             value: 0,
-            label: '审核中'
+            label: '待审核'
           },
           {
             value: 1,
@@ -245,77 +246,89 @@
     computed: mapGetters([
       'adminSupplierList'
     ]),
-    created(){
-      this.initData('',1)
+    created() {
+      this.initData('', 1)
     },
     methods: {
       //分页
-      handleCurrentChange(num){
-        this.initData('',num)
+      handleCurrentChange(num) {
+        this.initData(this.userName.trim(), num,this.statusValue)
       },
-      initData(name,page,status){
+      initData(name, page, status) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
+<<<<<<< HEAD
           userName:name?name:'',
           "sm_ai_ID": '',
           "page": page?page:1,
           "rows": 10,
+=======
+          userName: name ? name : '',
+          "sm_ai_IsPass": status ? status : -1,
+          "sm_ai_ID": '0',
+          "page": page ? page : 1,
+          "rows": 5,
+>>>>>>> 54ffa6f8a4deca06138756f85896d001e4859d2a
         };
+        if (status == 0) {
+          options.sm_ai_IsPass = 0;
+        }
         this.isLoading = true;
-        this.$store.dispatch('initAdminSupplier',options)
-        .then(data=>{
-          this.total = Number(data.totalrows);
-          this.isLoading = false;
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+        this.$store.dispatch('initAdminSupplier', options)
+          .then(data => {
+            this.total = Number(data.totalrows);
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
-      search(){
-        this.initData(this.userName.trim())
+      search() {
+        console.log()
+        this.initData(this.userName.trim(), 1, this.statusValue)
       },
       //审核
-      approval(id){
+      approval(id) {
         this.$store.commit('setTranstionFalse');
         this.approvalStatusDialog = true;
         this.sm_ai_ID = id;
       },
       //审核提交
-      approvalStatusSubmit(){
-        if(Number(this.approvalOptions.payPercent)>=1){
+      approvalStatusSubmit() {
+        if (Number(this.approvalOptions.payPercent) >= 1) {
           this.$notify({
             message: '提成比例请输入小于1的小数',
             type: 'error'
           });
           return
         }
-        if(this.approvalOptions.IsPass==1){
+        if (this.approvalOptions.IsPass == 1) {
           this.approvalOptions.failReason = ''
         }
-        if(this.approvalOptions.IsPass==2){
+        if (this.approvalOptions.IsPass == 2) {
           this.approvalOptions.payPercent = ''
         }
 
         this.approvalOptions.sm_ai_ID = this.sm_ai_ID
-        this.$store.dispatch('GetApproval',this.approvalOptions)
-        .then(success=>{
-          this.$notify({
-            message: success,
-            type: 'success'
-          });
-          this.initData(this.userName.trim())
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+        this.$store.dispatch('GetApproval', this.approvalOptions)
+          .then(success => {
+            this.$notify({
+              message: success,
+              type: 'success'
+            });
+            this.initData(this.userName.trim())
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.approvalStatusDialog = false;
       }
     },

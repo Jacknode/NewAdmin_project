@@ -260,19 +260,7 @@
           "pcName": "",
           "data": this.updateHotelFacilitiesObj
         };
-        this.$store.dispatch('UpdateHotelFacilities',updateOptions)
-          .then((suc)=>{
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.facilitiesName,1)
-          },err=>{
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          });
+v
         this.updateDialog = false;
       },
       //删除

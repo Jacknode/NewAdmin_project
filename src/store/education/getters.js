@@ -9,5 +9,7 @@ export default {
   adminEducationAuditList: state => state.adminEducationAuditList,
   adminEducationAuditRecommend: state => state.adminEducationAuditRecommend,
   educationOrderManagement: state => state.educationOrderManagement,
+  adminEducationHomePageBigImageList: state => state.adminEducationHomePageBigImageList,
+  educationcourseList: state => state.educationcourseList,
 
 }

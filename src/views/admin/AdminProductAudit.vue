@@ -5,7 +5,7 @@
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
-            <span>产品审核筛选:</span>
+            <span>产品标题筛选:</span>
           </el-form-item>
           <el-form-item>
             <el-autocomplete
@@ -22,6 +22,8 @@
           </el-form-item>
         </el-form>
       </el-col>
+
+      <!--数据展示-->
       <el-table
         :data="adminProductAuditList"
         highlight-current-row
@@ -99,6 +101,7 @@
           label="产品标题"
           prop="ta_tg_Title">
         </el-table-column>
+
         <el-table-column
           label="创建时间"
           prop="ta_tg_CreateDateTime">
@@ -184,7 +187,7 @@
       'adminProductAuditList'
     ]),
     created(){
-      this.initData('',1)
+      this.initData(this.userName.trim())
     },
     methods: {
       //分页
@@ -219,23 +222,31 @@
             "rows": 20,
           };
           this.$store.dispatch('initAdminSupplier',options)
-          .then((data) => {
-            relove(data)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then((data) => {
+              relove(data)
+            }, err => {
+              this.$notify({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
         this.loadAll(1, queryString).then(data => {
           var data = data.data;
+<<<<<<< HEAD
           data = data.map(item => {
             return {
               id: item.sm_ai_ID,
               value: item.userName
+=======
+          //   console.log(data)
+          data = data.map(item => {
+            return {
+              //  id: item.agentInfo.sm_ai_AgentID,
+              //  value: item.agentInfo.sm_ai_Name
+>>>>>>> 54ffa6f8a4deca06138756f85896d001e4859d2a
             }
           })
           this.restaurants = data;
@@ -245,13 +256,28 @@
           }, 10);
         })
       },
-      initData(id,page){
+      initData(name,page){
         let options = {
+          // "loginUserID": "huileyou",
+          // "loginUserPass": "123",
+          // "operateUserID": "",
+          // "operateUserName": "",
+          // "pcName": "",
+          // "tradeID": "",
+          // "ID": "270",
+          // "isDelete": 0,
+          // "page": page?page:1,
+          // "rows": 10,
+          // "goodTitle": name?name:'',
+          // "isPass": 1,
+          // "isLongOut": 1,//跟团类型 0国内跟团  1周边跟团 2出境长线 3出境短
+
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
-          "tradeID": id?id:'',
+          "tradeID":'',
+          "goodTitle": name?name:'',
           "pcName": "",
           "ID": '',
           "isDelete": 0,
@@ -260,19 +286,19 @@
         }
         this.isLoading = true;
         this.$store.dispatch('initAdminProductAudit',options)
-        .then(data=>{
-          this.total = Number(data.totalRows);
-          this.isLoading = false;
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(data=>{
+            this.total = Number(data.totalRows);
+            this.isLoading = false;
+          },err=>{
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
       search(){
-       this.initData(this.ID,1)
+        this.initData(this.userName.trim())
       },
       //审核
       approval(id){
@@ -284,18 +310,18 @@
       approvalStatusSubmit(){
         this.approvalOptions.goodID = this.sm_ai_ID
         this.$store.dispatch('getProductAuditStatus',this.approvalOptions)
-        .then(success=>{
-          this.$notify({
-            message: success,
-            type: 'success'
-          });
-          this.initData(this.ID,1)
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(success=>{
+            this.$notify({
+              message: success,
+              type: 'success'
+            });
+            this.initData(this.userName.trim())
+          },err=>{
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.approvalStatusDialog = false;
       }
     },

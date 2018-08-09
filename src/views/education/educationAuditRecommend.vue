@@ -158,21 +158,22 @@
       //初始化
       initData(id, page) {
         let options = {
-          "loginUserID": "huileyou",  //惠乐游用户ID
-          "loginUserPass": "123",  //惠乐游用户密码
-          "operateUserID": "",//操作员编码
-          "operateUserName": "",//操作员名称
-          "pcName": "",  //机器码
-          "ed_ve_ID": id,//审核表编号
-          "ed_ve_Type": "",//视频类型
-          "ed_vo_AuthorID": "",//作者ID
-          "page": page ? page : 1,//页码编号
-          "rows": "5",//单页显示数量
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token":"",
+          "page": "1",          //页码
+          "rows": "1",         //展示行数
+          "ed_ss_ID": "",//课程编号
+          "es_ss_Recommend": "1",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
+
         }
         this.isLoading = true;
         this.$store.dispatch('initAdminEducationAuditRecommend', options)
           .then((total) => {
-            this.total = total
+            this.total = total;
             this.isLoading = false
           }, err => {
             this.$notify({

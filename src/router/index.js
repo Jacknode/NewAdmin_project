@@ -400,6 +400,12 @@ export const constantRouterMap = [
         component: () => import('@/views/education/educationUserInfoManagement'),
         meta: {title: 'educationUserInfoManagement'}
       },
+      {
+        path: 'educationHomePageBigImage',
+        name: 'EducationHomePageBigImage',
+        component: () => import('@/views/education/educationHomePageBigImage'),
+        meta: {title: 'educationHomePageBigImage'}
+      },
      {
         path: 'educationAuditRecommend',
         name: 'EducationAuditRecommend',
