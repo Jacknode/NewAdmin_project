@@ -37,7 +37,11 @@
         <el-table-column
           align="center"
           label="房间设施类型名称"
+<<<<<<< Updated upstream
           prop="ht_hd_HardTypeName">
+=======
+          prop="ht_rh_RoomHardTypeName">
+>>>>>>> Stashed changes
         </el-table-column>
         <el-table-column
           align="center"
@@ -272,7 +276,7 @@
           "operateUserName": "操作员名称",
           "pcName": "",
           "data": {
-            "ht_rht_ID": id//房型设施
+            "ht_rh_ID": id//房型设施
           }
         }
         this.$store.dispatch('DeleteHotelRoomFacilities',deleteOptions)

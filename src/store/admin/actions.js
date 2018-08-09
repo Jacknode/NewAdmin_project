@@ -1,14 +1,15 @@
 /**
  * Created by leibo on 18/2/6.
  */
-//import axios from 'axios';
+//import request from 'request';
 import {getNewStr} from '@/assets/js/public'
+import request from '@/utils/request'
 
 export default {
   //Home初始化跟团游栏目
   initHomeAdminGroupTour({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/GroupItemInfo/Select', JSON.stringify(data), {
+      request.post(getNewStr+'/GroupItemInfo/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -27,7 +28,7 @@ export default {
   //管理员查商户信息
   initAdminTradeGoodList({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TradeGood/GetTradeGoodInfo', JSON.stringify(data), {
+      request.post(getNewStr+'/TradeGood/GetTradeGoodInfo', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -50,7 +51,7 @@ export default {
   //管理员商户信息
   initAdminBusinessInformation({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TradeInfo/GetTradeInfoList', JSON.stringify(data), {
+      request.post(getNewStr+'/TradeInfo/GetTradeInfoList', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -81,7 +82,7 @@ export default {
   //修改商户
   UpdateAdminBusinessInformation(store, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TradeInfo/Update', JSON.stringify(data), {
+      request.post(getNewStr+'/TradeInfo/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -99,7 +100,7 @@ export default {
   //删除商户
   DeleteAdminBusinessInformation(store, id) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TradeInfo/Delete', JSON.stringify(data), {
+      request.post(getNewStr+'/TradeInfo/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -117,7 +118,7 @@ export default {
   //商户上传图片
   uploadImgs(store, data) {
     return new Promise((relove, reject) => {
-      axios.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
+      request.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -130,7 +131,7 @@ export default {
   //初始化供应商信息
   initAdminSupplier({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/AgentInfo/Select', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentInfo/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -167,7 +168,7 @@ export default {
   //审核供应商
   GetApproval(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/AgentInfo/Validate', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentInfo/Validate', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -185,7 +186,7 @@ export default {
   //初始化产品审核
   initAdminProductAudit({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/TradeGood/GetTradeGoodInfo', JSON.stringify(data), {
+      request.post(getNewStr+'/TradeGood/GetTradeGoodInfo', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -204,7 +205,7 @@ export default {
   //审核产品
   getProductAuditStatus(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/TradeGood/ValiateTradeGood', JSON.stringify(data), {
+      request.post(getNewStr+'/TradeGood/ValiateTradeGood', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -222,7 +223,7 @@ export default {
   //代理商
   initAdminAgents({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/ProxyInfo/Select', JSON.stringify(data), {
+      request.post(getNewStr+'/ProxyInfo/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -254,7 +255,7 @@ export default {
   //审核代理商
   checkProxyInfo(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/ProxyInfo/Validate', JSON.stringify(data), {
+      request.post(getNewStr+'/ProxyInfo/Validate', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -272,7 +273,7 @@ export default {
   //供应商利润管理
   initAdminVendorProfit({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentPayFee/SelectMX', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentPayFee/SelectMX', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -291,7 +292,7 @@ export default {
   //查询合作类型
   initPartnershipType({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/CooperationType/Select', JSON.stringify(data), {
+      request.post(getNewStr+'/CooperationType/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -310,7 +311,7 @@ export default {
   //查询省
   initProviceList({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr+'/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -329,7 +330,7 @@ export default {
   //查询市
   initCityList({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr+'/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -348,7 +349,7 @@ export default {
   //添加供应商利润
   AddAdminVendorProfitFee(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentPayFee/Insert', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentPayFee/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -366,7 +367,7 @@ export default {
   //修改供应商利润
   UpdateAdminVendorProfit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentPayFee/Update', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentPayFee/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -384,7 +385,7 @@ export default {
   //删除供应商利润
   DeleteAdminVendorProfit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentPayFee/Delete', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentPayFee/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -402,7 +403,7 @@ export default {
   //代理商利润
   initAdminAgentsProfit({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentLevel/SelectMX', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentLevel/SelectMX', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -421,7 +422,7 @@ export default {
   //添加代理商利润
   AddAdminVendorProfit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentLevel/Insert', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentLevel/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -439,7 +440,7 @@ export default {
   //修改代理商利润
   UpdateAdminVendorProfit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentLevel/Update', JSON.stringify(data), {
+      request.post(getNewStr+'/AgentLevel/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -457,7 +458,7 @@ export default {
   //删除代理商利润
   DeleteAdminVendorProfit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentLevel/Delete',JSON.stringify(data),{
+      request.post(getNewStr+'/AgentLevel/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -475,7 +476,7 @@ export default {
   //惠乐游收益
   initAdminHuileyouReturn({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AgentInfo/HuileyouIncome',JSON.stringify(data),{
+      request.post(getNewStr+'/AgentInfo/HuileyouIncome',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -494,7 +495,7 @@ export default {
   //积分权重
   initAdminIntegralWeight({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Height/Select',JSON.stringify(data),{
+      request.post(getNewStr+'/Height/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -513,7 +514,7 @@ export default {
   //添加积分权重
   AddAdminIntegralWeightSubmit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Height/Insert',JSON.stringify(data),{
+      request.post(getNewStr+'/Height/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -531,7 +532,7 @@ export default {
   //修改积分权重
   UpdateAdminIntegralWeightSubmit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Height/Update',JSON.stringify(data),{
+      request.post(getNewStr+'/Height/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -549,7 +550,7 @@ export default {
   //删除积分权重
   DeleteAdminIntegralWeight(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Height/Delete',JSON.stringify(data),{
+      request.post(getNewStr+'/Height/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -567,7 +568,7 @@ export default {
   //积分类型
   initAdminIntegralType({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/UserScoreType/Select',JSON.stringify(data),{
+      request.post(getNewStr+'/UserScoreType/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -588,7 +589,7 @@ export default {
   //添加积分类型
   AddAdminIntegralTypeSubmit(store,data){
     return new Promise((relove,reject) => {
-      axios.post(getNewStr+'/UserScoreType/Insert',JSON.stringify(data),{
+      request.post(getNewStr+'/UserScoreType/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -606,7 +607,7 @@ export default {
   //修改积分类型
   UpdateAdminIntegralTypeSubmit(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/UserScoreType/Update',JSON.stringify(data),{
+      request.post(getNewStr+'/UserScoreType/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -624,7 +625,7 @@ export default {
   //删除积分类型
   DeleteAdminIntegralType(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/UserScoreType/Delete',JSON.stringify(data),{
+      request.post(getNewStr+'/UserScoreType/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -642,7 +643,7 @@ export default {
   //初始化上传App
   initUploadApp({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AppStore/Select',JSON.stringify(data),{
+      request.post(getNewStr+'/AppStore/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -661,7 +662,7 @@ export default {
   //上传App
   AddUploadApp(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/AppStore/Insert',JSON.stringify(data),{
+      request.post(getNewStr+'/AppStore/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

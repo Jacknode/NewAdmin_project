@@ -232,11 +232,10 @@
       querySearchAsync(queryString, cb) {
         this.loadAll(1, queryString).then(data => {
           var data = data.data;
-       //   console.log(data)
           data = data.map(item => {
             return {
-              id: item.agentInfo.sm_ai_AgentID,
-              value: item.agentInfo.sm_ai_Name
+              id: item.sm_ai_ID,
+              value: item.userName
             }
           })
           this.restaurants = data;

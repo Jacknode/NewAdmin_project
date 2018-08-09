@@ -91,6 +91,7 @@
 //          location.reload()// In order to re-instantiate the vue-router object to avoid bugs
 //        })
         sessionStorage.removeItem('admin');
+        sessionStorage.removeItem('token');
         setTimeout(()=>{
           location.reload()
         },200)

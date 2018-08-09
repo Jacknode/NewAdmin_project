@@ -176,7 +176,7 @@
 
       <!--分页-->
 
-      <div class="block" style="text-align: right">
+      <div class="block" style="text-align: right;padding-bottom: 50px">
         <el-pagination
           :page-size="10"
           @current-change="handleCurrentChange"

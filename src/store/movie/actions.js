@@ -1,8 +1,9 @@
 /**
  * Created by leibo on 18/5/2.
  */
-//import axios from 'axios'
+//import request from 'request'
 import {getNewStr} from '@/assets/js/public'
+import request from '@/utils/request'
 
 
 export default {
@@ -10,7 +11,7 @@ export default {
   //微电影类型数据
   initMovieTypeList({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Type/Select',JSON.stringify(data),{
+      request.post(getNewStr+'/Type/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -29,7 +30,7 @@ export default {
   //添加微电影类型
   AddMovieType(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Type/Insert',JSON.stringify(data),{
+      request.post(getNewStr+'/Type/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -48,7 +49,7 @@ export default {
   //修改微电影类型
   UpdateMovieType(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Type/Update',JSON.stringify(data),{
+      request.post(getNewStr+'/Type/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -65,7 +66,7 @@ export default {
   //删除
   DeleteMovieType(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Type/Delete',JSON.stringify(data),{
+      request.post(getNewStr+'/Type/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -83,7 +84,7 @@ export default {
   initMovieAudit({commit},data){
 
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/Validate/Select',JSON.stringify(data),{
+      request.post(getNewStr+'/Validate/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -111,7 +112,7 @@ export default {
   //初始化（查询）微电影分类
   initVMovieSorting({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Type/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Type/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -132,7 +133,7 @@ export default {
   //审核成功
 AuditSubmitOk(store,data){
   return new Promise((relove, reject) => {
-    axios.post(getNewStr+'/Validate/ValiateVedio',JSON.stringify(data),{
+    request.post(getNewStr+'/Validate/ValiateVedio',JSON.stringify(data),{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -151,7 +152,7 @@ AuditSubmitOk(store,data){
 AuditSubmitNo(store,data){
 
   return new Promise((relove, reject) => {
-    axios.post(getNewStr+'/Validate/Delete',JSON.stringify(data),{
+    request.post(getNewStr+'/Validate/Delete',JSON.stringify(data),{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -169,7 +170,7 @@ AuditSubmitNo(store,data){
  //修改微电影审核
   UpdateMovieReview(store,data){
       return new Promise((relove, reject) => {
-        axios.post(getNewStr+'/Validate/Update',JSON.stringify(data),{
+        request.post(getNewStr+'/Validate/Update',JSON.stringify(data),{
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           }

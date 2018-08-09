@@ -24,6 +24,7 @@ import Layout from '../views/layout/Layout';
  **/
 export const constantRouterMap = [
   { path: '/login',name:'Login', component: _import('login/index'), hidden: true },
+  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
   {path: '/404', component: () => import('@/views/404'), hidden: true},
   { path: '/', component: _import('login/index'), hidden: true },
   /**
@@ -256,7 +257,7 @@ export const constantRouterMap = [
       },{
         path: 'hotelRoomFacilitiesType',
         name: 'HotelRoomFacilitiesType',
-        component: () => import('@/views/hotel/HotelFacilitiesType'),
+        component: () => import('@/views/hotel/HotelRoomFacilitiesType'),
         meta: {title: 'hotelRoomFacilitiesType'}
       },{
         path: 'hotelCityRecommendType',

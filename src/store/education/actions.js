@@ -1,8 +1,9 @@
 /**
  * Created by LiuXiang on 18/04/09.
  */
-// import axios from "axios";
+// import request from "request";
 import {getNewStr} from '@/assets/js/public'
+import request from '@/utils/request'
 
 export default {
 
@@ -11,7 +12,7 @@ export default {
    */
   initEducationTypeManagement({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/EducationType/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/EducationType/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -33,7 +34,7 @@ export default {
    */
   initSelectTypeAllInfo({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/EducationType/IndexClassification', JSON.stringify(data), {
+      request.post(getNewStr + '/EducationType/IndexClassification', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -59,7 +60,7 @@ export default {
 
   addEducationTypeManagement(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/EducationType/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/EducationType/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -80,7 +81,7 @@ export default {
    */
   updateEducationTypeManagement(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/EducationType/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/EducationType/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -102,7 +103,7 @@ export default {
 
   DeleteEducationTypeManagement(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/EducationType/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/EducationType/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -123,7 +124,7 @@ export default {
    */
   initAdminEducationAuditVideo({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/EdValidate/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/EdValidate/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -145,7 +146,7 @@ export default {
    */
   initAdminEducationAuditRecommend({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/EdValidate/SelectTJ', JSON.stringify(data), {
+      request.post(getNewStr + '/EdValidate/SelectTJ', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -167,7 +168,7 @@ export default {
    */
   educationApprovalVideo(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/EdValidate/ValiateVedio', JSON.stringify(data), {
+      request.post(getNewStr + '/EdValidate/ValiateVedio', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -186,7 +187,7 @@ export default {
    */
   initEducationOrderManagement({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/EdOrderInfo/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/EdOrderInfo/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -222,7 +223,7 @@ export default {
    */
   deleteEducationOrderManagement(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/EdOrderInfo/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/EdOrderInfo/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -241,7 +242,7 @@ export default {
    */
   frozenEducationOrder(store, data) {
   return new Promise((relove, reject) => {
-    axios.post(getNewStr + '/EdOrderInfo/Freeze', JSON.stringify(data), {
+    request.post(getNewStr + '/EdOrderInfo/Freeze', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }

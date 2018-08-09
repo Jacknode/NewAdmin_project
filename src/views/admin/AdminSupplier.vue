@@ -161,7 +161,7 @@
       <div class="block" style="float: right;">
         <el-pagination
           @current-change="handleCurrentChange"
-          :page-size="5"
+          :page-size="10"
           layout="total, prev, pager, next"
           :total="total"
           v-show="total"
@@ -259,10 +259,10 @@
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
-          sm_ai_Name:name?name:'',
+          userName:name?name:'',
           "sm_ai_ID": '',
           "page": page?page:1,
-          "rows": 5,
+          "rows": 10,
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminSupplier',options)

@@ -1,15 +1,16 @@
 /**
  * Created by leibo on 18/3/30.
  */
-//import axios from 'axios'
+//import request from 'request'
 import {getNewStr} from '@/assets/js/public'
+import request from '@/utils/request'
 
 
 export default {
   //管理员上传图片
   uploadAdminImgs(store, data) {
     return new Promise((relove, reject) => {
-      axios.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
+      request.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -22,7 +23,7 @@ export default {
   //门票景点主题
   initTicketTheme({commit}, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/TmThemeType/GetThemeTypeList', JSON.stringify(data), {
+      request.post(getNewStr+'/TmThemeType/GetThemeTypeList', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -40,7 +41,7 @@ export default {
   //添加门票景点主题
   AddTicketTheme(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/TmThemeType/Insert', JSON.stringify(data), {
+      request.post(getNewStr+'/TmThemeType/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -57,7 +58,7 @@ export default {
   //修改门票景点主题
   UpdateTicketTheme(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/TmThemeType/Update', JSON.stringify(data), {
+      request.post(getNewStr+'/TmThemeType/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -74,7 +75,7 @@ export default {
   //删除门票景点主题
   DeleteTicketTheme(store, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr+'/TmThemeType/Delete', JSON.stringify(data), {
+      request.post(getNewStr+'/TmThemeType/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -91,7 +92,7 @@ export default {
   //查询景点信息
   initScenicSpot({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TourSite/GetTourSite', JSON.stringify(data), {
+      request.post(getNewStr+'/TourSite/GetTourSite', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -131,7 +132,7 @@ export default {
   //查询审核状态
   ticketLookToExamine({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TourSite/SelectIsPass', JSON.stringify(data), {
+      request.post(getNewStr+'/TourSite/SelectIsPass', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -150,7 +151,7 @@ export default {
   //提交审核结果
   toExamineSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TourSite/Validate', JSON.stringify(data), {
+      request.post(getNewStr+'/TourSite/Validate', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -168,7 +169,7 @@ export default {
   //提交审核景点展示首页
   toExamineShowHomePageSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TourSite/ValidateShowTopIsAgree', JSON.stringify(data), {
+      request.post(getNewStr+'/TourSite/ValidateShowTopIsAgree', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -187,7 +188,7 @@ export default {
   //展示首页数据
   initShowTop({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TourSite/GetTourSite', JSON.stringify(data), {
+      request.post(getNewStr+'/TourSite/GetTourSite', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -244,7 +245,7 @@ export default {
   //首页展示大图
   initTicketHomePageBigPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopBigImage/Select', JSON.stringify(data), {
+      request.post(getNewStr+'/TopBigImage/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -263,7 +264,7 @@ export default {
   //景点列表
   initScenicSpotList({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TourSite/GetTourSite', JSON.stringify(data), {
+      request.post(getNewStr+'/TourSite/GetTourSite', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -286,7 +287,7 @@ export default {
   //添加首页展示大图
   addTicketHomePageBigPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopBigImage/Insert', JSON.stringify(data), {
+      request.post(getNewStr+'/TopBigImage/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -304,7 +305,7 @@ export default {
   //修改首页展示大图
   updateTicketHomePageBigPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopBigImage/Update', JSON.stringify(data), {
+      request.post(getNewStr+'/TopBigImage/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -322,7 +323,7 @@ export default {
   //删除首页展示大图
   deleteTicketHomePageBigPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopBigImage/Delete', JSON.stringify(data), {
+      request.post(getNewStr+'/TopBigImage/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -340,7 +341,7 @@ export default {
   //首页展示小图
   initTicketHomePageSmallPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopSmallImage/Select', JSON.stringify(data), {
+      request.post(getNewStr+'/TopSmallImage/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -359,7 +360,7 @@ export default {
   //添加首页小图
   addTicketHomePageSmallPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopSmallImage/Insert', JSON.stringify(data), {
+      request.post(getNewStr+'/TopSmallImage/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -377,7 +378,7 @@ export default {
   //修改首页小图
   updateTicketHomePageSmallPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopSmallImage/Update', JSON.stringify(data), {
+      request.post(getNewStr+'/TopSmallImage/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -395,7 +396,7 @@ export default {
   //删除首页展示小图
   deleteTicketHomePageSmallPicture({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/TopSmallImage/Delete', JSON.stringify(data), {
+      request.post(getNewStr+'/TopSmallImage/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
