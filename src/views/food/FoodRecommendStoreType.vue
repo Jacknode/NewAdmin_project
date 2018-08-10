@@ -4,6 +4,29 @@
     <section id="wrap">
       <h1 class="userClass">审核推荐店铺</h1>
 
+      <el-col :span="24" class="formSearch">
+        <el-form :inline="true">
+          <el-form-item>
+            <span>美食属性类型筛选:</span>
+          </el-form-item>
+
+          <el-form-item label="" :label-width="formLabelWidth">
+            <el-select v-model="stateId" placeholder="请选择" size="small">
+              <el-option
+                v-for="item in stateScreen"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="primary" @click="search" size="small">查询</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+
       <!--数据展示-->
       <el-table
         :data="foodRecommendStoreTypeList"
@@ -133,6 +156,20 @@
             label: '未通过'
           }
         ],
+        stateScreen: [
+          {
+            value: '',
+            label: '全部'
+          },
+          {
+            value: 1,
+            label: '通过'
+          },
+          {
+            value: 0,
+            label: '未通过'
+          }
+        ],
         total: 0,
         isLoading: false,
         formLabelWidth: '120px',
@@ -147,6 +184,7 @@
         },
         isDisabled: true,
         isLose: false,
+        stateId: ''
       }
     },
     computed: mapGetters([
@@ -178,6 +216,7 @@
           "token": "",
           "fd_is_ID": "",
           "fd_is_ShopID": "",
+          "fd_is_PassState": this.stateId,
           "rows": 10,
           "page": num ? num : 1
         };
