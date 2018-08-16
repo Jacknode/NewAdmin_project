@@ -196,7 +196,6 @@ export default {
       })
         .then(data => {
           var data = data.data;
-
           if (Number(data.resultcode) == 200) {
             commit('initEducationHomePageBigImage',data.data.reverse());
             relove(Number(data.totalRows))

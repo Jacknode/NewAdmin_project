@@ -117,7 +117,7 @@
       <!--审核-->
       <el-dialog title="修改教育首页大图" :visible.sync="approvalStatusDialog">
         <el-form :model="approvalObj">
-          <el-form-item label="选择课程名称:" :label-width="formLabelWidth">
+<!--          <el-form-item label="选择课程名称:" :label-width="formLabelWidth">
             <el-select v-model="courseName" placeholder="请选择">
               <el-option
                 v-for="item in educationcourseList"
@@ -126,7 +126,7 @@
                 :value="item.ed_ss_ID">
               </el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item label="审核状态:" :label-width="formLabelWidth">
             <el-select v-model="approvalStatu" placeholder="请选择">
               <el-option
@@ -201,7 +201,7 @@
         approvalStatusDialog:false,
         updateDialog:false,
         applyStates:[
-          {stateId:0,
+          {stateId:3,
           stateName:"未推荐"},
           {stateId:1,
             stateName:"申请推荐中"},
@@ -266,7 +266,7 @@
 //          "page": "1",          //页码
 //          "rows": "1",         //展示行数
           "ed_ss_ID": courseId?courseId:"",//课程编号
-          "es_ss_Recommend": recommend?recommend:"0",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
+          "es_ss_Recommend": recommend?recommend:"2",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
 
         }
         this.isLoading = true;
@@ -286,9 +286,11 @@
       search() {
         this.initData(this.homPageName,this.applyState)
       },
-      //审核
-      approval(id){
-        console.log(id)
+      //审核,推荐状态修改
+      approval(obj){
+        console.log(obj)
+        //修改的课程编码
+        this.approvalObj.ed_ss_ID=obj.ed_ss_ID;
         //查询课程
         this.searchCourse();
 //        let admin = JSON.parse(sessionStorage.getItem('admin'));
@@ -298,9 +300,8 @@
       },
       //审核提交
       approvalStatusSubmit(){
-        this.approvalObj.ed_ss_ID=this.courseName;
         this.approvalObj.es_ss_Recommend=this.approvalStatu;
-        console.log(this.approvalObj)
+        console.log(this.approvalObj);
                 this.isLoading = true;
                 this.$store.dispatch("educationApprovalHomePageBigImage", this.approvalObj)
                   .then(suc => {

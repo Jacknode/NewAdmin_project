@@ -165,7 +165,7 @@
     },
     computed: mapGetters([
      'educationTypeManagement',
-      'selectTypeAllInfo'
+      'selectTypeAllInfo',
 
     ]),
     created(){
@@ -184,7 +184,7 @@
           "loginUserPass": "123",  //惠乐游用户密码
           "operateUserID": "",//操作员编码
           "operateUserName": "",//操作员名称
-          "pcName": "",        //机器码
+          "pcName": "",//机器码
           "ed_vt_ID": '0'
         };
         return this.$store.dispatch('initSelectTypeAllInfo', options1)
@@ -217,10 +217,8 @@
       },
       //新增
       Add(){
-        this.initData(this.siteNum)
+        this.initData(this.siteNum);
         this.addDialog=true
-
-
       },
       //添加提交
       addSubmit() {
