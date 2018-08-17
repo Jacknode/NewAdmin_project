@@ -167,7 +167,7 @@ export default {
    */
   initAdminEducationAuditRecommend({commit}, data) {
     return new Promise(function (relove, reject) {
-      request.post(getNewStr + '/EdValidate/SelectTJ', JSON.stringify(data), {
+      request.post(getNewStr + '/EdVedio/SelectRecommend', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -225,11 +225,11 @@ export default {
     })
   },
   /**
-   * 审核视频
+   * 审核视频推荐
    */
   educationApprovalVideo(store, data) {
     return new Promise((relove, reject) => {
-      request.post(getNewStr + '/EdValidate/ValiateVedio', JSON.stringify(data), {
+      request.post(getNewStr + '/EdVedio/Recommend', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

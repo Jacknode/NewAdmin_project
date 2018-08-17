@@ -28,6 +28,12 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="提交审核时间:">
+                <span>{{ props.row.ed_ve_CreateTime }}</span>
+              </el-form-item>
+              <el-form-item label="视频类型:">
+                <span>{{ props.row.ed_ve_TypeName }}</span>
+              </el-form-item>
               <el-form-item label="视频编号:">
                 <span>{{ props.row.ed_ve_Content.ed_vo_ID }}</span>
               </el-form-item>
@@ -41,20 +47,17 @@
                 <span>{{ props.row.ed_ve_Content.ed_vo_Extend}}</span>
               </el-form-item>
               <el-form-item label="视频文件地址:">
-                <video :src="props.row.ed_ve_Content.ed_vo_FileURL" width="320" height="240" controls="controls"></video>
-              </el-form-item>
-              <el-form-item label="作者ID:">
-                <span>{{ props.row.ed_ve_Content.ed_vo_AuthorID}}</span>
+                <video :src="props.row.ed_ve_Content.ed_vo_FileURL" width="200px" height="100px" controls="controls"></video>
               </el-form-item>
               <el-form-item label="视频标题:">
                 <span>{{ props.row.ed_ve_Content.ed_vo_Title}}</span>
               </el-form-item>
               <el-form-item label="视频图片:">
-                <span>{{ props.row.ed_ve_Content.ed_vo_ImageURL}}</span>
+                <img :src="props.row.ed_ve_Content.ed_vo_ImageURL" alt=""  width="200px" height="100px">
               </el-form-item>
-              <el-form-item label="首页大图:">
-                <span>{{ props.row.ed_ve_Content.ed_vo_TomImageURL}}</span>
-              </el-form-item>
+<!--              <el-form-item label="首页大图:">
+                <img :src="props.row.ed_ve_Content.ed_vo_TomImageURL" alt="" width="200px" height="100px">
+              </el-form-item>-->
               <el-form-item label="创建时间:">
                 <span>{{ props.row.ed_ve_Content.ed_vo_CreateTime}}</span>
               </el-form-item>
@@ -63,6 +66,18 @@
               </el-form-item>
               <el-form-item label="视频详情:">
                 <span>{{ props.row.ed_ve_Content.ed_vo_Remark}}</span>
+              </el-form-item>
+              <el-form-item label="适合人群:">
+                <span>{{ props.row.ed_ve_Content.ed_vo_Crowd}}</span>
+              </el-form-item>
+              <el-form-item label="学习目标:">
+                <span>{{ props.row.ed_ve_Content.ed_vo_Target}}</span>
+              </el-form-item>
+              <el-form-item label="视频是否推荐:">
+                <span>{{ props.row.ed_ve_Content.ed_vo_Recommend}}</span>
+              </el-form-item>
+              <el-form-item label="视频级数:">
+                <span>{{ props.row.ed_ve_Content.ed_vo_collection}}</span>
               </el-form-item>
               <el-form-item label="视频作者:">
                 <span>{{ props.row.ed_ve_Content.ed_vo_AuthorName}}</span>

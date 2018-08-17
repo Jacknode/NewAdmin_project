@@ -12,6 +12,19 @@
             <el-input v-model="siteNum" size="mini"></el-input>
           </el-form-item>
           <el-form-item>
+            <span>申请状态:</span>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="applyStates" placeholder="请选择">
+              <el-option
+                v-for="item in applyStates"
+                :key="item.stateId"
+                :label="item.stateName"
+                :value="item.stateId">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
             <el-button type="primary" @click="search" size="mini">查询</el-button>
           </el-form-item>
         </el-form>
@@ -23,54 +36,82 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-
-              <el-form-item label="教育推荐审核ID:">
-                <span>{{ props.row.ed_ve_Content.ed_re_ID}}</span>
+              <el-form-item label="视频推荐编号:">
+                <span>{{ props.row.ed_vo_ID}}</span>
               </el-form-item>
-              <el-form-item label="被推荐者编码:">
-                <span>{{ props.row.ed_ve_Content.ed_re_PropertiesID}}</span>
+              <el-form-item label="时长:">
+                <span>{{ props.row.ed_vo_Time}}秒</span>
               </el-form-item>
-              <el-form-item label="推荐名称:">
-                <span>{{ props.row.ed_ve_Content.ed_re_Name}}</span>
+              <el-form-item label="视频大小:">
+                <span>{{ props.row.ed_vo_Size}}MB</span>
               </el-form-item>
-              <el-form-item label="推荐图片:">
-                <template slot-scope="scope">
-                <img v-lazy="props.row.ed_ve_Content.ed_re_SeriesImageURL" alt="" style="width: 100px;height: 100px;">
-                </template>
-                <span>{{ props.row.ed_ve_Content.ed_re_SeriesImageURL}}</span>
+              <el-form-item label="文件扩展名:">
+                <span>{{ props.row.ed_vo_Extend}}</span>
               </el-form-item>
-              <el-form-item label="教育推荐类型:">
-                <span>{{ props.row.ed_ve_Content.ed_re_Difference}}</span>
+              <el-form-item label="文件地址:">
+                <video :src="props.row.ed_vo_FileURL" width="200px" height="100px" controls="controls"></video>
+              </el-form-item>
+              <el-form-item label="作者:">
+                <span>{{ props.row.ed_vo_AuthorID}}</span>
+              </el-form-item>
+              <el-form-item label="分类名称:">
+                <span>{{ props.row.ed_te_Type}}</span>
+              </el-form-item>
+              <el-form-item label="视频名称:">
+                <span>{{ props.row.ed_vo_Title}}</span>
+              </el-form-item>
+              <el-form-item label="视频图片:">
+                <img :src="props.row.ed_vo_ImageURL" alt="" width="200px" height="100px">
+              </el-form-item>
+              <el-form-item label="创建时间:">
+              <span>{{ props.row.ed_vo_CreateTime}}</span>
+              </el-form-item>
+              <el-form-item label="审核人编码:">
+                <span>{{ props.row.ed_vo_PasserID}}</span>
+              </el-form-item>
+              <el-form-item label="审核时间:">
+                <span>{{ props.row.ed_vo_ValidateTime}}</span>
+              </el-form-item>
+              <el-form-item label="视频简介:">
+                <span>{{ props.row.ed_vo_Introduce}}</span>
+              </el-form-item>
+              <el-form-item label="视频详情:">
+                <span>{{ props.row.ed_vo_Remark}}</span>
+              </el-form-item>
+              <el-form-item label="适合人群:">
+                <span>{{ props.row.ed_vo_Crowd}}</span>
+              </el-form-item>
+              <el-form-item label="学习目标:">
+                <span>{{ props.row.ed_vo_Target}}</span>
+              </el-form-item>
+              <el-form-item label="是否推荐:">
+                <span>{{ props.row.ed_vo_Recommend}}</span>
+              </el-form-item>
+              <el-form-item label="所属课程编码:">
+                <span>{{ props.row.ed_vo_SeriesID}}</span>
+              </el-form-item>
+              <el-form-item label="所在系列的第几集（整数）:">
+                <span>{{ props.row.ed_vo_collection}}</span>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column
-          label="审核表编号"
+          label="视频推荐编码"
           align="center"
-          prop="ed_ve_ID">
+          prop="ed_vo_ID">
         </el-table-column>
         <el-table-column
-          label="视频类型"
+          label="视频名称"
           align="center"
-          prop="ed_ve_Type">
-        </el-table-column>
-        <el-table-column
-          label="创建时间"
-          align="center"
-          prop="ed_ve_CreateTime">
-        </el-table-column>
-        <el-table-column
-          label="类型名称"
-          align="center"
-          prop="ed_ve_TypeName">
+          prop="ed_vo_Title">
         </el-table-column>
         <el-table-column label="操作" align="center" style="width: 1000px">
           <template slot-scope="scope">
             <el-button
               size="mini"
               type="primary"
-              @click="approval(scope.row.ed_ve_ID)">审核
+              @click="approval(scope.row.ed_vo_ID)">审核
             </el-button>
           </template>
         </el-table-column>
@@ -90,17 +131,17 @@
       <el-dialog title="审核状态" :visible.sync="approvalStatusDialog">
         <el-form :model="approvalOptions">
           <el-form-item label="审核状态:" :label-width="formLabelWidth">
-            <el-radio v-model="approvalOptions.ed_ve_State" label="0">功审核成</el-radio>
-            <el-radio v-model="approvalOptions.ed_ve_State" label="1">审核失败</el-radio>
+            <el-radio v-model="approvalOptions.ed_vo_Recommend" label="2">功审核成</el-radio>
+            <el-radio v-model="approvalOptions.ed_vo_Recommend" label="3">审核失败</el-radio>
           </el-form-item>
-          <el-form-item label="审核失败原因:" :label-width="formLabelWidth" v-show="approvalOptions.ed_ve_State!=0">
+<!--          <el-form-item label="审核失败原因:" :label-width="formLabelWidth" v-show="approvalOptions.ed_ve_State!=0">
             <el-input
               type="textarea"
               :autosize="{ minRows: 2, maxRows: 6}"
               placeholder="请输入内容"
               v-model="approvalOptions.ed_ve_Remarks">
             </el-input>
-          </el-form-item>
+          </el-form-item>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="approvalStatusDialog = false">取 消</el-button>
@@ -125,15 +166,14 @@
         formLabelWidth: '120px',
         approvalStatusDialog:false,
         approvalOptions:{
-          "loginUserID": "huileyou",  //惠乐游用户ID
-          "loginUserPass": "123",  //惠乐游用户密码
-          "operateUserID": "",//操作员编码
-          "operateUserName": "",//操作员名称
-          "pcName": "",  //机器码
-          "ed_ve_ID": '',//审核表编号
-          "ed_vo_PasserID": '',//审核员编码
-          "ed_ve_State": '0',//审核状态(0通过1不通过）
-          'ed_ve_Remarks':'',//不通过原因
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token":"",
+          "ed_vo_ID": "",                                 //申请推荐的视频编码
+          "ed_vo_Recommend": "",                      //是否推荐(0未推荐，1申请推荐，2通过推荐)
         },
         options: [{
           value1: '0',
@@ -153,10 +193,10 @@
     methods: {
       // 分页
       handleCurrentChange(num) {
-        this.initData(this.siteNum, num)
+        this.initData(num)
       },
       //初始化
-      initData(id, page) {
+      initData(page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -164,12 +204,10 @@
           "operateUserName": "",
           "pcName": "",
           "token":"",
-          "page": "1",          //页码
-          "rows": "1",         //展示行数
-          "ed_ss_ID": "",//课程编号
-          "es_ss_Recommend": "1",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
-
-        }
+          "ed_vo_Recommend": "1",                      //是否推荐(0未推荐，1申请推荐，2通过推荐)
+          "page": page ? page : 1,//页码
+          "rows": 8//条数
+        };
         this.isLoading = true;
         this.$store.dispatch('initAdminEducationAuditRecommend', options)
           .then((total) => {
@@ -186,15 +224,15 @@
       search() {
         this.initData(this.siteNum)
       },
+      //审核申请的视频推荐
       approval(id){
-        let admin = JSON.parse(sessionStorage.getItem('admin'));
+        this.approvalOptions.ed_vo_ID=id;
         this.approvalStatusDialog=true
-        this.approvalOptions.ed_ve_ID=id;
-        this.approvalOptions.ed_vo_PasserID=admin.sm_ui_ID
       },
       //审核提交
       approvalStatusSubmit(){
         this.isLoading = true;
+        console.log(111,this.approvalOptions)
         this.$store.dispatch("educationApprovalVideo", this.approvalOptions)
           .then(suc => {
             this.$notify({

@@ -431,7 +431,7 @@ export const getFrozenStatus = val=>{
 //教育首页大图审核状态
 export const getEducationHomePageApplyStates = val=>{
   switch (Number(val)) {
-    case 0:
+    case 3:
       return '未推荐';
     case 1:
       return '申请推荐中';
