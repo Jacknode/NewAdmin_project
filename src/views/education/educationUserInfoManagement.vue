@@ -3,7 +3,7 @@
     <div id="wrap" class="clearfix">
       <h1 class="userClass">教育用户信息管理</h1>
       <!--数据搜索-->
-      <el-col :span="24" class="formSearch">
+<!--      <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
             <span>教育分类查询:</span>
@@ -17,44 +17,46 @@
             <el-button type="primary" @click="AddParent" size="mini">新增父级</el-button>
           </el-form-item>
         </el-form>
-      </el-col>
+      </el-col>-->
       <!--数据展示-->
-<!--      <el-table
-        :data="educationTypeManagement"
+      <el-table
+        :data="educationUserInfoActionList"
         v-loading="isLoading"
         style="width: 100%">
         <el-table-column
-          label="视频类型编号"
+          label="标识"
           align="center"
-          prop="ed_te_ID">
+          prop="sm_ui_ID">
         </el-table-column>
         <el-table-column
-          label="视频类型名称"
+          label="用户编码"
           align="center"
-          prop="ed_te_Name">
+          prop="sm_ui_UserCode">
         </el-table-column>
         <el-table-column
-          label="视频类型父编码名称"
+          label="用户头像"
           align="center"
-          prop="ed_te_ParentName">
+          prop="sm_ui_HeadImage">
+        </el-table-column>
+        <el-table-column
+          label="是否冻结"
+          align="center">
+          <template slot-scope='scope'>
+            {{scope.row.sm_ui_Freeze | getEducationUserState}}
+          </template>
         </el-table-column>
         <el-table-column label="操作" align="center" style="width: 1000px">
           <template slot-scope="scope">
             <el-button
               size="mini"
               type="primary"
-              @click="update(scope.row)">修改
-            </el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="Delete(scope.row.ed_te_ID)">删除
+              @click=" freezeState(scope.row)">冻结
             </el-button>
           </template>
         </el-table-column>
-      </el-table>-->
+      </el-table>
       <!--添加教育类型-->
-      <el-dialog title="添加视频类型" :visible.sync="addDialog">
+<!--      <el-dialog title="添加视频类型" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="视频类型父编码: " :label-width="formLabelWidth" >
             <el-cascader
@@ -73,9 +75,9 @@
           <el-button @click="addDialog = false">取 消</el-button>
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
-      </el-dialog>
+      </el-dialog>-->
       <!--添加父级-->
-      <el-dialog title="添加视频类型" :visible.sync="addDialogParent">
+<!--      <el-dialog title="添加视频类型" :visible.sync="addDialogParent">
         <el-form :model="addOptionsParent">
           <el-form-item label="视频类型: " :label-width="formLabelWidth">
             <el-input v-model='addOptionsParent.data.ed_te_Name' placeholder="请输入内容"></el-input>
@@ -85,9 +87,9 @@
           <el-button @click="addDialogParent = false">取 消</el-button>
           <el-button type="primary" @click="addParentSubmit">确 定</el-button>
         </div>
-      </el-dialog>
+      </el-dialog>-->
       <!--修改教育分类-->
-      <el-dialog title="修改教育分类" :visible.sync="updateDialog">
+<!--      <el-dialog title="修改教育分类" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="教育父编码:" :label-width="formLabelWidth" >
             <el-cascader
@@ -105,9 +107,9 @@
           <el-button @click="updateDialog = false">取 消</el-button>
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
-      </el-dialog>
+      </el-dialog>-->
       <!--分页-->
-      <div class="block" style="float: right;">
+<!--      <div class="block" style="float: right;">
         <el-pagination
           @current-change="handleCurrentChange"
           :page-size="5"
@@ -116,7 +118,7 @@
           v-show="total"
         >
         </el-pagination>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -164,47 +166,28 @@
       }
     },
     computed: mapGetters([
-      'educationTypeManagement',
-      'selectTypeAllInfo'
-
+      'educationUserInfoActionList',
     ]),
     created(){
-      this.initData(this.siteNum),
-        this.initSelectTypeAllInfo()
+      this.initData();
     },
     methods: {
-      //分页
-      handleCurrentChange(num) {
-        this.initData(this.siteNum, num)
-      },
-      //查询所有类型
-      initSelectTypeAllInfo(){
-        let options1 = {
-          "loginUserID": "huileyou",  //惠乐游用户ID
-          "loginUserPass": "123",  //惠乐游用户密码
-          "operateUserID": "",//操作员编码
-          "operateUserName": "",//操作员名称
-          "pcName": "",        //机器码
-          "ed_vt_ID": '0'
-        };
-        return this.$store.dispatch('initSelectTypeAllInfo', options1)
-//        this.initData(this. siteNum)
-      },
       //初始化数据
-      initData(id, page) {
+      initData(account,FreeState, page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "ed_te_ID": id,//分类编号
-          "ed_te_Name": "",//分类名称
-          "ed_te_ParentID": "",//分类编号父编号
-          "page": page ? page : 1,//页码
-          "rows": 5//条数
+          "token": "",
+          "page": page?page:"1",
+          "rows": "5",
+          "sm_ui_UserCode":  account?account:"",    //根据账号的模糊查询
+          "sm_ui_Freeze":  FreeState?FreeState:"",        //冻结状态（0未冻结，1已冻结）
         };
-        this.$store.dispatch("initEducationTypeManagement", options)
+        console.log('options:',options)
+        this.$store.dispatch("initEducationUserInfoAction", options)
           .then((total) => {
             this.total = total;
           }, (err) => {
@@ -214,115 +197,39 @@
             });
           });
       },
-      //新增
-      Add(){
-        this.initData(this.siteNum)
-        this.addDialog=true
-
-
+      //分页
+      handleCurrentChange(num) {
+        this.initData(this.siteNum, num)
       },
-      //添加提交
-      addSubmit() {
-        this.addOptions.data.ed_te_ParentID = this.arr1[this.arr1.length-1];
-        this.$store.dispatch('addEducationTypeManagement', this.addOptions)
-          .then((suc) => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.siteNum)//调用初始化
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          });
-        this.addDialog = false;
-      },
-      // 添加父级（第一级）
-      AddParent(){
-        this.addDialogParent = true
-      },
-      //添加父编码提交
-      addParentSubmit(){
-
-        this.$store.dispatch('addEducationTypeManagement', this.addOptionsParent)
-          .then((suc) => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.siteNum)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          });
-        this.addDialogParent = false;
-      },
-      //修改
-      update(obj){
-        this.updateObj = obj
-        this.updateDialog = true
-        //  this.$store.commit('setTranstionFalse');
-      },
-      //修改提交
-      updateSubmit() {
-        this.updateObj.ed_te_ParentID = this.arr2[this.arr2.length-1];
-        let updateOptions = {
+      //冻结
+      freezeState(obj){
+        let uerId = obj.sm_ui_ID;
+        let frezeStateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "data": this.updateObj,
+          "token":"",
+          "sm_ui_ID": uerId?uerId:"",                      //需要修改冻结状态账号编码
+          "sm_ui_Freeze": "1",                //是否冻结（0未冻结， 1已冻结）
         };
-        this.$store.dispatch('updateEducationTypeManagement', updateOptions)
-          .then((suc) => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.siteNum)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          });
-        this.updateDialog = false;
-      },
-      //教育分类查询
-      search(){
-
-        this.initData(this.siteNum)
-      },
-      //删除
-      Delete(id){
-        let deleteOptions = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "data": {
-            "ed_te_ID": id,//分类编号
-          }
-        }
-        this.$store.dispatch('DeleteEducationTypeManagement', deleteOptions)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.siteNum)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          });
+        this.$store.dispatch('whetherFreezeAction',frezeStateOptions)
+          .then(
+            (suc)=>{
+              console.log(suc)
+              this.$notify({
+                type:suc,
+                message:suc
+              });
+            },
+            (err)=>{
+              this.$notify({
+                type:err,
+                message:err
+              });
+            }
+          );
       },
     }
   }

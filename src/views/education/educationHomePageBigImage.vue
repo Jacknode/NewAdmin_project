@@ -216,7 +216,7 @@
           "pcName": "",
           "token":"",
           "ed_ss_ID": "",//课程编号
-          "es_ss_Recommend": "",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
+          "es_ss_Recommend": "",   //推荐首页大图（3未推荐，1申请推荐中，2以通过推荐申请）
         },
         approvalStatusList:[
           {
@@ -266,7 +266,7 @@
 //          "page": "1",          //页码
 //          "rows": "1",         //展示行数
           "ed_ss_ID": courseId?courseId:"",//课程编号
-          "es_ss_Recommend": recommend?recommend:"2",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
+          "es_ss_Recommend": recommend?recommend:"1",   //推荐首页大图（0未推荐，1申请推荐中，2以通过推荐申请）
 
         }
         this.isLoading = true;

@@ -205,6 +205,30 @@ export default {
         })
     })
   },
+
+  /**
+   * 初始化用户信息
+   */
+  initEducationUserInfoAction({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/EWebPage/SelectFrozen', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          var data = data.data;
+          console.log('data:',data)
+          if (Number(data.resultcode) == 200) {
+            commit('initEducationUserInfoAction',data.scoreTypeLists);
+            relove(Number(data.totalRows))
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
+
   /**
    * 审核视频
    */
@@ -225,11 +249,109 @@ export default {
     })
   },
   /**
-   * 审核视频推荐
+   * 教育用户冻结
+   */
+  whetherFreezeAction(store, data) {
+    return new Promise((relove, reject) => {
+      axios.post(getNewStr + '/EWebPage/UpdateFrozen', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
+    })
+  },
+  /**
+   * 教育视频审核表审核
    */
   educationApprovalVideo(store, data) {
     return new Promise((relove, reject) => {
+      request.post(getNewStr + '/EdValidate/ValiateVedio', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
+    })
+  },
+  /**
+   * 教育视频推荐审核
+   */
+    educationApprovalVideoRecoment(store, data) {
+    return new Promise((relove, reject) => {
       request.post(getNewStr + '/EdVedio/Recommend', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
+    })
+  },
+  /**
+   * 教育课程推荐审核
+   */
+  educationCourseRecommendAction(store, data) {
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/EdSeries/SeriesRecommend', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
+    })
+  },
+  /**
+   * 教育课程推荐审核初始化e
+   */
+  initEducationCourseRecommendAction({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/EdSeries/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          console.log('data:',data)
+          var data = data.data;
+          if (Number(data.resultcode) == 200) {
+            commit('initEducationCourseRecommendAction',data.data.reverse());
+            relove(Number(data.totalrows))
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
+  /**
+   * 教育课程推荐申请
+   */
+  initEducationCourseRecommend(store, data) {
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/EdSeries/SelectApply', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

@@ -58,12 +58,13 @@ export default {
 
 
     education:'教育管理',
-    educationAuditRecommend:'教育审核视频推荐',
+    educationAuditRecommend:'教育视频推荐审核',
     educationHomePageBigImage:'教育首页大图管理',
     educationVideoTypeManagement:'教育视频类型管理',
-    educationVideoManagement:'教育视频管理',
+    educationVideoManagement:'教育视频审核管理',
     educationOrderManagement:'教育订单管理',
     educationUserInfoManagement:'教育用户信息管理',
+    educationCourseRecommendCheck:'教育课程推荐审核',
 
 
 

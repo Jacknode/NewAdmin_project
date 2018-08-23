@@ -20,9 +20,15 @@ export default  {
   initAdminEducationAuditRecommend(state, data) {
     state.adminEducationAuditRecommend = data;
   },
+  initEducationCourseRecommendAction(state, data) {
+    state.EducationCourseRecommendCheck = data;
+  },
 
   initEducationOrderManagement(state, data) {
     state.educationOrderManagement = data;
+  },
+  initEducationUserInfoAction(state, data) {
+    state.educationUserInfoActionList = data;
   },
   searchCourseAction(state, data) {
     state.educationcourseList = data;

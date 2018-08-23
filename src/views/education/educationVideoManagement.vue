@@ -1,7 +1,8 @@
 <template>
   <div>
     <section id="wrap">
-      <h1 class="userClass">教育视频管理</h1>
+      <h1 class="userClass">教育视频审核管理</h1>
+      <!--数据搜索-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -180,7 +181,7 @@
           "pcName": "",  //机器码
           "ed_ve_ID": '',//审核表编号
           "ed_vo_PasserID": '',//审核员编码
-          "ed_ve_State": '0',//审核状态(0通过1不通过）
+          "ed_ve_State": '',//审核状态(0通过1不通过）
           'ed_ve_Remarks':'',//不通过原因
         },
       }
@@ -196,15 +197,15 @@
       handleCurrentChange(num) {
         this.initData(this.input, num)
       },
-      //审核视频chushih
-      initData(id, page) {
+      //视频初始化
+      initData(page) {
         let options = {
           "loginUserID": "huileyou",  //惠乐游用户ID
           "loginUserPass": "123",  //惠乐游用户密码
           "operateUserID": "",//操作员编码
           "operateUserName": "",//操作员名称
           "pcName": "",  //机器码
-          "ed_ve_ID": id,//审核表编号
+          "ed_ve_ID": '',//审核表编号
           "ed_ve_Type": "",//视频类型
           "ed_vo_AuthorID": this.admin.sm_ui_ID,//作者ID
           "page": page ? page : 1,//页码
@@ -227,16 +228,16 @@
         console.log(this.adminEducationAuditList)
         this.initData(this.input)
       },
+      //视频审核
       approval(id){
         let admin = JSON.parse(sessionStorage.getItem('admin'));
-        console.log(admin)
         this.approvalStatusDialog=true
         this.approvalOptions.ed_ve_ID=id;
         this.approvalOptions.ed_vo_PasserID=admin.sm_ui_ID
       },
-      //审核提交
+      //视频审核提交
       approvalStatusSubmit(){
-        this.isLoading = true;
+        console.log('approvalOptions:',this.approvalOptions)
         this.$store.dispatch("educationApprovalVideo", this.approvalOptions)
           .then(suc => {
             this.$notify({

@@ -383,6 +383,18 @@ export const constantRouterMap = [
         meta: {title: 'educationVideoTypeManagement'}
       },
       {
+        path: 'educationHomePageBigImage',
+        name: 'EducationHomePageBigImage',
+        component: () => import('@/views/education/educationHomePageBigImage'),
+        meta: {title: 'educationHomePageBigImage'}
+      },
+      {
+        path: 'educationCourseRecommendCheck',
+        name: 'EducationCourseRecommendCheck',
+        component: () => import('@/views/education/educationCourseRecommendCheck'),
+        meta: {title: 'educationCourseRecommendCheck'}
+      },
+      {
         path: 'educationVideoManagement',
         name: 'EducationVideoManagement',
         component: () => import('@/views/education/educationVideoManagement'),
@@ -400,12 +412,7 @@ export const constantRouterMap = [
         component: () => import('@/views/education/educationUserInfoManagement'),
         meta: {title: 'educationUserInfoManagement'}
       },
-      {
-        path: 'educationHomePageBigImage',
-        name: 'EducationHomePageBigImage',
-        component: () => import('@/views/education/educationHomePageBigImage'),
-        meta: {title: 'educationHomePageBigImage'}
-      },
+
      {
         path: 'educationAuditRecommend',
         name: 'EducationAuditRecommend',

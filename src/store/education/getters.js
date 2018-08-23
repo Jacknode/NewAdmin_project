@@ -3,13 +3,12 @@
  */
 export default {
   educationTypeManagement: state => state.educationTypeManagement,
-
-
   selectTypeAllInfo: state => state.selectTypeAllInfo,
   adminEducationAuditList: state => state.adminEducationAuditList,
   adminEducationAuditRecommend: state => state.adminEducationAuditRecommend,
   educationOrderManagement: state => state.educationOrderManagement,
   adminEducationHomePageBigImageList: state => state.adminEducationHomePageBigImageList,
   educationcourseList: state => state.educationcourseList,
-
+  EducationCourseRecommendCheck: state => state.EducationCourseRecommendCheck,
+  educationUserInfoActionList: state => state.educationUserInfoActionList,
 }

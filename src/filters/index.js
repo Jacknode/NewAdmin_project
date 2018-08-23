@@ -441,3 +441,46 @@ export const getEducationHomePageApplyStates = val=>{
   }
 };
 
+//教育课程首页大图推荐状态
+export const getEducationCourseHomepageBigImageRecomentStates= val=>{
+  switch (Number(val)) {
+    case 3:
+      return '未推荐';
+    case 1:
+      return '推荐中';
+    case 2:
+      return '已推荐';
+  }
+};
+
+//教育课程推荐状态
+export const getEducationCourseRecomentStates= val=>{
+  switch (Number(val)) {
+    case 1:
+      return '推荐中';
+    case 2:
+      return '已推荐';
+    case 3:
+      return '未推荐';
+  }
+};
+
+//教育课程连载状态
+export const getEducationCourseWriteState = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '连载中';
+    case 1:
+      return '完结';
+  }
+};
+
+//教育用户冻结状态
+export const getEducationUserState = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '未冻结';
+    case 1:
+      return '冻结';
+  }
+};
