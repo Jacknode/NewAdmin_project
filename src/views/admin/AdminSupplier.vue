@@ -260,11 +260,11 @@
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
-          userName:name?name:'',
-          "sm_ai_ID": '',
-          "page": page?page:1,
-          "rows": 10,
-
+          userName: name ? name : '',
+          "sm_ai_IsPass": status ? status : -1,
+          "sm_ai_ID": '0',
+          "page": page ? page : 1,
+          "rows": 5,
         };
         if (status == 0) {
           options.sm_ai_IsPass = 0;

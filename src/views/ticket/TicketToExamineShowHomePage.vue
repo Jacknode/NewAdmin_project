@@ -193,10 +193,11 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tsCode": "",
-          "tsName": "",
-          "tradeInfoID": "",
-          "isDelete": 0,
+          "tm_ts_Code": "",
+          "tm_ts_Name": "",
+          "tm_ts_TradeInfoID": "",
+          tm_ts_ShowTop:1,
+          "tm_ts_IsDelete": 0,
           "page": num ? num : 1,
           "rows": 5
         };
