@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <section id="wrap">
       <h1 class="userClass">酒店房间设施管理</h1>
       <el-col :span="24" class="formSearch">
@@ -9,7 +8,8 @@
             <span>房间设施名称筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-input type="text" v-model="facilitiesName" auto-complete="off" placeholder="房间设施名称" size="small"></el-input>
+            <el-input type="text" v-model="facilitiesName" auto-complete="off" placeholder="房间设施名称"
+                      size="small"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search" size="small">查询</el-button>
@@ -37,11 +37,7 @@
         <el-table-column
           align="center"
           label="房间设施类型名称"
-<<<<<<< Updated upstream
-          prop="ht_hd_HardTypeName">
-=======
           prop="ht_rh_RoomHardTypeName">
->>>>>>> Stashed changes
         </el-table-column>
         <el-table-column
           align="center"
@@ -147,17 +143,18 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  export default{
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
-        facilitiesName:'',
-        total:0,
-        isLoading:false,
-        addDialog:false,
-        updateDialog:false,
-        formLabelWidth:'120px',
-        addOptions:{
+        facilitiesName: '',
+        total: 0,
+        isLoading: false,
+        addDialog: false,
+        updateDialog: false,
+        formLabelWidth: '120px',
+        addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "操作员编码",
@@ -176,15 +173,36 @@
       'hotelRoomFacilitiesTypeAllList',
       'updateHotelRoomFacilitiesObj'
     ]),
-    created(){
-      this.initData('',1)
+    created() {
+      this.initData('', 1)
+      this.initHotelRoomFacilitiesTypeAll();
     },
     methods: {
-      //分页
-      handleCurrentChange(num){
-        this.initData(this.facilitiesName,num);
+      //房间设施类型所有
+      initHotelRoomFacilitiesTypeAll() {
+        let roomOptionsType = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "操作员名称",
+          "pcName": "",
+          "ht_rht_ID": "",//房间设施类型ID
+          "ht_rht_Name": "",//类型名称
+        }
+        this.$store.dispatch('initHotelRoomFacilitiesTypeAll', roomOptionsType)
+          .then(() => {
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
       },
-      initData(name,page){
+      //分页
+      handleCurrentChange(num) {
+        this.initData(this.facilitiesName, num);
+      },
+      initData(name, page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -192,43 +210,43 @@
           "operateUserName": "操作员名称",
           "pcName": "",
           "ht_rh_ID": "",//房型设施
-          "ht_rh_Name": name?name:'',//设施名称
+          "ht_rh_Name": name ? name : '',//设施名称
           "ht_rh_RoomHardTypeID": "",//房间设施类型ID
           "ht_rh_IsHot": "",//是否热门
-          "page":page?page:1,//页码编号
-          "rows":"5",//单页显示数量
+          "page": page ? page : 1,//页码编号
+          "rows": "5",//单页显示数量
         };
         this.isLoading = true;
-        this.$store.dispatch('initHotelRoomFacilities',options)
-        .then(total=>{
-          this.total = total;
-          this.isLoading = false;
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+        this.$store.dispatch('initHotelRoomFacilities', options)
+          .then(total => {
+            this.total = total;
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
-      search(){
-        this.initData(this.facilitiesName,1)
+      search() {
+        this.initData(this.facilitiesName, 1)
       },
       //添加
-      Add(){
+      Add() {
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
       },
       //添加提交
-      addSubmit(){
-        this.$store.dispatch('AddHotelRoomFacilities',this.addOptions)
-          .then((suc)=>{
+      addSubmit() {
+        this.$store.dispatch('AddHotelRoomFacilities', this.addOptions)
+          .then((suc) => {
             this.$notify({
               message: suc,
               type: 'success'
             });
-            this.initData(this.facilitiesName,1)
-          },err=>{
+            this.initData(this.facilitiesName, 1)
+          }, err => {
             this.$notify({
               message: err,
               type: 'error'
@@ -237,13 +255,13 @@
         this.addDialog = false;
       },
       //修改
-      Update(id){
+      Update(id) {
         this.updateDialog = true;
         this.$store.commit('setTranstionFalse');
-        this.$store.commit('initUpdateHotelRoomFacilities',id);
+        this.$store.commit('initUpdateHotelRoomFacilities', id);
       },
       //修改提交
-      updateSubmit(){
+      updateSubmit() {
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -252,14 +270,14 @@
           "pcName": "",
           "data": this.updateHotelRoomFacilitiesObj
         };
-        this.$store.dispatch('UpdateHotelRoomFacilities',updateOptions)
-          .then((suc)=>{
+        this.$store.dispatch('UpdateHotelRoomFacilities', updateOptions)
+          .then((suc) => {
             this.$notify({
               message: suc,
               type: 'success'
             });
-            this.initData(this.facilitiesName,1)
-          },err=>{
+            this.initData(this.facilitiesName, 1)
+          }, err => {
             this.$notify({
               message: err,
               type: 'error'
@@ -268,7 +286,7 @@
         this.updateDialog = false;
       },
       //删除
-      Delete(id){
+      Delete(id) {
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -279,19 +297,19 @@
             "ht_rh_ID": id//房型设施
           }
         }
-        this.$store.dispatch('DeleteHotelRoomFacilities',deleteOptions)
-        .then((suc)=>{
-          this.$notify({
-            message: suc,
-            type: 'success'
+        this.$store.dispatch('DeleteHotelRoomFacilities', deleteOptions)
+          .then((suc) => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(this.facilitiesName, 1)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.facilitiesName,1)
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       }
     },
   }

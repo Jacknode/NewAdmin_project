@@ -4,6 +4,7 @@
     <section id="wrap">
       <h1 class="userClass">审核推荐店铺</h1>
 
+<<<<<<< Updated upstream
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -26,7 +27,6 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
       <el-table
         :data="foodRecommendStoreTypeList"
@@ -50,6 +50,7 @@
         </el-table-column>
         <el-table-column
           align="center"
+<<<<<<< Updated upstream
           label="审核状态">
           <template slot-scope="scope">
             {{scope.row.fd_is_PassState | getCheck}}
@@ -58,10 +59,13 @@
 
         <el-table-column
           align="center"
+=======
+>>>>>>> Stashed changes
           label="店铺图片"
           prop="fd_pi_ImageUrl"
         >
           <template slot-scope="scope">
+<<<<<<< Updated upstream
             <img
               height="50"
               v-for="item,index in scope.row.imageList"
@@ -69,6 +73,9 @@
               @click="bigImage(item.fd_pi_ImageUrl)"
               style="margin-right: 5px;"
             >
+=======
+            <img height="50" width="100" v-for="item,index in scope.row.imageList" v-lazy="item.fd_pi_ImageUrl" @click="bigImage(item.fd_pi_ImageUrl)">
+>>>>>>> Stashed changes
           </template>
         </el-table-column>
 

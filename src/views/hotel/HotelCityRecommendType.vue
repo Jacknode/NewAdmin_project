@@ -109,7 +109,8 @@
             <a href="javascript:;" class="file">上传图片
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
-            <img src="" alt="" v-lazy="item"  v-show="ImageURL.length" v-for="item in ImageURL" style="width: 100px;height: 100px">
+            <img src="" alt="" v-lazy="item" v-show="ImageURL.length" v-for="item in ImageURL"
+                 style="width: 100px;height: 100px">
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -155,7 +156,8 @@
             <a href="javascript:;" class="file">上传图片
               <input type="file" name="" ref="upload1" accept="image/*" multiple>
             </a>
-            <img src="" alt="" v-lazy="item"  v-show="ImageURL1.length" v-for="item in ImageURL1" style="width: 100px;height: 100px">
+            <img src="" alt="" v-lazy="item" v-show="ImageURL1.length" v-for="item in ImageURL1"
+                 style="width: 100px;height: 100px">
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -169,20 +171,21 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-  export default{
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
-        proviceID:'',//省
-        recommendName:'',
-        total:0,
-        isLoading:false,
-        addDialog:false,
-        updateDialog:false,
-        ImageURL:[],
-        ImageURL1:[],
-        formLabelWidth:'120px',
-        addOptions:{
+        proviceID: '',//省
+        recommendName: '',
+        total: 0,
+        isLoading: false,
+        addDialog: false,
+        updateDialog: false,
+        ImageURL: [],
+        ImageURL1: [],
+        formLabelWidth: '120px',
+        addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "操作员编码",
@@ -203,19 +206,41 @@
       'hotelCityData',
       'updateHotelCityRecommendTypeObj'
     ]),
-    created(){
+    created() {
+      this.initHotelRecommendTypeAll();
       //初始化省
       let options = {
-        areaPid:3337
+        areaPid: 3337
       }
       this.$store.dispatch('initHotelProvinceData', options)
       this.initData(1)
     },
     methods: {
-      //选中省
-      changeProvice(){
+
+      initHotelRecommendTypeAll() {
         let options = {
-          areaPid:this.proviceID
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "操作员名称",
+          "pcName": "",
+          "ht_it_ID": "",//推荐类型ID
+          "ht_it_Name": "",//推荐类型名称
+          "ht_it_ParentID": "",//推荐类型父ID
+        };
+        this.$store.dispatch('initHotelRecommendTypeAll', options)
+          .then(() => {
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
+      },
+      //选中省
+      changeProvice() {
+        let options = {
+          areaPid: this.proviceID
         }
         this.$store.dispatch('initHotelCityData', options)
       },
@@ -223,17 +248,17 @@
       uploadImg(file) {
         return new Promise(function (relove, reject) {
           lrz(file)
-          .then(data => {
-            relove(data.base64.split(',')[1])
-          })
+            .then(data => {
+              relove(data.base64.split(',')[1])
+            })
         })
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -241,7 +266,7 @@
                 var data = xhr.responseText;
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -302,14 +327,14 @@
         }, 30)
       },
       //分页
-      handleCurrentChange(num){
+      handleCurrentChange(num) {
         this.initData(num)
       },
       //查询
-      search(){
+      search() {
         this.initData(1)
       },
-      initData(page){
+      initData(page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -319,15 +344,15 @@
           "ht_ai_ID": "",//城市推荐类型编号
           "ht_it_Introduce": "",//推荐类型ID
           "sm_af_AreaID": "",//城市Id
-          "page":page?page:1,//分页号
-          "rows":"5",//单页显示数据量
+          "page": page ? page : 1,//分页号
+          "rows": "5",//单页显示数据量
         }
         this.isLoading = true;
-        this.$store.dispatch('initHotelCityRecommendType',options)
-          .then(total=>{
+        this.$store.dispatch('initHotelCityRecommendType', options)
+          .then(total => {
             this.total = total;
             this.isLoading = false;
-          },err=>{
+          }, err => {
             this.$notify({
               message: err,
               type: 'error'
@@ -336,22 +361,22 @@
           })
       },
       //添加
-      Add(){
+      Add() {
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
         this.uploaNode()
       },
       //添加提交
-      addSubmit(){
+      addSubmit() {
         this.addOptions.data.ht_ai_Image = this.ImageURL.join(',');
-        this.$store.dispatch('AddHotelCityRecommendType',this.addOptions)
-          .then((suc)=>{
+        this.$store.dispatch('AddHotelCityRecommendType', this.addOptions)
+          .then((suc) => {
             this.$notify({
               message: suc,
               type: 'success'
             });
             this.initData(1)
-          },err=>{
+          }, err => {
             this.$notify({
               message: err,
               type: 'error'
@@ -360,14 +385,14 @@
         this.addDialog = false;
       },
       //修改
-      Update(id){
+      Update(id) {
         this.updateDialog = true;
         this.$store.commit('setTranstionFalse');
-        this.$store.commit('initUpdateHotelCityRecommendType',id);
+        this.$store.commit('initUpdateHotelCityRecommendType', id);
         this.uploaNode()
       },
       //修改提交
-      updateSubmit(){
+      updateSubmit() {
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -377,14 +402,14 @@
           "data": this.updateHotelCityRecommendTypeObj
         }
         updateOptions.data.ht_ai_Image = this.ImageURL1.join(',');
-        this.$store.dispatch('UpdateHotelCityRecommendType',updateOptions)
-          .then((suc)=>{
+        this.$store.dispatch('UpdateHotelCityRecommendType', updateOptions)
+          .then((suc) => {
             this.$notify({
               message: suc,
               type: 'success'
             });
             this.initData(1)
-          },err=>{
+          }, err => {
             this.$notify({
               message: err,
               type: 'error'
@@ -393,30 +418,30 @@
         this.updateDialog = false;
       },
       //删除
-      Delete(id){
+      Delete(id) {
         let deleteOptions = {
-            "loginUserID": "huileyou",
-            "loginUserPass": "123",
-            "operateUserID": "",
-            "operateUserName": "",
-            "pcName": "",
-            "data": {
-              "ht_ai_ID": id//城市推荐类型编号
-            }
-          };
-        this.$store.dispatch('DeleteHotelCityRecommendType',deleteOptions)
-        .then((suc)=>{
-          this.$notify({
-            message: suc,
-            type: 'success'
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "data": {
+            "ht_ai_ID": id//城市推荐类型编号
+          }
+        };
+        this.$store.dispatch('DeleteHotelCityRecommendType', deleteOptions)
+          .then((suc) => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(1)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(1)
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       }
     },
   }

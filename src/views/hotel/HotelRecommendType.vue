@@ -45,8 +45,10 @@
           </el-table-column>
           <el-table-column
             align="center"
-            label="图片路径"
-            prop="ht_it_ImagePath">
+            label="图片路径">
+            <template slot-scope="scope">
+              <img v-lazy="scope.row.ht_it_ImagePath" alt="" style="width: 100px;" v-show="scope.row.ht_it_ImagePath">
+            </template>
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
@@ -110,16 +112,6 @@
       <!--修改推荐类型-->
       <el-dialog title="修改推荐类型" :visible.sync="updateDialog">
         <el-form :model="updateHotelRecommendTypeObj">
-          <!--<el-form-item label="推荐父类型选择:" :label-width="formLabelWidth">-->
-            <!--<el-select v-model="updateHotelRecommendTypeObj.ht_it_ParentID" placeholder="请选择">-->
-              <!--<el-option-->
-                <!--v-for="item in hotelRecommendTypeAllList"-->
-                <!--:key="item.ht_it_ID"-->
-                <!--:label="item.ht_it_Name"-->
-                <!--:value="item.ht_it_ID">-->
-              <!--</el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
           <el-form-item label="推荐父类型选择:" :label-width="formLabelWidth" >
             <el-cascader
               :options="hotelIntroduceTypeList"
@@ -190,7 +182,6 @@
     },
     computed: mapGetters([
       'hotelIntroduceTypeList',
-      'hotelRecommendTypeAllList',
       'hotelRecommendTypeList',
       'updateHotelRecommendTypeObj'
     ]),
