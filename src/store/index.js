@@ -1,5 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+// import Vue from 'vue'
+// import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
 import app from './modules/app'
 import user from './modules/user'
 import tagsView from './modules/tagsView'
@@ -14,7 +17,6 @@ import admin from './admin'
 import ticket from './ticket'
 import education from './education'
 
-Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
