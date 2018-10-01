@@ -9,6 +9,11 @@ export default {
     adminAgentsProfit:'代理商利润管理',
     adminHuileyouReturn:'惠乐游收益管理',
     audit:'审核管理',
+    tranve:'旅行社管理',
+    vendorProfit:'利润管理',
+
+
+    adminShowTop:'旅行社审核展示首页',
     adminAgents:'代理商信息审核管理',
     adminSupplier:'供应商信息审核管理',
     adminProductAudit:'供应商产品审核管理',

@@ -99,6 +99,9 @@ const mutations = {
   },
   initUploadApp(state,data){
     state.uploadAppList = data;
+  },
+  initAdminShowTop(state,data){
+    state.adminShowTopList = data;
   }
 };
 export default mutations

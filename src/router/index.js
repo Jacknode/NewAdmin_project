@@ -50,8 +50,8 @@ export const constantRouterMap = [
     component: Layout,
     name: 'Admin',
     // hidden:true,
-    // alwaysShow: true,
-    meta: {title: 'admin', icon: 'profit'},
+    alwaysShow: true,
+    meta: {title: 'vendorProfit', icon: 'profit'},
     children: [
       {
         path: 'adminVendorProfit',
@@ -101,7 +101,25 @@ export const constantRouterMap = [
         component: () => import('@/views/admin/AdminProductAudit'),
         meta: {title: 'adminProductAudit'}
       },
-
+    ]
+  },
+  /**
+   * 旅行社管理
+   */
+  {
+    path: '/tranve',
+    component: Layout,
+    name: 'Tranve',
+    // hidden:true,
+    alwaysShow: true,
+    meta: {title: 'tranve', icon: 'Audit'},
+    children: [
+      {
+        path: 'adminShowTop',
+        name: 'AdminShowTop',
+        component: () => import('@/views/admin/AdminShowTop'),
+        meta: {title: 'adminShowTop'}
+      },
     ]
   },
   /**

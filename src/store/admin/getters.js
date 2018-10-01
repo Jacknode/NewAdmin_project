@@ -24,5 +24,6 @@ export default {
   adminIntegralTypeList: state => state.adminIntegralTypeList,
   updateAdminIntegralTypeObj: state => state.updateAdminIntegralTypeObj,
   uploadAppList: state => state.uploadAppList,
+  adminShowTopList: state => state.adminShowTopList,
 
 }

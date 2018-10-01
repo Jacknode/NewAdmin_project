@@ -20,6 +20,56 @@ export const payStatus = (value) => {
       return '已支付';
   }
 };
+//产品类型
+export const getTrandeType = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '跟团游';
+    case 1:
+      return '自由行';
+    default:
+      return '其他';
+  }
+}
+//展示首页
+export const getShowTop = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '未审核';
+    case 1:
+      return '审核通过';
+    case 2:
+      return '申请中';
+    default:
+      return '申请失败';
+  }
+}
+//审核状态
+export const getIsPass = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '未审核';
+    case 1:
+      return '已审核';
+    default:
+      return '其他';
+  }
+}
+//跟团类型
+export const getNewLongOut = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '国内跟团';
+    case 1:
+      return '周边跟团';
+    case 2:
+      return '出境长线';
+    case 3:
+      return '出境短线';
+    default:
+      return '未知';
+  }
+}
 //是否热门
 export const getHotName = (value) => {
   switch (Number(value)) {

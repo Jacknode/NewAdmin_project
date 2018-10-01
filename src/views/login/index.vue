@@ -86,6 +86,11 @@ export default {
                 break;
             }
 
+          },err=>{
+            this.$notify({
+              message:err,
+              type: 'error'
+            });
           }).catch((err) => {
 
             this.loading = false;

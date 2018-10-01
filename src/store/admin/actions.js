@@ -676,5 +676,51 @@ export default {
         }
       })
     })
-  }
+  },
+  //查询审核首页展示
+  initAdminShowTop({commit},data){
+    return new Promise((relove, reject) => {
+      request.post(getNewStr+'/TradeGood/GetProduct',JSON.stringify(data),{
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data=>{
+        var data = data.data;
+        if(Number(data.resultcode)==200){
+          let value = data.data.tradeGoodList
+          for (var i = 0; i < value.length; i++) {
+            if(value[i].ta_tg_ShowImage){
+              value[i].ta_tg_ShowImages = value[i].ta_tg_ShowImage.split(',')
+            }else{
+              value[i].ta_tg_ShowImages = []
+            }
+          }
+          commit('initAdminShowTop',value)
+          relove(Number(data.totalrows))
+        }else{
+          reject(data.resultcontent)
+        }
+      })
+    })
+  },
+  //修改产品信息
+  UpdateAdminMerchantProducts(store, data) {
+    return new Promise(function (relove, reject) {
+      request.post(getNewStr + '/TradeGood/Update', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data => {
+        var data = data.data;
+
+        if (Number(data.resultcode) == 200) {
+          relove();
+        } else {
+          reject(data.resultcontent);
+        }
+      })
+    })
+  },
 }

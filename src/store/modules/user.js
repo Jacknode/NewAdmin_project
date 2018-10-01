@@ -36,7 +36,7 @@ const user = {
             sessionStorage.setItem('admin',JSON.stringify(data.data))
             resolve(data.data)
           }else{
-            reject(error)
+            reject(data.resultcontent)
           }
 
         }).catch(error => {

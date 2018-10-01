@@ -8,8 +8,11 @@ export default {
     adminHuileyouReturn:'adminHuileyouReturn',
     audit:'audit ',
     adminAgents:'adminAgents',
+    adminShowTop:'Admin Show Top',
+    tranve:'Tranve',
     adminSupplier:'adminSupplier',
     adminProductAudit:'adminProductAudit',
+    vendorProfit:'Vendor Profit',
 
     integral:'integral',
     adminIntegralWeight:'adminIntegralWeight',
