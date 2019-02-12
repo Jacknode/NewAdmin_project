@@ -161,7 +161,7 @@
       <div class="block" style="float: right;">
         <el-pagination
           @current-change="handleCurrentChange"
-          :page-size="10"
+          :page-size="5"
           layout="total, prev, pager, next"
           :total="total"
           v-show="total"
@@ -206,11 +206,12 @@
     data() {
       return {
         approvalStatusDialog: false,//审核状态
-        statusValue: '',
+        statusValue: -1,
         total: 0,
         userName: '',
         isLoading: false,
         status: 1,//审核成功
+        page:0,
         sm_ai_ID: '',//供应商编号
         formLabelWidth: '120px',
         approvalOptions: {
@@ -228,6 +229,10 @@
           "reviewPerson": "huileyou"
         },
         ApprovalStatus: [
+          {
+            value: -1,
+            label: '所有'
+          },
           {
             value: 0,
             label: '待审核'
@@ -252,7 +257,12 @@
     methods: {
       //分页
       handleCurrentChange(num) {
-        this.initData(this.userName.trim(), num,this.statusValue)
+        this.page = num
+        if(this.statusValue||this.statusValue===0){
+          this.initData(this.userName.trim(), num,this.statusValue)
+        }else{
+          this.initData(this.userName.trim(), num)
+        }
       },
       initData(name, page, status) {
         let options = {
@@ -283,7 +293,6 @@
       },
       //查询
       search() {
-        console.log()
         this.initData(this.userName.trim(), 1, this.statusValue)
       },
       //审核
@@ -315,7 +324,7 @@
               message: success,
               type: 'success'
             });
-            this.initData(this.userName.trim())
+            this.initData(this.userName.trim(),this.page?this.page:1,this.statusValue)
           }, err => {
             this.$notify({
               message: err,

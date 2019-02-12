@@ -32,7 +32,7 @@ export const constantRouterMap = [
    *  首页
    **/
   {
-    path: '',
+    path: '/home',
     component: Layout,
     redirect: 'dashboard',
     children: [{

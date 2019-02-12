@@ -28,6 +28,12 @@
             <el-form-item label="发布管理员ID:">
               <span>{{ props.row.sm_as_ManagerID}}</span>
             </el-form-item>
+            <el-form-item label="名称:">
+              <span>{{ props.row.sm_as_Name}}</span>
+            </el-form-item>
+            <el-form-item label="AppID:">
+              <span>{{ props.row.sm_as_AppID}}</span>
+            </el-form-item>
             <el-form-item label="应用程序图标:">
               <span>{{ props.row.sm_as_Image}}</span>
             </el-form-item>
@@ -79,6 +85,15 @@
           <span>{{scope.row.sm_as_OutDate | getUseTime}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="操作" align="center">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="Delete(scope.row.sm_as_ID)">删除
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
 
@@ -99,6 +114,9 @@
       <el-form :model="options">
         <el-form-item label="名称:" :label-width="formLabelWidth">
           <el-input v-model="options.data.sm_as_Name" placeholder="请输入名称"></el-input>
+        </el-form-item>
+        <el-form-item label="AppID:" :label-width="formLabelWidth">
+          <el-input v-model="options.data.sm_as_AppID" placeholder="请输入AppID"></el-input>
         </el-form-item>
         <el-form-item label="App类型:" :label-width="formLabelWidth">
           <el-select v-model="options.data.sm_as_Type" placeholder="请选择">
@@ -124,6 +142,7 @@
 text-overflow:ellipsis;
 white-space: nowrap;text-align: center" v-loading="isLoading">{{options.data.sm_as_DownLoadUrl}}</p>
         </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addDialog = false">取 消</el-button>
@@ -164,6 +183,7 @@ white-space: nowrap;text-align: center" v-loading="isLoading">{{options.data.sm_
           "operateUserName": "",
           "pcName": "",
           "data": {
+            sm_as_AppID:'',
             "sm_as_Name": "",//名称
             "sm_as_Image": "",//应用程序图标
             "sm_as_Type": "",//app类型  0 android 1苹果 2 电脑
@@ -182,6 +202,26 @@ white-space: nowrap;text-align: center" v-loading="isLoading">{{options.data.sm_
       this.initData(1)
     },
     methods: {
+      //删除
+      Delete(id){
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "huileyou",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "",
+          "data": {
+            "sm_as_ID":id,//系统信息编码
+          }
+        }
+        this.$store.dispatch('DeleteApp',options)
+        .then(()=>{
+          this.initData(1)
+        },err=>{
+          console.log(err)
+        })
+      },
       handleCurrentChange(num){
         this.initData(num)
       },

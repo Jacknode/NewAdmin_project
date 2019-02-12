@@ -85,8 +85,8 @@ export default {
                 });
                 break;
             }
-
           },err=>{
+            this.loading = false;
             this.$notify({
               message:err,
               type: 'error'

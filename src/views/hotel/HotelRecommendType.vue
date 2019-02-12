@@ -84,6 +84,7 @@
           <el-form-item label="推荐父类型选择:" :label-width="formLabelWidth">
                 <el-cascader
                   :options="hotelIntroduceTypeList"
+                  change-on-select
                   :props="props"
                   v-model="introduceTypeList"
                   :show-all-levels="false"
@@ -115,6 +116,7 @@
           <el-form-item label="推荐父类型选择:" :label-width="formLabelWidth" >
             <el-cascader
               :options="hotelIntroduceTypeList"
+              change-on-select
               :props="props"
               v-model="introduceTypeList1"
               :show-all-levels="false"
