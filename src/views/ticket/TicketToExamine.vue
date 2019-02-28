@@ -142,7 +142,7 @@
             </el-button>
             <el-button
               size="mini"
-              @click="toExamineS(scope.row.tm_ts_Code)"
+              @click="toExamineS(scope.row.tm_ts_ID)"
               v-show="scope.row.tm_ts_IsPass == 0"
             >审核此景点
             </el-button>
@@ -308,7 +308,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tm_ts_Code": this.toExamine.tm_ts_Code,
+          "tm_ts_ID": this.toExamine.tm_ts_Code,
           "tm_ts_IsPass": this.toExamine.tm_ts_IsPass,
           "tm_ts_FailReason": this.toExamine.tm_ts_FailReason,
         };
