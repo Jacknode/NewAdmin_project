@@ -12,7 +12,7 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="景点编码(主键):">
-                <span>{{ props.row.tm_ts_Code }}</span>
+                <span>{{ props.row.tm_ts_ID }}</span>
               </el-form-item>
               <el-form-item label="景点名称:">
                 <span>{{ props.row.tm_ts_Name }}</span>
@@ -102,7 +102,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="toExamineS(scope.row.tm_ts_Code)"
+              @click="toExamineS(scope.row.tm_ts_ID)"
             >
               <template>
                 {{scope.row.showTopIsAgreeLabel}}
@@ -174,7 +174,7 @@
         toExamineDialog: false,
         formLabelWidth: '120px',
         toExamine: {
-          "tm_ts_Code": "",
+          "tm_ts_ID": "",
           "tm_ts_ShowTopIsAgree": "",
         },
         total:0,
@@ -193,7 +193,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tm_ts_Code": "",
+          "tm_ts_ID": "",
           "tm_ts_Name": "",
           "tm_ts_TradeInfoID": "",
           tm_ts_ShowTop:1,
@@ -211,7 +211,7 @@
       //审核
       toExamineS(id) {
         this.$store.commit('setTranstionFalse');
-        this.toExamine.tm_ts_Code = id;
+        this.toExamine.tm_ts_ID = id;
         this.toExamineDialog = true;
       },
       //审核提交
@@ -222,7 +222,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tm_ts_Code": this.toExamine.tm_ts_Code,
+          "tm_ts_ID": this.toExamine.tm_ts_ID,
           "tm_ts_ShowTopIsAgree": this.toExamine.tm_ts_ShowTopIsAgree,
         };
         this.$store.dispatch('toExamineShowHomePageSubmit',isPassValidate)

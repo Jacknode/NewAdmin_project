@@ -48,7 +48,7 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="景点编码(主键):">
-                <span>{{ props.row.tm_ts_Code }}</span>
+                <span>{{ props.row.tm_ts_ID }}</span>
               </el-form-item>
               <el-form-item label="景点名称:">
                 <span>{{ props.row.tm_ts_Name }}</span>
@@ -218,7 +218,7 @@
         toExamineDialog: false,
         formLabelWidth: '120px',
         toExamine: {
-          "tm_ts_Code": "",
+          "tm_ts_ID": "",
           "tm_ts_IsPass": "",
           "tm_ts_FailReason": ""
         },
@@ -240,7 +240,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tm_ts_Code": "",    //景点编码
+          "tm_ts_ID": "",    //景点编码
           "tm_ts_Name": this.ticketName ? this.ticketName : '',//景点名称
           "tm_ts_TradeInfoID": "",//供应商编码
           "tm_ts_IsDelete": 0,//必须传
@@ -290,7 +290,7 @@
       //审核
       toExamineS(id) {
         this.$store.commit('setTranstionFalse');
-        this.toExamine.tm_ts_Code = id;
+        this.toExamine.tm_ts_ID = id;
         this.toExamineDialog = true;
       },
       showReason() {
@@ -308,7 +308,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tm_ts_ID": this.toExamine.tm_ts_Code,
+          "tm_ts_ID": this.toExamine.tm_ts_ID,
           "tm_ts_IsPass": this.toExamine.tm_ts_IsPass,
           "tm_ts_FailReason": this.toExamine.tm_ts_FailReason,
         };

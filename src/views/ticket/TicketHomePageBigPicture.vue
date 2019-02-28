@@ -14,9 +14,9 @@
             <el-select v-model="scenicSpotId" placeholder="请选择" size="small">
               <el-option
                 v-for="item in showTopList"
-                :key="item.tm_ts_Code"
+                :key="item.tm_ts_ID"
                 :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
+                :value="item.tm_ts_ID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -34,7 +34,7 @@
           :page-size="5"
           layout="total, prev, pager, next"
           :total="total"
-          v-show="total"
+          v-if="total"
         >
         </el-pagination>
       </div>
@@ -54,7 +54,7 @@
           align="center"
           label="展示图片">
           <template slot-scope="scope">
-            <img  v-lazy="scope.row.tm_tbi_Image" width="89" height="29" @click="bigPicture(scope.row.tm_tbi_Image)">
+            <img v-lazy="scope.row.tm_tbi_Image" width="89" height="29" :key="scope.row.tm_tbi_Image" @click="bigPicture(scope.row.tm_tbi_Image)">
           </template>
         </el-table-column>
         <el-table-column
@@ -77,7 +77,7 @@
       <!--放大图片-->
 
       <el-dialog title="查看大图" :visible.sync="bigImageDialog" width="50%">
-        <img v-lazy="bigImage" width="100%" height="100%">
+        <img v-lazy="bigImage" :key="bigImage" width="100%" height="100%">
         <span slot="footer" class="dialog-footer">
           <el-button @click="bigImageDialog = false">关闭</el-button>
         </span>
@@ -89,12 +89,12 @@
       <el-dialog title="添加首页展示大图" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_Code" placeholder="请选择" size="small">
+            <el-select v-model="addOptions.tm_tbi_TourID" placeholder="请选择" size="small">
               <el-option
                 v-for="item in showTopList"
-                :key="item.tm_ts_Code"
+                :key="item.tm_ts_ID"
                 :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
+                :value="item.tm_ts_ID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -102,7 +102,7 @@
             <a href="javascript:;" class="file">展示图片上传
               <input type="file" name="" ref="upload" accept="image/*">
             </a>
-            <img v-lazy="addOptions.tm_tbi_Image" width="192" height="120" v-show="addOptions.tm_tbi_Image">
+            <img v-lazy="addOptions.tm_tbi_Image" :key="addOptions.tm_tbi_Image" width="192" height="120" v-if="addOptions.tm_tbi_Image">
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tbi_Remark" placeholder="请输入主题介绍" type="textarea" :rows="4"></el-input>
@@ -119,12 +119,12 @@
       <el-dialog title="修改首页展示大图" :visible.sync="updateDialog">
         <el-form :model="updateData">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
-            <el-select v-model="updateData.tm_ts_Code" placeholder="请选择" size="small">
+            <el-select v-model="updateData.tm_tbi_TourID" placeholder="请选择" size="small">
               <el-option
                 v-for="item in showTopList"
-                :key="item.tm_ts_Code"
+                :key="item.tm_ts_ID"
                 :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
+                :value="item.tm_ts_ID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -133,7 +133,7 @@
               <input type="file" name="" ref="upload" accept="image/*">
             </a>
             <p>如果不上传默认为原来的图片</p>
-            <img v-lazy="addOptions.tm_tbi_Image" width="192" height="120" v-show="addOptions.tm_tbi_Image">
+            <img v-lazy="updateData.tm_tbi_Image" width="192" :key="updateData.tm_tbi_Image" height="120" v-if="updateData.tm_tbi_Image">
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="updateData.tm_tbi_Remark" placeholder="请输入主题介绍" type="textarea" :rows="4"></el-input>
@@ -159,33 +159,33 @@
     ]),
     data() {
       return {
-        total:0,
+        total: 0,
         bigImageDialog: false,
         bigImage: '',
         scenicSpotId: '',
         addDialog: false,
         formLabelWidth: '120px',
         addOptions: {
-          "tm_ts_Code": "",//景点编号
+          "tm_tbi_TourID": "",//景点编号
           "tm_tbi_Image": "",//大图路径
           "tm_tbi_Remark": "",//备注
         },
-        isLoading:false,
+        isLoading: false,
         updateDialog: false,
         updateData: {},
       }
     },
     methods: {
       //分页
-      handleCurrentChange(num){
+      handleCurrentChange(num) {
         this.initData(num)
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
-          fd.append("fileToUpload", file);
+          fd.append("file", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToService");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -193,7 +193,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
               console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
@@ -213,16 +213,21 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      if (data) {
+                  .then(data => {
+                    if (data) {
+                      if (this.addDialog) {
                         this.addOptions.tm_tbi_Image = data.data;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
                       }
-                    })
+                      if (this.updateDialog) {
+                        this.updateData.tm_tbi_Image = data.data;
+                      }
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
                 // })
               }
             })
@@ -232,22 +237,23 @@
       //初始化景点列表
       initTicketList() {
         let getTourSite = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "tm_ts_Code": "",//景点编码(主键)
+          "loginUserID": "huileyou",  //惠乐游用户ID
+          "loginUserPass": "123",  //惠乐游用户密码
+          "operateUserID": "",  //操作员编码
+          "operateUserName": "",  //操作员名称
+          "pcName": "",  //机器码
+          "token": "",
+          "tm_ts_ID": "",//景点ID
           "tm_ts_Name": "",//景点名称
           "tm_ts_TradeInfoID": "",//供应商编码
           "tm_ts_ThemeTypeID": "",//主题编码
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门）
-          "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
-          "tm_ts_ShowTopIsAgree": "",//惠乐游审核是否首页显示(0审核中1通过审核2未通过审核)
-          "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
+          "tm_ts_ShowTop": "1",//是否展示首页（0否，1是）
+          "tm_ts_ShowTopIsAgree": "1",//惠乐游审核是否首页显示(0审核中1通过审核2未通过审核)
+          "tm_ts_IsPass": "1",//是否通过审核(0审核中1通过审核2未通过审核)
           "tm_ts_IsDelete": 0,//是否删除(0不删除1删除)
-          "page": 1,
-          "rows": 10000
+          "page": 1,  //页码
+          "rows": 20  //条数
         };
         this.$store.dispatch('initScenicSpotList', getTourSite)
           .then(() => {
@@ -268,7 +274,7 @@
           "operateUserName": "",
           "pcName": "",
           "tm_tbi_ID": "",//首页大图编号
-          "tm_ts_Code": id ? id : "",//景点编号
+          "tm_tbi_TourID": id ? id : "",//景点编号
           "tm_tbi_IsDelete": "0"
         };
         this.isLoading = true;
@@ -333,9 +339,9 @@
       },
       //修改提交
       updateSubmit() {
-        if (this.addOptions.tm_tbi_Image) {
-          this.updateData.tm_tbi_Image = this.addOptions.tm_tbi_Image
-        }
+//        if (this.addOptions.tm_tbi_Image) {
+//          this.updateData.tm_tbi_Image = tthis.addOptions.tm_tbi_Image;
+//        }
         let updateTopBigImageInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

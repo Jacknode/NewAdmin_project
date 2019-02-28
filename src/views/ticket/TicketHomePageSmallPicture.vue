@@ -14,9 +14,9 @@
             <el-select v-model="scenicSpotId" placeholder="请选择" size="small">
               <el-option
                 v-for="item in showTopList"
-                :key="item.tm_ts_Code"
+                :key="item.tm_ts_ID"
                 :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
+                :value="item.tm_ts_ID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -43,7 +43,7 @@
           align="center"
           label="展示图片">
           <template slot-scope="scope">
-            <img  v-lazy="scope.row.tm_tsi_Image" width="89" height="29" @click="bigPicture(scope.row.tm_tsi_Image)">
+            <img  v-lazy="scope.row.tm_tsi_Image" width="89" height="29" :key="scope.row.tm_tsi_Image" @click="bigPicture(scope.row.tm_tsi_Image)">
           </template>
         </el-table-column>
         <el-table-column
@@ -77,12 +77,12 @@
       <el-dialog title="添加首页展示小图" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_Code" placeholder="请选择" size="small">
+            <el-select v-model="addOptions.tm_tsi_TourID" placeholder="请选择" size="small">
               <el-option
                 v-for="item in showTopList"
-                :key="item.tm_ts_Code"
+                :key="item.tm_ts_ID"
                 :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
+                :value="item.tm_ts_ID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -90,7 +90,7 @@
             <a href="javascript:;" class="file">展示图片上传
               <input type="file" name="" ref="upload" accept="image/*">
             </a>
-            <img v-lazy="addOptions.tm_tsi_Image" width="192" height="120" v-show="addOptions.tm_tsi_Image">
+            <img v-lazy="addOptions.tm_tsi_Image" width="192" height="120" v-if="addOptions.tm_tsi_Image">
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tsi_Remark" placeholder="请输入主题介绍" type="textarea" :rows="4"></el-input>
@@ -107,12 +107,12 @@
       <el-dialog title="修改首页展示小图" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
-            <el-select v-model="updateObj.tm_ts_Code" placeholder="请选择" size="small">
+            <el-select v-model="updateObj.tm_tsi_ID" placeholder="请选择" size="small">
               <el-option
                 v-for="item in showTopList"
-                :key="item.tm_ts_Code"
+                :key="item.tm_ts_ID"
                 :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
+                :value="item.tm_ts_ID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -121,7 +121,7 @@
               <input type="file" name="" ref="upload" accept="image/*">
             </a>
             <p>如果不上传默认为原来的图片</p>
-            <img v-lazy="addOptions.tm_tsi_Image" width="192" height="120" v-show="addOptions.tm_tsi_Image">
+            <img v-lazy="addOptions.tm_tsi_Image" width="192" height="120" v-if="addOptions.tm_tsi_Image">
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="updateObj.tm_tsi_Remark" placeholder="请输入主题介绍" type="textarea" :rows="4"></el-input>
@@ -152,7 +152,7 @@
         bigImage: '',
         addDialog: false,
         addOptions: {
-          "tm_ts_Code": "",//景点编号
+          "tm_tsi_TourID": "",//景点编号
           "tm_tsi_Image": "",//小图
           "tm_tsi_Remark": "",//备注
         },
@@ -167,9 +167,9 @@
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();
-          fd.append("fileToUpload", file);
+          fd.append("file", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr+"/OSSFile/PostToService");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -212,22 +212,23 @@
       //初始化景点列表
       initTicketList() {
         let getTourSite = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "tm_ts_Code": "",//景点编码(主键)
+          "loginUserID": "huileyou",  //惠乐游用户ID
+          "loginUserPass": "123",  //惠乐游用户密码
+          "operateUserID": "",  //操作员编码
+          "operateUserName": "",  //操作员名称
+          "pcName": "",  //机器码
+          "token": "",
+          "tm_ts_ID": "",//景点ID
           "tm_ts_Name": "",//景点名称
           "tm_ts_TradeInfoID": "",//供应商编码
           "tm_ts_ThemeTypeID": "",//主题编码
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门）
-          "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
-          "tm_ts_ShowTopIsAgree": "",//惠乐游审核是否首页显示(0审核中1通过审核2未通过审核)
-          "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
+          "tm_ts_ShowTop": "1",//是否展示首页（0否，1是）
+          "tm_ts_ShowTopIsAgree": "1",//惠乐游审核是否首页显示(0审核中1通过审核2未通过审核)
+          "tm_ts_IsPass": "1",//是否通过审核(0审核中1通过审核2未通过审核)
           "tm_ts_IsDelete": 0,//是否删除(0不删除1删除)
-          "page": 1,
-          "rows": 10000
+          "page": 1,  //页码
+          "rows": 20  //条数
         };
         this.$store.dispatch('initScenicSpotList', getTourSite)
           .then(() => {
@@ -249,7 +250,7 @@
           "page": "1",
           "rows": "10",
           "tm_tsi_ID": "",//首页小图编号
-          "tm_ts_Code": id ? id : '',//景点编号
+          "tm_tsi_TourID": id ? id : '',//景点编号
           "tm_tsi_IsDelete": "0",//是否删除
         };
         this.isLoading = true;
