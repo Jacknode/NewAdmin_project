@@ -138,7 +138,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="look(scope.row.tm_ts_Code)">查看审核状态
+              @click="look(scope.row.tm_ts_ID)">查看审核状态
             </el-button>
             <el-button
               size="mini"
@@ -273,7 +273,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tm_ts_Code": id
+          "tm_ts_ID": id
         };
         this.$store.dispatch('ticketLookToExamine', selectIsPass)
           .then(information => {
