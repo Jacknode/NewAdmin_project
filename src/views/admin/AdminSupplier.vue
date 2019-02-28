@@ -324,7 +324,7 @@
               message: success,
               type: 'success'
             });
-            this.initData(this.userName.trim(),this.page?this.page:1,this.statusValue)
+            this.initData(this.userName,1,this.statusValue)
           }, err => {
             this.$notify({
               message: err,

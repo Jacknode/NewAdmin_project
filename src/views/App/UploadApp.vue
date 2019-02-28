@@ -270,9 +270,9 @@ white-space: nowrap;text-align: center" v-loading="isLoading">{{options.data.sm_
              this.isLoading = true;
              this.options.data.sm_as_DownLoadUrl = '加载中...'
              var fd = new FormData();
-             fd.append("fileToUpload", file);
+             fd.append("file", file);
              var xhr = new XMLHttpRequest();
-             xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
+             xhr.open("POST", getNewStr+"/OSSFile/PostToService");
              xhr.send(fd);
              xhr.onreadystatechange = ()=>{
                if (xhr.readyState == 4 && xhr.status == 200) {
